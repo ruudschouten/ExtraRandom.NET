@@ -1,0 +1,11 @@
+root = true
+
+[*.cs]
+# Meziantou
+dotnet_diagnostic.MA0002.severity = none # Disabled because I feel like this doesn't add anything.
+dotnet_diagnostic.MA0007.severity = none # Disabled because I think trailing commas look dumb.
+
+# Stylecop
+dotnet_diagnostic.SA1309.severity = none # Disabled I like to have private fields prefixed with an underscore. 
+dotnet_diagnostic.SA1413.severity = none # Disabled because I think trailing commas look dumb.
+dotnet_diagnostic.SA1633.severity = none # Disabled because file headers are unnecessary. 
