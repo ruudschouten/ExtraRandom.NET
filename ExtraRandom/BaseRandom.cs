@@ -1,43 +1,21 @@
-﻿using ExtraRandom.PRNG;
+﻿namespace ExtraRandom;
 
-namespace ExtraRandom;
+using ExtraRandom.PRNG;
 
 /// <summary>
 /// Base Random Generation class to create other Random Generations of.
 /// </summary>
 public abstract class BaseRandom
 {
-    // TODO: Write own Random Generation, based off of xoshiro**, and take some "inspiration" from:
-    // https://github.com/Shiroechi/Litdex.Random/tree/main/Source
-
-    /// <summary>
-    /// The Random Generation Generator by Unity.Mathematics.
-    /// </summary>
-    protected readonly Shishua ShisuaRng;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="BaseRandom"/> class with a random seed.
     /// </summary>
     protected BaseRandom()
     {
-        ShisuaRng = new Shishua();
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BaseRandom"/> class with the given <paramref name="seed"/>.
     /// </summary>
-    /// <param name="seed">The seed that should be used to generate random numbers.</param>
-    protected BaseRandom(int seed)
-    {
-        ShisuaRng = new Shishua(new[]
-        {
-            (ulong)seed,
-            (ulong)seed + 1,
-            (ulong)seed + 2,
-            (ulong)seed + 3
-        });
-    }
-
     /// <summary>
     /// Generate a random <see cref="int"/> value.
     /// </summary>
