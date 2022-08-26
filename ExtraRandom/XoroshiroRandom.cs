@@ -17,7 +17,7 @@ public class XoroshiroRandom : BaseRandom
     /// </summary>
     public XoroshiroRandom()
     {
-        _xoroshiro = default;
+        _xoroshiro = new Xoroshiro128Plus(new Random());
     }
 
     /// <summary>
