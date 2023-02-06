@@ -1,7 +1,6 @@
-namespace ExtraRandomTester;
+namespace ExtraRandom.UnitTests;
 
 using System.Diagnostics.CodeAnalysis;
-using ExtraRandom;
 
 [SuppressMessage(
     "StyleCop.CSharp.DocumentationRules",
