@@ -2,11 +2,26 @@ root = true
 
 [*.cs]
 # Meziantou
-dotnet_diagnostic.MA0002.severity = none # I feel like this doesn't add anything.
+dotnet_diagnostic.MA0002.severity = none # I feel like using these comparisons don't add anything.
 dotnet_diagnostic.MA0007.severity = none # I think trailing commas look dumb.
+dotnet_diagnostic.MA0076.severity = none # Culture-sensitive strings aren't important for this project.
 
 # Stylecop
-dotnet_diagnostic.SA1101.severity = none # Prefixing `this` before every local call looks weird to me. 
+dotnet_diagnostic.SA1000.severity = none # This conflicts with the target-type new statements.
+dotnet_diagnostic.SA1009.severity = none # I like to have the closing bracket on a new line.
+dotnet_diagnostic.SA1101.severity = none # Prefixing `this` before every local call looks weird to me.
+dotnet_diagnostic.SA1111.severity = none # I like to have the closing bracket on a new line. 
+dotnet_diagnostic.SA1124.severity = none # Regions have their use.
+dotnet_diagnostic.SA1128.severity = none # : base() statements shouldn't need to be put on a new line.
+dotnet_diagnostic.SA1200.severity = none # Moving `using` statements inside `namespace` blocks looks weird.  
 dotnet_diagnostic.SA1309.severity = none # I like to have private fields prefixed with an underscore. 
+dotnet_diagnostic.SA1313.severity = none # This requires paramaters in records to start with lowercase, which looks weird and conflicts with the C# styleguide.
 dotnet_diagnostic.SA1413.severity = none # I think trailing commas look dumb.
+dotnet_diagnostic.SA1503.severity = none # No braces are fine for if() return.
 dotnet_diagnostic.SA1633.severity = none # file headers are unnecessary. 
+
+# Security Code Scan
+dotnet_diagnostic.SCS0005.severity = none # Using weak rng doesn't seem like a big issue for this project. 
+
+[**/Migrations/**.cs]
+generated_code = true # Disable checks for migrations.
