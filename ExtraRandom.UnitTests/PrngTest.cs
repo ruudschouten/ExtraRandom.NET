@@ -1,3 +1,6 @@
+using ExtraRandom.PRNG;
+using Xunit.Abstractions;
+
 namespace ExtraRandom.UnitTests;
 
 using System.Diagnostics.CodeAnalysis;
@@ -9,36 +12,47 @@ using System.Diagnostics.CodeAnalysis;
 )]
 public class PrngTest
 {
+    private const int Loops = 1_000_000;
+
     [Fact]
-    public void XoroshiroStabilityTest()
+    public void XoroshiroIntRange()
     {
-        const int loops = 1_000;
+        const int minInt = 0;
+        const int maxInt = 21475;
 
-        const int minInt = 1;
-        const int maxInt = 100;
+        var rand = new Xoroshiro128Plus(500, 21);
+        for (var i = 0; i < Loops; i++)
+        {
+            var @int = rand.NextInt(minInt, maxInt);
+            Assert.InRange(@int, minInt, maxInt);
+        }
+    }
 
-        const float minFloat = 10f;
-        const float maxFloat = 20f;
+    [Fact]
+    public void XoroshiroLongRange()
+    {
+        const long minLong = 0;
+        const long maxLong = long.MaxValue;
 
-        const double minDouble = 1.0;
+        var rand = new Xoroshiro128Plus(500, 21);
+        for (var i = 0; i < Loops; i++)
+        {
+            var @long = rand.NextLong(minLong, maxLong);
+            Assert.InRange(@long, minLong, maxLong);
+        }
+    }
+
+    [Fact]
+    public void XoroshiroDoubleRange()
+    {
+        const double minDouble = -1.0;
         const double maxDouble = 3.5;
 
-        const long minLong = 2_000L;
-        const long maxLong = 10_000L;
-
-        for (var i = 0; i < loops; i++)
+        var rand = new Xoroshiro128Plus(500, 21);
+        for (var i = 0; i < Loops; i++)
         {
-            var rand = new XoroshiroRandom(i);
-
-            var @int = rand.NextInt(minInt, maxInt);
-            var @float = rand.NextFloat(minFloat, maxFloat);
             var @double = rand.NextDouble(minDouble, maxDouble);
-            var @long = rand.NextLong(minLong, maxLong);
-
-            Assert.InRange(@int, minInt, maxInt);
-            Assert.InRange(@float, minFloat, maxFloat);
             Assert.InRange(@double, minDouble, maxDouble);
-            Assert.InRange(@long, minLong, maxLong);
         }
     }
 }
