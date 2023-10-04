@@ -19,7 +19,8 @@ using System.Runtime.InteropServices;
 [SuppressMessage(
     "Security",
     "SCS0005:Weak random number generator.",
-    Justification = "The weak rng is used so generate stronger rng.")]
+    Justification = "The weak rng is used so generate stronger rng."
+)]
 public struct Xoroshiro128Plus
 {
     private const ulong DoubleMask = (1L << 53) - 1;
@@ -37,8 +38,8 @@ public struct Xoroshiro128Plus
     /// <summary>
     /// Initializes a new instance of the <see cref="Xoroshiro128Plus"/> struct.
     /// </summary>
-    /// <param name="random">The default <see cref="Random"/> to use.</param>
-    public Xoroshiro128Plus(Random? random = null)
+    /// <param name="random">The default <see cref="System.Random"/> to use.</param>
+    public Xoroshiro128Plus(System.Random? random = null)
         : this()
     {
         if (random is { })
@@ -62,9 +63,7 @@ public struct Xoroshiro128Plus
     /// </summary>
     /// <param name="seed">The seed to use for random number generation.</param>
     public Xoroshiro128Plus(int seed)
-        : this(new Random(seed))
-    {
-    }
+        : this(new System.Random(seed)) { }
 
     /// <summary>
     /// Reseed the psuedo-random number generation, with the provided <paramref name="seed"/>.
@@ -72,7 +71,7 @@ public struct Xoroshiro128Plus
     /// <param name="seed">new seed to use for generation.</param>
     public void Reseed(int seed)
     {
-        Reseed(new Random(seed));
+        Reseed(new System.Random(seed));
     }
 
     /// <summary>
@@ -117,7 +116,7 @@ public struct Xoroshiro128Plus
     /// Reseed the psuedo-random number generation.
     /// </summary>
     /// <param name="random">The generator to calculate the states for.</param>
-    private void Reseed(Random random)
+    private void Reseed(System.Random random)
     {
         const int min = int.MinValue;
         const int max = int.MaxValue;

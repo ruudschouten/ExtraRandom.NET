@@ -1,4 +1,6 @@
-﻿namespace ExtraRandom;
+﻿using System.Runtime.InteropServices;
+
+namespace ExtraRandom;
 
 using ExtraRandom.Util;
 
@@ -23,9 +25,7 @@ public class WeightedRandom<T>
     /// <param name="seed">seed that should be used for random number generation.</param>
     public WeightedRandom(int? seed = null)
     {
-        _random = seed == null
-            ? new XoroshiroRandom()
-            : new XoroshiroRandom((int)seed);
+        _random = seed == null ? new XoroshiroRandom() : new XoroshiroRandom((int)seed);
     }
 
     /// <summary>
@@ -195,6 +195,7 @@ public class WeightedRandom<T>
     /// An entry for <see cref="WeightedRandom{T}"/> generation.
     /// </summary>
     /// <typeparam name="TValue">type for <see cref="Value"/>.</typeparam>
+    // TODO: Check if this can made into a Struct.
     public class Entry<TValue>
     {
         /// <summary>

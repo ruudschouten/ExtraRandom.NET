@@ -10,9 +10,7 @@ public abstract class BaseRandom
     /// <summary>
     /// Initializes a new instance of the <see cref="BaseRandom"/> class with a random seed.
     /// </summary>
-    protected BaseRandom()
-    {
-    }
+    protected BaseRandom() { }
 
     /// <summary>
     /// Reseed the psuedo-random number generation.

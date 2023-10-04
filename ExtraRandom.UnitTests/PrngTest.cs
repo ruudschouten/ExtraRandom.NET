@@ -5,7 +5,8 @@ using System.Diagnostics.CodeAnalysis;
 [SuppressMessage(
     "StyleCop.CSharp.DocumentationRules",
     "SA1600:Elements should be documented",
-    Justification = "These are tests")]
+    Justification = "These are tests"
+)]
 public class PrngTest
 {
     [Fact]

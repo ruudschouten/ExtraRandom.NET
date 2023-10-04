@@ -3,25 +3,26 @@
 using System.Diagnostics.CodeAnalysis;
 
 /// <summary>
-/// A basic wrapper class around the regular .NET <see cref="Random"/>.
+/// A basic wrapper class around the regular .NET <see cref="System.Random"/>.
 /// </summary>
 [SuppressMessage(
     "Security",
     "SCS0005:Weak random number generator.",
-    Justification = "Weak number generation is acceptable for this class.")]
+    Justification = "Weak number generation is acceptable for this class."
+)]
 public class RegularRandom : BaseRandom
 {
     /// <summary>
     /// The Random Generation Generator by .NET.
     /// </summary>
-    private Random _random;
+    private System.Random _random;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RegularRandom"/> class with a random seed.
     /// </summary>
     public RegularRandom()
     {
-        _random = new Random();
+        _random = new System.Random();
     }
 
     /// <summary>
@@ -30,13 +31,13 @@ public class RegularRandom : BaseRandom
     /// <param name="seed">seed that should be used to generate random numbers.</param>
     public RegularRandom(int seed)
     {
-        _random = new Random(seed);
+        _random = new System.Random(seed);
     }
 
     /// <inheritdoc/>
     public override void Reseed(int seed)
     {
-        _random = new Random(seed);
+        _random = new System.Random(seed);
     }
 
     /// <inheritdoc/>
