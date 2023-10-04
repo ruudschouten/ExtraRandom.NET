@@ -1,6 +1,5 @@
 using System.Numerics;
 using ExtraMath;
-using ExtraRandom.Util;
 
 namespace ExtraRandom;
 
@@ -8,7 +7,7 @@ namespace ExtraRandom;
 /// Represents a psuedo-random number generator, which is an algorithm that produces a sequence of numbers that meet
 /// certain requirements for randomness.
 /// </summary>
-public abstract class Random
+public abstract class Random : IRandom
 {
     private const byte Zero = 0;
 
@@ -48,159 +47,58 @@ public abstract class Random
         }
     }
 
-    /// <summary>
-    /// Reseed the RNG.
-    /// </summary>
+    /// <inheritdoc />
     public abstract void Reseed();
 
-    /// <summary>
-    /// Fills the elements of a specified array of bytes with random numbers.
-    /// </summary>
-    /// <param name="buffer">The array to be filled.</param>
-    // TODO: Check if this can be a ref.
-    public abstract void Fill(ref byte[] buffer);
-
-    /// <summary>
-    /// Fills the elements of a specified array of bytes with random numbers.
-    /// </summary>
-    /// <param name="buffer">The array to be filled.</param>
-    // TODO: Check if this can be a ref.
-    public abstract void Fill(ref Span<byte> buffer);
-
-    /// <summary>
-    /// Generate next random number.
-    /// </summary>
-    /// <returns>A 64-bit unsigned integer.</returns>
-    public abstract ulong Next();
-
-    /// <summary>
-    /// Generate <see cref="T:System.Boolean" /> value.
-    /// </summary>
-    /// <returns>
-    /// <see langword="true" /> or <see langword="false" />.
-    /// </returns>
+    /// <inheritdoc />
     public abstract bool NextBoolean();
 
     #region Bytes
 
-    /// <summary>
-    /// Generate a non-negative random integer.
-    /// </summary>
-    /// <returns>A 8-bit unsigned integer.</returns>
-    /// <remarks>
-    /// Generated value is between <see cref="byte.MinValue">0</see> and <see cref="byte.MaxValue">255</see> of a <see cref="byte"/>.
-    /// </remarks>
+    /// <inheritdoc />
     public virtual byte NextByte()
     {
         return NextByte(byte.MinValue, byte.MaxValue);
     }
 
-    /// <summary>
-    /// Generate a <see cref="byte"/> with a maximum value of <paramref name="max"/>.
-    /// </summary>
-    /// <param name="max">Exclusive upper bound.</param>
-    /// <returns>A 8-bit unsigned integer.</returns>
-    /// <remarks>
-    /// Generated value is between <see cref="byte.MinValue">0</see> and the provided <paramref name="max"/> value.
-    /// </remarks>
-    public virtual byte NextByte(byte max)
-    {
-        return NextByte(byte.MinValue, max);
-    }
-
-    /// <summary>
-    /// Generate a <see cref="byte"/> within the specified <paramref name="min"/> and <paramref name="max"/> range.
-    /// </summary>
-    /// <param name="min">Inclusive lower bound.</param>
-    /// <param name="max">Exclusive upper bound.</param>
-    /// <returns>A 8-bit integer between the <paramref name="min"/> and <paramref name="max"/> values.</returns>
+    /// <inheritdoc />
     public virtual byte NextByte(byte min, byte max)
     {
         return (byte)NextUInt(min, max);
     }
 
-    /// <summary>
-    /// Generate an array of random bytes.
-    /// </summary>
-    /// <param name="length">Amount of bytes to generate.</param>
-    /// <returns>An array of random bytes.</returns>
+    /// <inheritdoc />
     public virtual byte[] NextBytes(int length)
     {
-        var bytes = new byte[length];
-        for (var i = 0; i < length; i++)
-        {
-            bytes[i] = NextByte();
-        }
+        if (length <= 0)
+            return Array.Empty<byte>();
 
-        return bytes;
+        Span<byte> bytes = stackalloc byte[length];
+        Fill(ref bytes);
+        return bytes.ToArray();
     }
 
     #endregion
 
-    /// <summary>
-    /// Generate a <see cref="int"/>.
-    /// </summary>
-    /// <returns>A 32-bit signed integer.</returns>
-    /// <remarks>
-    /// Generated value is between <see cref="_minIntValue"/> and <see cref="int.MaxValue"/> value.
-    /// </remarks>
+    /// <inheritdoc />
     public virtual int NextInt()
     {
         return NextInt(_minIntValue, int.MaxValue);
     }
 
-    /// <summary>
-    /// Generate a <see cref="int"/>.
-    /// </summary>
-    /// <param name="max">Exclusive upper bound.</param>
-    /// <returns>A 32-bit signed integer.</returns>
-    /// <remarks>
-    /// Generated value is between <see cref="_minIntValue"/> and the provided <paramref name="max"/> value.
-    /// </remarks>
-    public virtual int NextInt(int max)
-    {
-        return NextInt(_minIntValue, max);
-    }
-
-    /// <summary>
-    /// Generate a <see cref="int"/>.
-    /// </summary>
-    /// <param name="min">Inclusive lower bound.</param>
-    /// <param name="max">Exclusive upper bound.</param>
-    /// <returns>A 32-bit signed integer between the <paramref name="min"/> and <paramref name="max"/> values.</returns>
-    /// <remarks>
-    /// Generated value is between <see cref="_minIntValue"/> and the provided <paramref name="max"/> value.
-    /// </remarks>
+    /// <inheritdoc />
     public virtual int NextInt(int min, int max)
     {
         return (int)(NextUInt((uint)min, (uint)max) >> 1);
     }
 
-    /// <summary>
-    /// Generate a <see cref="uint"/>.
-    /// </summary>
-    /// <returns>A 32-bit unsigned integer.</returns>
+    /// <inheritdoc />
     public virtual uint NextUInt()
     {
         return NextUInt(uint.MinValue, uint.MaxValue);
     }
 
-    /// <summary>
-    /// Generate a <see cref="uint"/>.
-    /// </summary>
-    /// <param name="max">Exclusive upper bound.</param>
-    /// <returns>A 32-bit unsigned integer.</returns>
-    public virtual uint NextUInt(uint max)
-    {
-        return NextUInt(uint.MinValue, max);
-    }
-
-    /// <summary>
-    /// Generate a <see cref="uint"/>.
-    /// </summary>
-    /// <param name="min">Inclusive lower bound.</param>
-    /// <param name="max">Exclusive upper bound.</param>
-    /// <returns>A 32-bit unsigned integer between the <paramref name="min"/> and <paramref name="max"/> values.</returns>
+    /// <inheritdoc />
     public virtual uint NextUInt(uint min, uint max)
     {
         if (min == max)
@@ -222,37 +120,13 @@ public abstract class Random
         }
     }
 
-    /// <summary>
-    /// Generate a <see cref="long"/>.
-    /// </summary>
-    /// <returns>A 64-bit signed integer.</returns>
-    /// <remarks>
-    /// Generated value is between <see cref="_minLongValue"/> and <see cref="long.MaxValue"/>.
-    /// </remarks>
+    /// <inheritdoc />
     public virtual long NextLong()
     {
         return NextLong(_minLongValue, long.MaxValue);
     }
 
-    /// <summary>
-    /// Generate a <see cref="uint"/>.
-    /// </summary>
-    /// <param name="max">Exclusive upper bound.</param>
-    /// <returns>A 32-bit unsigned integer.</returns>
-    /// <remarks>
-    /// Generated value is between <see cref="_minIntValue"/> and the provided <paramref name="max"/> value.
-    /// </remarks>
-    public virtual long NextLong(long max)
-    {
-        return NextLong(_minLongValue, max);
-    }
-
-    /// <summary>
-    /// Generate a <see cref="uint"/>.
-    /// </summary>
-    /// <param name="min">Inclusive lower bound.</param>
-    /// <param name="max">Exclusive upper bound.</param>
-    /// <returns>A 64-bit unsigned integer between the <paramref name="min"/> and <paramref name="max"/> values.</returns>
+    /// <inheritdoc />
     public virtual long NextLong(long min, long max)
     {
         var result = NextULong((ulong)min, (ulong)max);
@@ -260,31 +134,18 @@ public abstract class Random
         if (result <= long.MaxValue)
             return (long)result;
 
+        // ReSharper disable once IntVariableOverflowInUncheckedContext
+        // This should be handled by the if check above.
         return (long)result >> 1;
     }
 
-    /// <summary>
-    /// Generate a <see cref="ulong"/>.
-    /// </summary>
-    /// <returns>A 64-bit unsigned integer.</returns>
+    /// <inheritdoc />
     public virtual ulong NextULong()
     {
         return NextULong(ulong.MinValue, ulong.MaxValue);
     }
 
-    /// <summary>
-    /// Generate a <see cref="ulong"/>.
-    /// </summary>
-    /// <param name="max">Exclusive upper bound.</param>
-    /// <returns>A 64-bit unsigned integer.</returns>
-    public abstract ulong NextULong(ulong max);
-
-    /// <summary>
-    /// Generate a <see cref="ulong"/>.
-    /// </summary>
-    /// <param name="min">Inclusive lower bound.</param>
-    /// <param name="max">Exclusive upper bound.</param>
-    /// <returns>A 64-bit unsigned integer between the <paramref name="min"/> and <paramref name="max"/> values.</returns>
+    /// <inheritdoc />
     public virtual ulong NextULong(ulong min, ulong max)
     {
         var range = max - min;
@@ -295,6 +156,8 @@ public abstract class Random
         if (bigULong.Low >= range)
             return bigULong.High;
 
+        // ReSharper disable once IntVariableOverflowInUncheckedContext
+        // This should be handled by the if check above.
         var t = 0 - range;
         if (t >= range)
         {
@@ -314,27 +177,24 @@ public abstract class Random
         return bigULong.High;
     }
 
-    /// <summary>
-    /// Generate a <see cref="double"/>.
-    /// </summary>
-    /// <returns>A double-precision floating point number.</returns>
-    /// <remarks>Value is between 0.0 and 1.0.</remarks>
+    /// <inheritdoc />
     public virtual double NextDouble()
     {
         return (NextULong() >> 11) * (1.0 / (1UL << 53));
     }
 
-    /// <summary>
-    /// Generate a <see cref="double"/>.
-    /// </summary>
-    /// <param name="min">Inclusive lower bound.</param>
-    /// <param name="max">Exclusive upper bound.</param>
-    /// <returns>A double-precision floating point number between the <paramref name="min"/> and <paramref name="max"/> values.</returns>
+    /// <inheritdoc />
     public virtual double NextDouble(double min, double max)
     {
         var difference = max - min;
         return min + (NextDouble() % difference);
     }
+
+    /// <summary>
+    /// Fills the elements of a specified array of bytes with random numbers.
+    /// </summary>
+    /// <param name="buffer">The array to be filled.</param>
+    public abstract void Fill(ref Span<byte> buffer);
 
     /// <summary>
     /// Returns the integer ceiling log of the specified <paramref name="value"/>, base 2.
