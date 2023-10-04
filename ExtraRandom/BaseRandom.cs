@@ -5,6 +5,7 @@ using ExtraRandom.PRNG;
 /// <summary>
 /// Base Random Generation class to create other Random Generations of.
 /// </summary>
+[Obsolete("Replaced by Random32 and Random64")]
 public abstract class BaseRandom
 {
     /// <summary>
