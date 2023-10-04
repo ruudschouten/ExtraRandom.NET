@@ -5,11 +5,10 @@ namespace ExtraMath;
 /// <summary>
 /// Utility class used to add extension methods to some number data types.
 /// </summary>
-public static class NumberUtil
+public static class NumericExtensions
 {
     /// <summary>
-    /// Checks if the <paramref name="value"/> is in between the
-    /// <paramref name="low"/> and <paramref name="high"/> values.
+    /// Checks if the <paramref name="value"/> is in between the <paramref name="low"/> and <paramref name="high"/> values.
     /// </summary>
     /// <param name="value">
     /// The value to check for against <paramref name="low"/> and <paramref name="high"/>
