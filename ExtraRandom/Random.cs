@@ -45,7 +45,13 @@ public abstract class Random : IRandom
     /// <inheritdoc />
     public virtual int NextInt(int min, int max)
     {
-        return (int)(NextUInt((uint)min, (uint)max) >> 1);
+        var number = NextUInt((uint)min, (uint)max);
+        if (number <= int.MaxValue)
+        {
+            return (int)number;
+        }
+
+        return (int)(number >> 1);
     }
 
     /// <inheritdoc />
