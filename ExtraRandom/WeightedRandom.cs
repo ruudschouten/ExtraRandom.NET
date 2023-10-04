@@ -1,8 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using ExtraMath;
 
 namespace ExtraRandom;
-
-using ExtraRandom.Util;
 
 /// <summary>
 /// A random generator which uses weights to determine the likeliness of an entry being picked.
@@ -172,9 +170,9 @@ public class WeightedRandom<T>
         // Sort the entries based on their percentages.
         Sort();
 
-        var roll = _random.NextFloat(100f);
+        var roll = _random.NextDouble(100.0);
 
-        var previousPercentage = 0f;
+        var previousPercentage = 0.0;
 
         // Loop over collection and check if the roll was between the previous roll and this roll.
         foreach (var entry in Entries)
