@@ -64,7 +64,7 @@ public class Xoroshiro128Plus : Random64
                     seed2 ^= JUMP[1];
                 }
 
-                NextInt64();
+                NextLong();
             }
         }
 
