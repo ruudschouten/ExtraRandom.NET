@@ -11,12 +11,12 @@ public static class NumericExtensions
     /// Checks if the <paramref name="value"/> is in between the <paramref name="low"/> and <paramref name="high"/> values.
     /// </summary>
     /// <param name="value">
-    /// The value to check for against <paramref name="low"/> and <paramref name="high"/>
+    /// The value to check for against <paramref name="low"/> and <paramref name="high"/>.
     /// </param>
     /// <param name="low">The lower value to check against <paramref name="value"/>.</param>
     /// <param name="high">The higher value to check against <paramref name="value"/>.</param>
     /// <typeparam name="T">
-    /// Any object that implements <see cref="INumber{TSelf}"/>
+    /// Any object that implements <see cref="INumber{TSelf}"/>.
     /// </typeparam>
     /// <returns>
     /// True if <paramref name="value"/> is in between <paramref name="low"/> and <paramref name="high"/>.
