@@ -95,33 +95,35 @@ public abstract class Random : IRandom
     /// <inheritdoc />
     public virtual ulong NextULong(ulong min, ulong max)
     {
+        if (min == max)
+        {
+            return min;
+        }
+
         var range = max - min;
         var x = NextULong();
 
         var bigULong = Math128.Multiply(x, range);
-
-        if (bigULong.Low >= range)
-            return bigULong.High;
-
-        // ReSharper disable once IntVariableOverflowInUncheckedContext
-        // This should be handled by the if check above.
-        var t = 0 - range;
-        if (t >= range)
+        if (bigULong.Low < range)
         {
-            t -= range;
+            var t = 0 - range;
             if (t >= range)
             {
-                t %= range;
+                t -= range;
+                if (t >= range)
+                {
+                    t %= range;
+                }
+            }
+
+            while (bigULong.Low < t)
+            {
+                x = NextULong();
+                bigULong = Math128.Multiply(x, range);
             }
         }
 
-        while (bigULong.Low < t)
-        {
-            x = NextULong();
-            bigULong = Math128.Multiply(x, range);
-        }
-
-        return bigULong.High;
+        return bigULong.High + min;
     }
 
     /// <inheritdoc />
