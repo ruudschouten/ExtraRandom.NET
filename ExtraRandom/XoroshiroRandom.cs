@@ -3,21 +3,21 @@
 using ExtraRandom.PRNG;
 
 /// <summary>
-/// A wrapper around the <see cref="Xoroshiro128Plus"/> Psuedo-Random Number Generator."/>
+/// A wrapper around the <see cref="Xoroshiro128Plus_old"/> Psuedo-Random Number Generator."/>
 /// </summary>
 public class XoroshiroRandom : BaseRandom
 {
     /// <summary>
     /// A Psuedo-Random Number Generator based on the <a href="https://prng.di.unimi.it/">Xoshiro / Xoroshiro generators</a>.
     /// </summary>
-    private Xoroshiro128Plus _xoroshiro;
+    private Xoroshiro128Plus_old _xoroshiro;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="XoroshiroRandom"/> class with a random seed.
     /// </summary>
     public XoroshiroRandom()
     {
-        _xoroshiro = new Xoroshiro128Plus(new System.Random());
+        _xoroshiro = new Xoroshiro128Plus_old(new System.Random());
     }
 
     /// <summary>
@@ -26,7 +26,7 @@ public class XoroshiroRandom : BaseRandom
     /// <param name="seed">The seed that should be used to generate random numbers.</param>
     public XoroshiroRandom(int seed)
     {
-        _xoroshiro = new Xoroshiro128Plus(seed);
+        _xoroshiro = new Xoroshiro128Plus_old(seed);
     }
 
     /// <inheritdoc/>
