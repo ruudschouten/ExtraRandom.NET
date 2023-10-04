@@ -1,126 +1,88 @@
-﻿namespace ExtraRandom.PRNG;
+using System.Buffers.Binary;
+using System.Numerics;
+using System.Security.Cryptography;
 
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+namespace ExtraRandom.PRNG;
 
 /// <summary>
-/// Implementation of http://prng.di.unimi.it/xoroshiro128plus.c
-/// One of the fastest prng's for 32bit/64bit floating points.
+/// Xoroshiro128+ PRNG implementation.
 /// <para>
-/// Code is heavily inspired by
-/// <a href="https://github.com/martinothamar/Xoroshiro128Plus/blob/master/src/Xoroshiro128Plus/Xoroshiro128Plus.cs">this Xoroshiro128Plus repo</a>.
-/// </para>
-/// <para>
-/// But it didn't have a NuGet package, so I just copied it over and made some small adjustments.
+/// Based on https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/Xoroshiro128Plus.cs
 /// </para>
 /// </summary>
-[StructLayout(LayoutKind.Sequential)]
-[SuppressMessage(
-    "Security",
-    "SCS0005:Weak random number generator.",
-    Justification = "The weak rng is used so generate stronger rng."
-)]
-public struct Xoroshiro128Plus
+/// <remarks>
+/// Source: https://prng.di.unimi.it/xoroshiro128plus.c
+/// </remarks>
+public class Xoroshiro128Plus : Random64
 {
-    private const ulong DoubleMask = (1L << 53) - 1;
-    private const double Norm53 = 1.0d / (1L << 53);
-    private const ulong FloatMask = (1L << 24) - 1;
-    private const float Norm24 = 1.0f / (1L << 24);
+    private static readonly ulong[] JUMP = { 0xDF900294D8F554A5, 0x170865DF4B3201FC };
 
-    private const int A = 24;
-    private const int B = 16;
-    private const int C = 37;
-
-    private ulong state0;
-    private ulong state1;
+    public Xoroshiro128Plus(ulong seed1 = 0, ulong seed2 = 0)
+    {
+        State = new ulong[2];
+        State[0] = seed1;
+        State[1] = seed2;
+    }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Xoroshiro128Plus"/> struct.
+    /// Finalizes an instance of the <see cref="Xoroshiro128Plus"/> class.
     /// </summary>
-    /// <param name="random">The default <see cref="System.Random"/> to use.</param>
-    public Xoroshiro128Plus(System.Random? random = null)
-        : this()
+#pragma warning disable MA0055
+    ~Xoroshiro128Plus()
+#pragma warning restore MA0055
     {
-        if (random is { })
+        Array.Clear(State, 0, State.Length);
+    }
+
+    /// <inheritdoc />
+    public override void Reseed()
+    {
+        using var rng = RandomNumberGenerator.Create();
+        Span<byte> span = stackalloc byte[16];
+        rng.GetNonZeroBytes(span);
+
+        State[0] = BinaryPrimitives.ReadUInt64LittleEndian(span);
+        State[1] = BinaryPrimitives.ReadUInt64LittleEndian(span.Slice(8));
+    }
+
+    /// <summary>
+    /// 2^64 calls to NextLong(), it can be used to generate 2^64
+    /// non-overlapping subsequences for parallel computations.
+    /// </summary>
+    public virtual void NextJump()
+    {
+        var seed1 = 0UL;
+        var seed2 = 0UL;
+
+        for (var i = 0; i < 2; i++)
         {
-            Reseed(random);
+            for (var b = 0; b < 64; b++)
+            {
+                if ((JUMP[i] & (1UL << b)) != 0)
+                {
+                    seed1 ^= JUMP[0];
+                    seed2 ^= JUMP[1];
+                }
+
+                NextInt64();
+            }
         }
-        else
-        {
-            Unsafe.SkipInit(out ulong rng1);
-            Unsafe.SkipInit(out uint rng2);
-            Unsafe.SkipInit(out ulong rng3);
-            Unsafe.SkipInit(out uint rng4);
 
-            state0 = rng1 << 32 | rng2;
-            state1 = rng3 << 32 | rng4;
-        }
+        State[0] = seed1;
+        State[1] = seed2;
     }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Xoroshiro128Plus"/> struct with the given <paramref name="seed"/>.
-    /// </summary>
-    /// <param name="seed">The seed to use for random number generation.</param>
-    public Xoroshiro128Plus(int seed)
-        : this(new System.Random(seed)) { }
-
-    /// <summary>
-    /// Reseed the psuedo-random number generation, with the provided <paramref name="seed"/>.
-    /// </summary>
-    /// <param name="seed">new seed to use for generation.</param>
-    public void Reseed(int seed)
+    /// <inheritdoc />
+    protected override ulong Next()
     {
-        Reseed(new System.Random(seed));
-    }
+        var s0 = State[0];
+        var s1 = State[1];
+        var result = State[0] + State[1];
 
-    /// <summary>
-    /// Generate a random <see cref="double"/> value between 0.0 and 1.0.
-    /// </summary>
-    /// <returns>The generated number.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public double NextDouble()
-    {
-        return (NextInternal() & DoubleMask) * Norm53;
-    }
+        s1 ^= s0;
+        State[0] = BitOperations.RotateLeft(s0, 24) ^ s1 ^ (s1 << 16);
+        State[1] = BitOperations.RotateLeft(s1, 37);
 
-    /// <summary>
-    /// Generate a random <see cref="float"/> value between 0f and 1f.
-    /// </summary>
-    /// <returns>The generated number.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public float NextFloat()
-    {
-        return (NextInternal() & FloatMask) * Norm24;
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private static ulong RotateLeft(ulong x, int k)
-    {
-        return (x << k) | (x >> (64 - k));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private ulong NextInternal()
-    {
-        var s0 = state0;
-        var s1 = state1 ^ s0;
-
-        state0 = RotateLeft(s0, A) ^ s1 ^ s1 << B;
-        state1 = RotateLeft(s1, C);
-
-        return state0 + state1;
-    }
-
-    /// <summary>
-    /// Reseed the psuedo-random number generation.
-    /// </summary>
-    /// <param name="random">The generator to calculate the states for.</param>
-    private void Reseed(System.Random random)
-    {
-        const int min = int.MinValue;
-        const int max = int.MaxValue;
-        state0 = (ulong)random.Next(min, max) << 32 | (uint)random.Next(min, max);
-        state1 = (ulong)random.Next(min, max) << 32 | (uint)random.Next(min, max);
+        return result;
     }
 }
