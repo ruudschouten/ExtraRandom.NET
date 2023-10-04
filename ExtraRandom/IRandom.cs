@@ -6,11 +6,6 @@ namespace ExtraRandom;
 public interface IRandom
 {
     /// <summary>
-    /// Gets or sets a value indicating whether the default minimum value is 0, or the minimum value of that specific type.
-    /// </summary>
-    bool UseZeroAsMinimumValue { get; set; }
-
-    /// <summary>
     /// Reseed the RNG.
     /// </summary>
     void Reseed();
@@ -28,7 +23,7 @@ public interface IRandom
     /// </summary>
     /// <returns>A 8-bit unsigned integer.</returns>
     /// <remarks>
-    /// Generated value is between <see cref="byte.MinValue">0</see> and <see cref="byte.MaxValue">255</see> of a <see cref="byte"/>.
+    /// Generated value is between 0 and the <see cref="byte.MaxValue"/> of a <see cref="byte"/>.
     /// </remarks>
     byte NextByte();
 
@@ -59,7 +54,7 @@ public interface IRandom
     /// </summary>
     /// <returns>A 32-bit signed integer.</returns>
     /// <remarks>
-    /// Generated value is between <see cref="Random._minIntValue"/> and <see cref="int.MaxValue"/> value.
+    /// Generated value is between 0 and <see cref="int.MaxValue"/> value.
     /// </remarks>
     int NextInt();
 
@@ -70,7 +65,7 @@ public interface IRandom
     /// <param name="max">Exclusive upper bound.</param>
     /// <returns>A 32-bit signed integer between the <paramref name="min"/> and <paramref name="max"/> values.</returns>
     /// <remarks>
-    /// Generated value is between <see cref="Random._minIntValue"/> and the provided <paramref name="max"/> value.
+    /// Generated value is between 0 and the provided <paramref name="max"/> value.
     /// </remarks>
     int NextInt(int min, int max);
 
@@ -93,7 +88,7 @@ public interface IRandom
     /// </summary>
     /// <returns>A 64-bit signed integer.</returns>
     /// <remarks>
-    /// Generated value is between <see cref="Random._minLongValue"/> and <see cref="long.MaxValue"/>.
+    /// Generated value is between 0 and <see cref="long.MaxValue"/>.
     /// </remarks>
     long NextLong();
 
