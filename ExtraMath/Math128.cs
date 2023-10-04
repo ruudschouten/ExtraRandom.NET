@@ -18,10 +18,10 @@ public static class Math128
         var range = default(BigULong);
         range.Low = x * y;
 
-        var x0 = (uint)x;
+        ulong x0 = (uint)x;
         var x1 = x >> 32;
 
-        var y0 = (uint)y;
+        ulong y0 = (uint)y;
         var y1 = y >> 32;
 
         var p11 = x1 * y1;
