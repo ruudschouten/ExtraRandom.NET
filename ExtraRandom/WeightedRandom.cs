@@ -1,4 +1,5 @@
 ﻿using ExtraMath;
+using ExtraRandom.PRNG;
 
 namespace ExtraRandom;
 
@@ -6,10 +7,11 @@ namespace ExtraRandom;
 /// A random generator which uses weights to determine the likeliness of an entry being picked.
 /// </summary>
 /// <typeparam name="T">determines the type of the value, of the entries.</typeparam>
+[Obsolete("Needs a rewrite, currently no attention was paid to performance.")]
 public class WeightedRandom<T>
     where T : notnull
 {
-    private readonly XoroshiroRandom _random;
+    private readonly Xoroshiro128Plus _random;
 
     private bool _hasCalculatedWeight;
     private bool _hasCalculatedPercentages;
@@ -23,7 +25,7 @@ public class WeightedRandom<T>
     /// <param name="seed">seed that should be used for random number generation.</param>
     public WeightedRandom(int? seed = null)
     {
-        _random = seed == null ? new XoroshiroRandom() : new XoroshiroRandom((int)seed);
+        _random = new Xoroshiro128Plus((ulong)seed, (ulong)(seed + 1));
     }
 
     /// <summary>
@@ -170,7 +172,7 @@ public class WeightedRandom<T>
         // Sort the entries based on their percentages.
         Sort();
 
-        var roll = _random.NextDouble(100.0);
+        var roll = _random.NextDouble() * 100.0;
 
         var previousPercentage = 0.0;
 
