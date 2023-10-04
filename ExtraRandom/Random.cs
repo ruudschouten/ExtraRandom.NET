@@ -9,44 +9,6 @@ namespace ExtraRandom;
 /// </summary>
 public abstract class Random : IRandom
 {
-    private const byte Zero = 0;
-
-    /// <summary>
-    /// Minimum integer number.
-    /// </summary>
-    /// <remarks>Is set to <c>0</c> if <see cref="UseZeroAsMinimumValue"/> is <c>true</c>, otherwise is <see cref="int.MinValue"/>.</remarks>
-    private int _minIntValue = int.MinValue;
-
-    /// <summary>
-    /// Minimum long number.
-    /// </summary>
-    /// <remarks>Is set to <c>0</c> if <see cref="UseZeroAsMinimumValue"/> is <c>true</c>, otherwise is <see cref="long.MinValue"/>.</remarks>
-    private long _minLongValue = long.MinValue;
-
-    private bool _useZeroAsMinimumValue = true;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the default minimum value is 0, or the minimum value of that specific type.
-    /// </summary>
-    public bool UseZeroAsMinimumValue
-    {
-        get => _useZeroAsMinimumValue;
-        set
-        {
-            _useZeroAsMinimumValue = value;
-            if (_useZeroAsMinimumValue)
-            {
-                _minIntValue = Zero;
-                _minLongValue = Zero;
-            }
-            else
-            {
-                _minIntValue = int.MinValue;
-                _minLongValue = long.MinValue;
-            }
-        }
-    }
-
     /// <inheritdoc />
     public abstract void Reseed();
 
@@ -56,10 +18,7 @@ public abstract class Random : IRandom
     #region Bytes
 
     /// <inheritdoc />
-    public virtual byte NextByte()
-    {
-        return NextByte(byte.MinValue, byte.MaxValue);
-    }
+    public abstract byte NextByte();
 
     /// <inheritdoc />
     public virtual byte NextByte(byte min, byte max)
@@ -81,10 +40,7 @@ public abstract class Random : IRandom
     #endregion
 
     /// <inheritdoc />
-    public virtual int NextInt()
-    {
-        return NextInt(_minIntValue, int.MaxValue);
-    }
+    public abstract int NextInt();
 
     /// <inheritdoc />
     public virtual int NextInt(int min, int max)
@@ -93,10 +49,7 @@ public abstract class Random : IRandom
     }
 
     /// <inheritdoc />
-    public virtual uint NextUInt()
-    {
-        return NextUInt(uint.MinValue, uint.MaxValue);
-    }
+    public abstract uint NextUInt();
 
     /// <inheritdoc />
     public virtual uint NextUInt(uint min, uint max)
@@ -121,10 +74,7 @@ public abstract class Random : IRandom
     }
 
     /// <inheritdoc />
-    public virtual long NextLong()
-    {
-        return NextLong(_minLongValue, long.MaxValue);
-    }
+    public abstract long NextLong();
 
     /// <inheritdoc />
     public virtual long NextLong(long min, long max)
@@ -140,10 +90,7 @@ public abstract class Random : IRandom
     }
 
     /// <inheritdoc />
-    public virtual ulong NextULong()
-    {
-        return NextULong(ulong.MinValue, ulong.MaxValue);
-    }
+    public abstract ulong NextULong();
 
     /// <inheritdoc />
     public virtual ulong NextULong(ulong min, ulong max)
@@ -201,7 +148,7 @@ public abstract class Random : IRandom
     /// </summary>
     /// <param name="value">Value to perform the ceiling operation on.</param>
     /// <returns>The integer ceiling log of the specified <paramref name="value"/>, base 2.</returns>
-    internal static int Log2Ceiling(ulong value)
+    private static int Log2Ceiling(ulong value)
     {
         var result = BitOperations.Log2(value);
         if (BitOperations.PopCount(value) != 1)
