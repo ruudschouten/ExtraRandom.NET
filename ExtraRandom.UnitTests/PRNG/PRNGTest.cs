@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Numerics;
 using ExtraRandom.PRNG;
 using Xunit.Abstractions;
 
@@ -49,19 +48,77 @@ public class PRNGTest
 
     [Theory]
     [MemberData(nameof(PRNGs))]
+#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
+    public void Bool(IRandom rand)
+#pragma warning restore S2699
+    {
+        var generateHits = new SortedDictionary<bool, int>();
+
+        for (var i = 0; i < Loops; i++)
+        {
+            var @bool = rand.NextBoolean();
+
+            RecordHit(@bool, ref generateHits);
+        }
+
+        PrintHits(ref generateHits);
+    }
+
+    [Theory]
+    [MemberData(nameof(PRNGs))]
+    public void ByteRange(IRandom rand)
+    {
+        var generateHits = new SortedDictionary<byte, int>();
+
+        const byte min = byte.MinValue;
+        const byte max = byte.MaxValue;
+
+        for (var i = 0; i < Loops; i++)
+        {
+            var @byte = rand.NextByte(min, max);
+            Assert.InRange(@byte, min, max);
+
+            RecordHit(@byte, ref generateHits);
+        }
+
+        PrintHits(ref generateHits);
+    }
+
+    [Theory]
+    [MemberData(nameof(PRNGs))]
     public void IntRange(IRandom rand)
     {
         var generateHits = new SortedDictionary<int, int>();
 
-        const int minInt = 0;
-        const int maxInt = 21475;
+        const int min = 0;
+        const int max = 21475;
 
         for (var i = 0; i < Loops; i++)
         {
-            var @int = rand.NextInt(minInt, maxInt);
-            Assert.InRange(@int, minInt, maxInt);
+            var @int = rand.NextInt(min, max);
+            Assert.InRange(@int, min, max);
 
             RecordHit(@int, ref generateHits);
+        }
+
+        PrintHits(ref generateHits);
+    }
+
+    [Theory]
+    [MemberData(nameof(PRNGs))]
+    public void UIntRange(IRandom rand)
+    {
+        var generateHits = new SortedDictionary<uint, int>();
+
+        const uint min = uint.MinValue;
+        const uint max = uint.MaxValue;
+
+        for (var i = 0; i < Loops; i++)
+        {
+            var @uint = rand.NextUInt(min, max);
+            Assert.InRange(@uint, min, max);
+
+            RecordHit(@uint, ref generateHits);
         }
 
         PrintHits(ref generateHits);
@@ -73,15 +130,35 @@ public class PRNGTest
     {
         var generateHits = new SortedDictionary<long, int>();
 
-        const long minLong = 0;
-        const long maxLong = long.MaxValue;
+        const long min = 0;
+        const long max = long.MaxValue;
 
         for (var i = 0; i < Loops; i++)
         {
-            var @long = rand.NextLong(minLong, maxLong);
-            Assert.InRange(@long, minLong, maxLong);
+            var @long = rand.NextLong(min, max);
+            Assert.InRange(@long, min, max);
 
             RecordHit(@long, ref generateHits);
+        }
+
+        PrintHits(ref generateHits);
+    }
+
+    [Theory]
+    [MemberData(nameof(PRNGs))]
+    public void ULongRange(IRandom rand)
+    {
+        var generateHits = new SortedDictionary<ulong, int>();
+
+        const ulong min = 0;
+        const ulong max = ulong.MaxValue;
+
+        for (var i = 0; i < Loops; i++)
+        {
+            var @ulong = rand.NextULong(min, max);
+            Assert.InRange(@ulong, min, max);
+
+            RecordHit(@ulong, ref generateHits);
         }
 
         PrintHits(ref generateHits);
@@ -93,13 +170,13 @@ public class PRNGTest
     {
         var generateHits = new SortedDictionary<double, int>();
 
-        const double minDouble = -1.0;
-        const double maxDouble = 3.5;
+        const double min = -1.0;
+        const double max = 3.5;
 
         for (var i = 0; i < Loops; i++)
         {
-            var @double = rand.NextDouble(minDouble, maxDouble);
-            Assert.InRange(@double, minDouble, maxDouble);
+            var @double = rand.NextDouble(min, max);
+            Assert.InRange(@double, min, max);
 
             RecordHit(@double, ref generateHits);
         }
@@ -108,7 +185,7 @@ public class PRNGTest
     }
 
     private static void RecordHit<T>(T number, ref SortedDictionary<T, int> generateHits)
-        where T : INumber<T>
+        where T : notnull
     {
         if (!_recordAmountOfGeneratedNumbers)
             return;
@@ -124,7 +201,7 @@ public class PRNGTest
     }
 
     private void PrintHits<T>(ref SortedDictionary<T, int> generateHits)
-        where T : INumber<T>
+        where T : notnull
     {
         if (!_recordAmountOfGeneratedNumbers)
             return;
