@@ -40,6 +40,17 @@ public sealed class Shishua : Random64
     /// <summary>
     /// Initializes a new instance of the <see cref="Shishua"/> class.
     /// </summary>
+    /// <param name="baseSeed">Base seed to use for the random number generation.</param>
+    /// <remarks>
+    /// <paramref name="baseSeed"/> is used as the base for the seed, three additional <see cref="ulong"/> variables are made,
+    /// which each increments the <paramref name="baseSeed"/> value by one.
+    /// </remarks>
+    public Shishua(ulong baseSeed)
+        : this(new[] { baseSeed, baseSeed + 1, baseSeed + 2, baseSeed + 3 }) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Shishua"/> class.
+    /// </summary>
     /// <param name="seed">Seed to use for the random number generation.</param>
     public Shishua(ulong[] seed)
     {

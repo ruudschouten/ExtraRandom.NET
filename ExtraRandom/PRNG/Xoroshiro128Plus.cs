@@ -20,9 +20,16 @@ public sealed class Xoroshiro128Plus : Random64
     /// <summary>
     /// Initializes a new instance of the <see cref="Xoroshiro128Plus"/> class.
     /// </summary>
+    /// <param name="baseSeed">Base seed to use for the random number generation.</param>
+    public Xoroshiro128Plus(ulong baseSeed = 0)
+        : this(baseSeed, baseSeed + 1) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Xoroshiro128Plus"/> class.
+    /// </summary>
     /// <param name="seed1">First seed.</param>
     /// <param name="seed2">Second seed.</param>
-    public Xoroshiro128Plus(ulong seed1 = 0, ulong seed2 = 0)
+    public Xoroshiro128Plus(ulong seed1, ulong seed2)
     {
         State = new ulong[2];
         SetSeed(seed1, seed2);
