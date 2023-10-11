@@ -20,7 +20,7 @@ public readonly struct WeightedRandomEntry<T>
     /// <param name="value">Value for this entry.</param>
     /// <param name="weight">Likeliness that this entry gets chosen.</param>
     [SetsRequiredMembers]
-    public WeightedRandomEntry(T value, int weight)
+    public WeightedRandomEntry(T value, ulong weight)
     {
         Value = value;
         Weight = weight;
@@ -34,7 +34,7 @@ public readonly struct WeightedRandomEntry<T>
     /// <summary>
     /// Gets the likeliness that this entry gets chosen.
     /// </summary>
-    public required int Weight { get; init; }
+    public required ulong Weight { get; init; }
 
     #region Equals and Comparing
 
@@ -142,4 +142,10 @@ public readonly struct WeightedRandomEntry<T>
     }
 
     #endregion
+
+    /// <inheritdoc />
+    public override string ToString()
+    {
+        return $"[Value: {Value}, Weight: {Weight}]";
+    }
 }

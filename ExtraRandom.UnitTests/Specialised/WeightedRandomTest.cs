@@ -1,3 +1,5 @@
+using ExtraRandom.PRNG;
+using ExtraRandom.Specialised;
 using Xunit.Abstractions;
 
 namespace ExtraRandom.UnitTests;
@@ -21,22 +23,36 @@ public class WeightedRandomTest
     [Fact]
     public void WeightedTest()
     {
-        var weightedRandom = new WeightedRandom<string>(500);
-        weightedRandom.Add("Tiny", 1);
-        weightedRandom.Add("Small", 10);
-        weightedRandom.Add("Big", 50);
-
-        const int rolls = 100_000;
+        const int rolls = 1_000_000;
         var valuesToPicks = new Dictionary<string, int>
         {
-            { "Big", 0 },
-            { "Small", 0 },
-            { "Tiny", 0 }
+            { "0", 0 },
+            { "1", 0 },
+            { "5", 0 },
+            { "10", 0 },
+            { "17", 0 },
+            { "20", 0 },
+            { "25", 0 },
+            { "45", 0 },
+            { "50", 0 },
+            { "125", 0 }
         };
+
+        var weightedRandom = new WeightedRandom<string>(new Shishua(500));
+        weightedRandom.Add("1", 1);
+        weightedRandom.Add("10", 10);
+        weightedRandom.Add("50", 50);
+        weightedRandom.Add("5", 5);
+        weightedRandom.Add("25", 25);
+        weightedRandom.Add("125", 125);
+        weightedRandom.Add("20", 20);
+        weightedRandom.Add("45", 45);
+        weightedRandom.Add("0", 0);
+        weightedRandom.Add("17", 17);
+
         for (var i = 0; i < rolls; i++)
         {
-            var roll = weightedRandom.Next();
-            valuesToPicks[roll!.Value]++;
+            valuesToPicks[weightedRandom.Next()]++;
         }
 
         foreach (var valuesToPick in valuesToPicks)
