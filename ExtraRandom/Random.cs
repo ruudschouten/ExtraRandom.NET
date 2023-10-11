@@ -141,8 +141,7 @@ public abstract class Random : IRandom
     /// <inheritdoc />
     public virtual double NextDouble(double min, double max)
     {
-        var difference = max - min;
-        return min + (NextDouble() % difference);
+        return (NextDouble() * (max - min)) + min;
     }
 
     /// <summary>
