@@ -5,47 +5,46 @@ using System.Security.Cryptography;
 namespace ExtraRandom.PRNG;
 
 /// <summary>
-/// Romu random variations, might be faster than <see cref="RomuTrio"/> due to using fewer registers, but might struggle with massive jobs.
-/// Est. capacity = 2^61 bytes. Register pressure = 5. State size = 128 bits.
-/// Based on: https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/RomuDuo.cs
+/// LFSR-based pseudorandom number generators.
+/// Based on: https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/Seiran.cs
 /// </summary>
 /// <remarks>
-/// Source: https://www.romu-random.org/
+/// Source: https://github.com/andanteyk/prng-seiran
 /// </remarks>
-public sealed class RomuDuo : Random64
+public sealed class Seiran : Random64
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="RomuDuo"/> class.
+    /// Initializes a new instance of the <see cref="Seiran"/> class.
     /// </summary>
     /// <param name="baseSeed">Base seed to use for the random number generation.</param>
     /// <remarks>
     /// <paramref name="baseSeed"/> is used as the base for the seed, three additional <see cref="ulong"/> variables are made,
     /// which each increments the <paramref name="baseSeed"/> value by one.
     /// </remarks>
-    public RomuDuo(ulong baseSeed)
+    public Seiran(ulong baseSeed)
         : this(new[] { baseSeed, baseSeed + 1 }) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RomuDuo"/> class.
+    /// Initializes a new instance of the <see cref="Seiran"/> class.
     /// </summary>
-    /// <param name="seed"> RNG seed numbers.</param>
-    public RomuDuo(ulong[] seed)
+    /// <param name="seed">Seed to use for the random number generation.</param>
+    public Seiran(ulong[] seed)
     {
         State = new ulong[2];
         SetSeed(seed);
     }
 
     /// <summary>
-    /// Finalizes an instance of the <see cref="RomuDuo"/> class.
+    /// Finalizes an instance of the <see cref="Seiran"/> class.
     /// </summary>
 #pragma warning disable MA0055
-    ~RomuDuo()
+    ~Seiran()
 #pragma warning restore MA0055
     {
         Array.Clear(State, 0, State.Length);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override void Reseed()
     {
         using var rng = RandomNumberGenerator.Create();
@@ -65,13 +64,17 @@ public sealed class RomuDuo : Random64
         State[1] = seed[1];
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override ulong Next()
     {
-        var xp = State[0];
-        State[0] = 15241094284759029579u * State[1];
-        State[1] =
-            BitOperations.RotateLeft(State[1], 27) + BitOperations.RotateLeft(State[1], 15) - xp;
-        return xp;
+        var s0 = State[0];
+        var s1 = State[1];
+
+        var result = BitOperations.RotateLeft((s0 + s1) * 9, 29) + s0;
+
+        State[0] = s0 ^ BitOperations.RotateLeft(s1, 29);
+        State[1] = s0 ^ s1 << 9;
+
+        return result;
     }
 }

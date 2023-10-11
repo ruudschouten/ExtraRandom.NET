@@ -27,8 +27,13 @@ public class PRNGTestData : IEnumerable<object[]>
     public IEnumerator<object[]> GetEnumerator()
     {
         yield return new object[] { new RomuDuo(500) };
+        yield return new object[] { new RomuDuoJr(500) };
+        yield return new object[] { new RomuTrio(500) };
+        yield return new object[] { new Seiran(500) };
         yield return new object[] { new Shishua(500) };
         yield return new object[] { new Xoroshiro128Plus(500) };
+        yield return new object[] { new Xoroshiro128PlusPlus(500) };
+        yield return new object[] { new Xoroshiro128StarStar(500) };
     }
 
     /// <inheritdoc/>

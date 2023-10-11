@@ -4,40 +4,31 @@ using System.Security.Cryptography;
 
 namespace ExtraRandom.PRNG;
 
-/// <summary>
-/// Xoroshiro128+ PRNG implementation.
-/// <para>
-/// Based on https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/Xoroshiro128Plus.cs
-/// </para>
-/// </summary>
-/// <remarks>
-/// Source: https://prng.di.unimi.it/xoroshiro128plus.c
-/// </remarks>
-public sealed class Xoroshiro128Plus : Random64
+public sealed class Xoroshiro128StarStar : Random64
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Xoroshiro128Plus"/> class.
+    /// Initializes a new instance of the <see cref="Xoroshiro128StarStar"/> class.
     /// </summary>
     /// <param name="baseSeed">Base seed to use for the random number generation.</param>
-    public Xoroshiro128Plus(ulong baseSeed = 0)
+    public Xoroshiro128StarStar(ulong baseSeed = 0)
         : this(baseSeed, baseSeed + 1) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Xoroshiro128Plus"/> class.
+    /// Initializes a new instance of the <see cref="Xoroshiro128StarStar"/> class.
     /// </summary>
     /// <param name="seed1">First seed.</param>
     /// <param name="seed2">Second seed.</param>
-    public Xoroshiro128Plus(ulong seed1, ulong seed2)
+    public Xoroshiro128StarStar(ulong seed1, ulong seed2)
     {
         State = new ulong[2];
         SetSeed(seed1, seed2);
     }
 
     /// <summary>
-    /// Finalizes an instance of the <see cref="Xoroshiro128Plus"/> class.
+    /// Finalizes an instance of the <see cref="Xoroshiro128StarStar"/> class.
     /// </summary>
 #pragma warning disable MA0055
-    ~Xoroshiro128Plus()
+    ~Xoroshiro128StarStar()
 #pragma warning restore MA0055
     {
         Array.Clear(State, 0, State.Length);
@@ -67,7 +58,7 @@ public sealed class Xoroshiro128Plus : Random64
     {
         var s0 = State[0];
         var s1 = State[1];
-        var result = State[0] + State[1];
+        var result = BitOperations.RotateLeft(State[0] * 5, 7) + 9;
 
         s1 ^= s0;
         var seed1 = BitOperations.RotateLeft(s0, 24) ^ s1 ^ (s1 << 16);
