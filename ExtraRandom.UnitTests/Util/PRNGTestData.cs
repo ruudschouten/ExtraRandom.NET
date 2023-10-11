@@ -26,6 +26,7 @@ public class PRNGTestData : IEnumerable<object[]>
     /// <returns>A collection of PRNGs which are used by xUnit.</returns>
     public IEnumerator<object[]> GetEnumerator()
     {
+        yield return new object[] { new RomuDuo(500) };
         yield return new object[] { new Shishua(500) };
         yield return new object[] { new Xoroshiro128Plus(500) };
     }
