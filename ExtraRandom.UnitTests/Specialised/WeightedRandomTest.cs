@@ -1,5 +1,6 @@
 using ExtraRandom.PRNG;
 using ExtraRandom.Specialised;
+using ExtraRandom.UnitTests.Util;
 using Xunit.Abstractions;
 
 namespace ExtraRandom.UnitTests;
@@ -20,8 +21,11 @@ public class WeightedRandomTest
         _output = output;
     }
 
-    [Fact]
-    public void WeightedTest()
+    [Theory]
+    [ClassData(typeof(PRNGTestData))]
+#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
+    public void WeightedTest(IRandom rand)
+#pragma warning restore S2699
     {
         const int rolls = 1_000_000;
         var valuesToPicks = new Dictionary<string, int>
@@ -38,7 +42,7 @@ public class WeightedRandomTest
             { "125", 0 }
         };
 
-        var weightedRandom = new WeightedRandom<string>(new Shishua(500));
+        var weightedRandom = new WeightedRandom<string>(rand);
         weightedRandom.Add("1", 1);
         weightedRandom.Add("10", 10);
         weightedRandom.Add("50", 50);

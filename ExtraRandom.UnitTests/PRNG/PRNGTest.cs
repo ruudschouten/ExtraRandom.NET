@@ -1,5 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-using ExtraRandom.PRNG;
+using ExtraRandom.UnitTests.Util;
 using Xunit.Abstractions;
 
 // ReSharper disable HeuristicUnreachableCode
@@ -35,19 +35,8 @@ public class PRNGTest
         _output = output;
     }
 
-    /// <summary>
-    /// Method used by PRNGTest to determine what PRNG to use.
-    /// New PRNGs should be added here for testing.
-    /// </summary>
-    /// <returns>A collection of PRNGs which are used by xUnit.</returns>
-    public static IEnumerable<object[]> PRNGs()
-    {
-        yield return new object[] { new Shishua(500) };
-        yield return new object[] { new Xoroshiro128Plus(500) };
-    }
-
     [Theory]
-    [MemberData(nameof(PRNGs))]
+    [ClassData(typeof(PRNGTestData))]
 #pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
     public void Bool(IRandom rand)
 #pragma warning restore S2699
@@ -65,7 +54,7 @@ public class PRNGTest
     }
 
     [Theory]
-    [MemberData(nameof(PRNGs))]
+    [ClassData(typeof(PRNGTestData))]
     public void ByteRange(IRandom rand)
     {
         var generateHits = new SortedDictionary<byte, int>();
@@ -85,7 +74,7 @@ public class PRNGTest
     }
 
     [Theory]
-    [MemberData(nameof(PRNGs))]
+    [ClassData(typeof(PRNGTestData))]
     public void IntRange(IRandom rand)
     {
         var generateHits = new SortedDictionary<int, int>();
@@ -105,7 +94,7 @@ public class PRNGTest
     }
 
     [Theory]
-    [MemberData(nameof(PRNGs))]
+    [ClassData(typeof(PRNGTestData))]
     public void UIntRange(IRandom rand)
     {
         var generateHits = new SortedDictionary<uint, int>();
@@ -125,7 +114,7 @@ public class PRNGTest
     }
 
     [Theory]
-    [MemberData(nameof(PRNGs))]
+    [ClassData(typeof(PRNGTestData))]
     public void LongRange(IRandom rand)
     {
         var generateHits = new SortedDictionary<long, int>();
@@ -145,7 +134,7 @@ public class PRNGTest
     }
 
     [Theory]
-    [MemberData(nameof(PRNGs))]
+    [ClassData(typeof(PRNGTestData))]
     public void ULongRange(IRandom rand)
     {
         var generateHits = new SortedDictionary<ulong, int>();
@@ -165,7 +154,7 @@ public class PRNGTest
     }
 
     [Theory]
-    [MemberData(nameof(PRNGs))]
+    [ClassData(typeof(PRNGTestData))]
     public void DoubleRange(IRandom rand)
     {
         var generateHits = new SortedDictionary<double, int>();
