@@ -38,32 +38,40 @@ public readonly struct BiasedRandom
     }
 
     /// <inheritdoc cref="IRandom.NextByte()"/>
-    public readonly byte NextByte(byte min, byte max)
+    public byte NextByte(byte min, byte max)
     {
         return (byte)Roll(min, max);
     }
 
     /// <inheritdoc cref="IRandom.NextInt()"/>
-    public readonly int NextInt(int min, int max)
+    public int NextInt(int min, int max)
     {
         return (int)Roll(min, max);
     }
 
     /// <inheritdoc cref="IRandom.NextLong()"/>
-    public readonly long NextLong(long min, long max)
+    public long NextLong(long min, long max)
     {
         return Roll(min, max);
     }
 
-    private readonly long Roll(long min, long max)
+    /// <summary>
+    /// Generate a <see cref="double"/>.
+    /// </summary>
+    /// <param name="min">Inclusive lower bound.</param>
+    /// <param name="max">Exclusive upper bound.</param>
+    /// <param name="tolerance">Tolerance value used to check if a value is equal to another value.</param>
+    /// <returns>A double-precision floating point number between the <paramref name="min"/> and <paramref name="max"/> values.</returns>
+    public double NextDouble(double min, double max, double tolerance = 0.05d)
+    {
+        return Roll(min, max, tolerance);
+    }
+
+    private long Roll(long min, long max)
     {
         var average = (max - min) / 2;
-
-        var closestMin = max;
-        var closestMax = max;
         var closestAvg = max;
-
-        var closestForBias = 0L;
+        long? closestForBias = null;
 
         for (var i = 0; i < _rolls; i++)
         {
@@ -73,23 +81,15 @@ public readonly struct BiasedRandom
             switch (_bias)
             {
                 case Bias.Lower:
-                    var minDiff = roll - min;
-                    if (minDiff >= closestMin)
+                    if (roll >= closestForBias)
                         continue;
-
-                    closestMin = minDiff;
                     break;
 
                 case Bias.Average:
-                    var difference = closestAvg;
                     if (roll == average)
                         return roll;
 
-                    if (roll > average)
-                        difference = roll - average;
-                    if (roll < average)
-                        difference = average - roll;
-
+                    var difference = Math.Abs(average - roll);
                     if (difference >= closestAvg)
                         continue;
 
@@ -97,17 +97,55 @@ public readonly struct BiasedRandom
                     break;
 
                 case Bias.Higher:
-                    var maxDiff = max - roll;
-                    if (maxDiff >= closestMax)
+                    if (roll <= closestForBias)
                         continue;
-
-                    closestMax = maxDiff;
                     break;
             }
 
             closestForBias = roll;
         }
 
-        return closestForBias;
+        return (long)closestForBias!;
+    }
+
+    private double Roll(double min, double max, double tolerance)
+    {
+        var average = (max - min) / 2;
+        var closestAvg = max;
+        double? closestForBias = null;
+
+        for (var i = 0; i < _rolls; i++)
+        {
+            var roll = _random.NextDouble(min, max);
+
+            // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
+            switch (_bias)
+            {
+                case Bias.Lower:
+                    if (roll >= closestForBias)
+                        continue;
+                    break;
+
+                case Bias.Average:
+                    if (Math.Abs(roll - average) < tolerance)
+                        return roll;
+
+                    var difference = Math.Abs(average - roll);
+                    if (difference >= closestAvg)
+                        continue;
+
+                    closestAvg = difference;
+                    break;
+
+                case Bias.Higher:
+                    if (roll <= closestForBias)
+                        continue;
+                    break;
+            }
+
+            closestForBias = roll;
+        }
+
+        return (double)closestForBias!;
     }
 }
