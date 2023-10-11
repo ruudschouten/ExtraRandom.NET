@@ -1,9 +1,8 @@
-using ExtraRandom.PRNG;
 using ExtraRandom.Specialised;
 using ExtraRandom.UnitTests.Util;
 using Xunit.Abstractions;
 
-namespace ExtraRandom.UnitTests;
+namespace ExtraRandom.UnitTests.Specialised;
 
 using System.Diagnostics.CodeAnalysis;
 
