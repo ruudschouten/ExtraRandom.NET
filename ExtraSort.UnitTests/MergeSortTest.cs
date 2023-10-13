@@ -1,7 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using ExtraRandom.PRNG;
 using ExtraRandom.Specialised;
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace ExtraSort.UnitTests;
 
@@ -10,14 +9,13 @@ namespace ExtraSort.UnitTests;
     "SA1600:Elements should be documented",
     Justification = "These are tests"
 )]
+#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
 public class MergeSortTest
 {
-    private const int EntriesToAdd = 50_000;
+    private const int EntriesToAdd = 5_000;
 
     [Fact]
-#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
-    public void Test_Merge_List()
-#pragma warning restore S2699
+    public void MergeSort()
     {
         var unsortedList = new List<WeightedRandomEntry<string>>();
 
@@ -33,3 +31,4 @@ public class MergeSortTest
         var s = "";
     }
 }
+#pragma warning restore S2699

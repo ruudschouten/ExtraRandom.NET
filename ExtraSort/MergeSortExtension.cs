@@ -14,11 +14,10 @@ public static class MergeSortExtension
     public static IList<T> MergeSort<T>(this IList<T> list)
         where T : IComparable<T>
     {
-        var sorted = Sort(list, 0, list.Count - 1);
-        return sorted;
+        return list.Sort(0, list.Count - 1);
     }
 
-    private static IList<T> Sort<T>(this IList<T> list, int start, int end)
+    private static T[] Sort<T>(this IList<T> list, int start, int end)
         where T : IComparable<T>
     {
         // When there is just one element left, return a new collection with just this element.
@@ -33,7 +32,7 @@ public static class MergeSortExtension
         return Merge(left, right);
     }
 
-    private static IList<T> Merge<T>(IList<T> left, IList<T> right)
+    private static T[] Merge<T>(IList<T> left, IList<T> right)
         where T : IComparable<T>
     {
         var leftCount = left.Count;
