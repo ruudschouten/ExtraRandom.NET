@@ -10,67 +10,52 @@ namespace ExtraRandom.UnitTests.Specialised;
     "SA1600:Elements should be documented",
     Justification = "These are tests"
 )]
-public class BiasedRandomTest
+#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
+public class BiasedRandomTest : ResultOutputHelper
 {
     private const int Loops = 5_000;
 
-    private readonly ITestOutputHelper _output;
-
     public BiasedRandomTest(ITestOutputHelper output)
-    {
-        _output = output;
-    }
+        : base(output, recordAmountOfGeneratedNumbers: true) { }
 
     [Theory]
     [ClassData(typeof(PRNGTestData))]
-#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
     public void BiasedTest_Long_Lower(IRandom rand)
-#pragma warning restore S2699
     {
         Generate_Long(rand, Bias.Lower);
     }
 
     [Theory]
     [ClassData(typeof(PRNGTestData))]
-#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
     public void BiasedTest_Long_Average(IRandom rand)
-#pragma warning restore S2699
     {
         Generate_Long(rand, Bias.Average);
     }
 
     [Theory]
     [ClassData(typeof(PRNGTestData))]
-#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
     public void BiasedTest_Long_Higher(IRandom rand)
-#pragma warning restore S2699
     {
         Generate_Long(rand, Bias.Higher);
     }
 
     [Theory]
     [ClassData(typeof(PRNGTestData))]
-#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
     public void BiasedTest_Double_Lower(IRandom rand)
-#pragma warning restore S2699
     {
         Generate_Double(rand, Bias.Lower);
     }
 
     [Theory]
     [ClassData(typeof(PRNGTestData))]
-#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
     public void BiasedTest_Double_Average(IRandom rand)
-#pragma warning restore S2699
     {
         Generate_Double(rand, Bias.Average);
     }
 
     [Theory]
     [ClassData(typeof(PRNGTestData))]
-#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
     public void BiasedTest_Double_Higher(IRandom rand)
-#pragma warning restore S2699
     {
         Generate_Double(rand, Bias.Higher);
     }
@@ -110,26 +95,6 @@ public class BiasedRandomTest
 
         PrintHits(ref generateHits);
     }
-
-    private void RecordHit<T>(T number, ref SortedDictionary<T, int> generateHits)
-        where T : notnull
-    {
-        var exists = generateHits.ContainsKey(number);
-        if (!exists)
-        {
-            generateHits.Add(number, 1);
-            return;
-        }
-
-        generateHits[number]++;
-    }
-
-    private void PrintHits<T>(ref SortedDictionary<T, int> generateHits)
-        where T : notnull
-    {
-        foreach (var hits in generateHits)
-        {
-            _output.WriteLine($"{hits.Key}: {hits.Value}");
-        }
-    }
 }
+
+#pragma warning restore S2699

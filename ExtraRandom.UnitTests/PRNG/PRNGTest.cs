@@ -18,7 +18,7 @@ namespace ExtraRandom.UnitTests.PRNG;
     "InconsistentNaming",
     Justification = "PRNG is an abbreviation, so the naming is fine."
 )]
-public class PRNGTest
+public class PRNGTest : ResultOutputHelper
 {
     private const int Loops = 10_000;
 
@@ -28,12 +28,8 @@ public class PRNGTest
     /// <remarks>If this is set to <c>true</c>, it will impact performance quite a bit.</remarks>
     private const bool _recordAmountOfGeneratedNumbers = true;
 
-    private readonly ITestOutputHelper _output;
-
     public PRNGTest(ITestOutputHelper output)
-    {
-        _output = output;
-    }
+        : base(output, _recordAmountOfGeneratedNumbers) { }
 
     [Theory]
     [ClassData(typeof(PRNGTestData))]
@@ -171,33 +167,5 @@ public class PRNGTest
         }
 
         PrintHits(ref generateHits);
-    }
-
-    private static void RecordHit<T>(T number, ref SortedDictionary<T, int> generateHits)
-        where T : notnull
-    {
-        if (!_recordAmountOfGeneratedNumbers)
-            return;
-
-        var exists = generateHits.ContainsKey(number);
-        if (!exists)
-        {
-            generateHits.Add(number, 1);
-            return;
-        }
-
-        generateHits[number]++;
-    }
-
-    private void PrintHits<T>(ref SortedDictionary<T, int> generateHits)
-        where T : notnull
-    {
-        if (!_recordAmountOfGeneratedNumbers)
-            return;
-
-        foreach (var hits in generateHits)
-        {
-            _output.WriteLine($"{hits.Key}: {hits.Value}");
-        }
     }
 }

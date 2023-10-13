@@ -11,6 +11,7 @@ using System.Diagnostics.CodeAnalysis;
     "SA1600:Elements should be documented",
     Justification = "These are tests"
 )]
+#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
 public class WeightedRandomTest
 {
     private readonly ITestOutputHelper _output;
@@ -22,9 +23,7 @@ public class WeightedRandomTest
 
     [Theory]
     [ClassData(typeof(PRNGTestData))]
-#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
     public void Weighted_Rolls_Test(IRandom rand)
-#pragma warning restore S2699
     {
         const int rolls = 1_000_000;
         var valuesToPicks = new Dictionary<string, int>
@@ -66,9 +65,7 @@ public class WeightedRandomTest
 
     [Theory]
     [ClassData(typeof(PRNGTestData))]
-#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
     public void Weighted_Speed_Test(IRandom rand)
-#pragma warning restore S2699
     {
         const int rolls = 1_000_000;
 
@@ -92,9 +89,7 @@ public class WeightedRandomTest
 
     [Theory]
     [ClassData(typeof(PRNGTestData))]
-#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
     public void Weighted_Adding_Test(IRandom rand)
-#pragma warning restore S2699
     {
         const int numbersToAdd = 1_000_000;
 
@@ -109,3 +104,4 @@ public class WeightedRandomTest
         _output.WriteLine($"{firstRoll} - {roll}");
     }
 }
+#pragma warning restore S2699
