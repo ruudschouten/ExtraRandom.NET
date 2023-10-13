@@ -20,7 +20,7 @@ namespace ExtraRandom.UnitTests.PRNG;
 )]
 public class PRNGTest
 {
-    private const int Loops = 500;
+    private const int Loops = 10_000;
 
     /// <summary>
     /// Determines if the test should keep track of how many times a single number has been generated.
