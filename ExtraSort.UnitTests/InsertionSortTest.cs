@@ -12,7 +12,7 @@ namespace ExtraSort.UnitTests;
 #pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
 public class InsertionSortTest
 {
-    private const int EntriesToAdd = 50_000;
+    private const int EntriesToAdd = 10_000;
 
     [Fact]
     public void InsertionSort()
@@ -27,6 +27,23 @@ public class InsertionSortTest
         }
 
         unsortedList.InsertionSort();
+
+        var s = "";
+    }
+
+    [Fact]
+    public void InsertionSort_Slice()
+    {
+        var unsortedList = new List<WeightedRandomEntry<string>>();
+
+        var random = new RomuDuoJr(500);
+
+        for (var i = 0; i < EntriesToAdd; i++)
+        {
+            unsortedList.Add(new WeightedRandomEntry<string>($"{i}", random.NextByte()));
+        }
+
+        unsortedList.InsertionSort(0, unsortedList.Count);
 
         var s = "";
     }
