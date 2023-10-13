@@ -56,6 +56,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ExtraMath\ExtraMath.csproj" />
+      <ProjectReference Include="..\ExtraSort\ExtraSort.csproj" />
     </ItemGroup>
 
 </Project>

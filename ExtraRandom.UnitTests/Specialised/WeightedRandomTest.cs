@@ -1,4 +1,3 @@
-using ExtraRandom.PRNG;
 using ExtraRandom.Specialised;
 using ExtraRandom.UnitTests.Util;
 using Xunit.Abstractions;
@@ -91,19 +90,22 @@ public class WeightedRandomTest
         }
     }
 
-    [Fact]
+    [Theory]
+    [ClassData(typeof(PRNGTestData))]
 #pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
-    public void Weighted_Adding_Test()
+    public void Weighted_Adding_Test(IRandom rand)
 #pragma warning restore S2699
     {
-        const int numbersToAdd = 50_000;
-        var random = new RomuDuoJr(500);
+        const int numbersToAdd = 1_000_000;
 
-        var weightedRandom = new WeightedRandom<string>(random);
+        var weightedRandom = new WeightedRandom<string>(rand);
 
         for (var i = 0; i < numbersToAdd; i++)
         {
-            weightedRandom.Add($"{i}", random.NextByte());
+            weightedRandom.Add($"{i}", rand.NextByte());
         }
+
+        var firstRoll = weightedRandom.NextWithWeight(out var roll);
+        _output.WriteLine($"{firstRoll} - {roll}");
     }
 }

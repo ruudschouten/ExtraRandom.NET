@@ -1,3 +1,5 @@
+using ExtraSort;
+
 namespace ExtraRandom.Specialised;
 
 /// <summary>
@@ -9,6 +11,7 @@ public struct WeightedRandom<T>
 {
     private readonly IRandom _random;
     private ulong _collectiveWeight = 0;
+    private bool _needsSorting = true;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="WeightedRandom{T}"/> struct.
@@ -22,7 +25,7 @@ public struct WeightedRandom<T>
     /// <summary>
     /// Gets the entries which can be rolled with this Weighted Random generator.
     /// </summary>
-    private LinkedList<WeightedRandomEntry<T>> Entries { get; } = new();
+    private List<WeightedRandomEntry<T>> Entries { get; } = new();
 
     /// <summary>
     /// Add a new entry to the list with the provided <paramref name="value"/> and <paramref name="weight"/>.
@@ -31,8 +34,6 @@ public struct WeightedRandom<T>
     /// <param name="weight">Weight of the entry to add.</param>
     public void Add(T value, ulong weight)
     {
-        // Update collectiveWeight here, so the value is kept up to date and doesn't require a loop through the Entries.
-        _collectiveWeight += weight;
         Add(new WeightedRandomEntry<T>(value, weight));
     }
 
@@ -40,7 +41,7 @@ public struct WeightedRandom<T>
     /// Roll the next value.
     /// </summary>
     /// <returns>The random value based on weight.</returns>
-    public readonly T Next()
+    public T Next()
     {
         return NextWithWeight(out _).Value;
     }
@@ -50,8 +51,14 @@ public struct WeightedRandom<T>
     /// </summary>
     /// <param name="roll">Randomly rolled value that was used to determine what <see cref="WeightedRandomEntry{T}"/> to pick.</param>
     /// <returns>The <see cref="WeightedRandomEntry{T}"/> that was picked.</returns>
-    public readonly WeightedRandomEntry<T> NextWithWeight(out ulong roll)
+    public WeightedRandomEntry<T> NextWithWeight(out ulong roll)
     {
+        if (_needsSorting)
+        {
+            Entries.MergeSort();
+            _needsSorting = false;
+        }
+
         roll = _random.NextULong(0, _collectiveWeight);
 
         var handledRoll = roll;
@@ -62,7 +69,7 @@ public struct WeightedRandom<T>
             handledRoll -= entry.Weight;
         }
 
-        return Entries.Last?.Value ?? default;
+        return Entries[Entries.Count];
     }
 
     /// <summary>
@@ -71,26 +78,11 @@ public struct WeightedRandom<T>
     /// </summary>
     /// <param name="entry">Entry to add.</param>
     /// <remarks>Performance for this is not checked, if performance issues arise, look here first.</remarks>
-    private readonly void Add(WeightedRandomEntry<T> entry)
+    private void Add(WeightedRandomEntry<T> entry)
     {
-        if (Entries.Count == 0)
-        {
-            Entries.AddFirst(entry);
-            return;
-        }
-
-        // New entry should be added *before* the current node when the weight is larger than the new entry.
-        for (var node = Entries.First; node != null; node = node.Next)
-        {
-            if (node.Value <= entry)
-                continue;
-
-            Entries.AddBefore(node, new LinkedListNode<WeightedRandomEntry<T>>(entry));
-            return;
-        }
-
-        // If the loop didn't return prematurely, the entry has the smallest weight so far.
-        // Add it to the end.
-        Entries.AddLast(entry);
+        // Update collectiveWeight here, so the value is kept up to date and doesn't require a loop through the Entries.
+        _collectiveWeight += entry.Weight;
+        _needsSorting = true;
+        Entries.Add(entry);
     }
 }
