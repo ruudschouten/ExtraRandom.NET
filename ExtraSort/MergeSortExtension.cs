@@ -22,7 +22,7 @@ public static class MergeSortExtension
     /// </summary>
     /// <param name="list">List to perform the Merge Sort on.</param>
     /// <param name="start">Starting index for the range.</param>
-    /// <param name="end">Exclusive end index for the range.</param>
+    /// <param name="end">Inclusive end index for the range.</param>
     /// <typeparam name="T">Type of elements in the <paramref name="list"/>.</typeparam>
     /// <returns>The <paramref name="list"/> sorted.</returns>
     public static IList<T> MergeSort<T>(this IList<T> list, int start, int end)
