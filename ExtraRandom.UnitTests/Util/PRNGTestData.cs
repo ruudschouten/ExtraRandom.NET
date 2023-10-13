@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using ExtraRandom.PRNG;
+using ExtraRandom.Specialised;
 
 namespace ExtraRandom.UnitTests.Util;
 
@@ -26,6 +27,9 @@ public class PRNGTestData : IEnumerable<object[]>
     /// <returns>A collection of PRNGs which are used by xUnit.</returns>
     public IEnumerator<object[]> GetEnumerator()
     {
+        yield return new object[] { new BiasedRandom(new RomuDuoJr(500), Bias.Lower, 3) };
+        yield return new object[] { new BiasedRandom(new RomuDuoJr(500), Bias.Average, 3) };
+        yield return new object[] { new BiasedRandom(new RomuDuoJr(500), Bias.Higher, 3) };
         yield return new object[] { new MiddleSquareWeylSequence(500) };
         yield return new object[] { new RomuDuo(500) };
         yield return new object[] { new RomuDuoJr(500) };

@@ -7,7 +7,7 @@ namespace ExtraRandom.Specialised;
 /// Specialised random generator in which you can specify a bias.
 /// </summary>
 [StructLayout(LayoutKind.Sequential)]
-public readonly struct BiasedRandom
+public readonly struct BiasedRandom : IRandom
 {
     /// <summary>
     /// PRNG instance to use for the random rolls.
@@ -37,115 +37,163 @@ public readonly struct BiasedRandom
         _rolls = rolls;
     }
 
-    /// <inheritdoc cref="IRandom.NextByte()"/>
+    /// <inheritdoc />
+    public void Reseed()
+    {
+        _random.Reseed();
+    }
+
+    /// <inheritdoc />
+    public bool NextBoolean()
+    {
+        return _random.NextBoolean();
+    }
+
+    /// <inheritdoc />
+    public byte NextByte()
+    {
+        return NextByte(byte.MinValue, byte.MaxValue);
+    }
+
+    /// <inheritdoc/>
     public byte NextByte(byte min, byte max)
     {
         return (byte)Roll(min, max);
     }
 
-    /// <inheritdoc cref="IRandom.NextInt()"/>
+    /// <inheritdoc />
+    public byte[] NextBytes(int length)
+    {
+        return _random.NextBytes(length);
+    }
+
+    /// <inheritdoc />
+    public int NextInt()
+    {
+        return NextInt(int.MinValue, int.MaxValue);
+    }
+
+    /// <inheritdoc />
     public int NextInt(int min, int max)
     {
         return (int)Roll(min, max);
     }
 
+    /// <inheritdoc />
+    public uint NextUInt()
+    {
+        return NextUInt(uint.MinValue, uint.MaxValue);
+    }
+
+    /// <inheritdoc />
+    public uint NextUInt(uint min, uint max)
+    {
+        return (uint)Roll(min, max);
+    }
+
+    /// <inheritdoc />
+    public long NextLong()
+    {
+        return NextLong(long.MinValue, long.MaxValue);
+    }
+
     /// <inheritdoc cref="IRandom.NextLong()"/>
     public long NextLong(long min, long max)
+    {
+        return (long)Roll(min, max);
+    }
+
+    /// <inheritdoc />
+    public ulong NextULong()
+    {
+        return NextULong(ulong.MinValue, ulong.MaxValue);
+    }
+
+    /// <inheritdoc />
+    public ulong NextULong(ulong min, ulong max)
     {
         return Roll(min, max);
     }
 
-    /// <summary>
-    /// Generate a <see cref="double"/>.
-    /// </summary>
-    /// <param name="min">Inclusive lower bound.</param>
-    /// <param name="max">Exclusive upper bound.</param>
-    /// <param name="tolerance">Tolerance value used to check if a value is equal to another value.</param>
-    /// <returns>A double-precision floating point number between the <paramref name="min"/> and <paramref name="max"/> values.</returns>
-    public double NextDouble(double min, double max, double tolerance = 0.05d)
+    /// <inheritdoc />
+    public double NextDouble()
     {
-        return Roll(min, max, tolerance);
+        return NextDouble(double.MinValue, double.MaxValue);
     }
 
-    private long Roll(long min, long max)
+    /// <inheritdoc />
+    public double NextDouble(double min, double max)
+    {
+        return Roll(min, max);
+    }
+
+    /// <inheritdoc />
+    public void Fill(ref Span<byte> buffer)
+    {
+        _random.Fill(ref buffer);
+    }
+
+    private ulong Roll(ulong min, ulong max)
     {
         var average = (max - min) / 2;
         var closestAvg = max;
-        long? closestForBias = null;
+
+        var closestForBias = _bias switch
+        {
+            Bias.Lower => ulong.MaxValue,
+            Bias.Higher => ulong.MinValue,
+            _ => 0UL
+        };
 
         for (var i = 0; i < _rolls; i++)
         {
-            var roll = _random.NextLong(min, max);
-
-            // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
-            switch (_bias)
-            {
-                case Bias.Lower:
-                    if (roll >= closestForBias)
-                        continue;
-                    break;
-
-                case Bias.Average:
-                    if (roll == average)
-                        return roll;
-
-                    var difference = Math.Abs(average - roll);
-                    if (difference >= closestAvg)
-                        continue;
-
-                    closestAvg = difference;
-                    break;
-
-                case Bias.Higher:
-                    if (roll <= closestForBias)
-                        continue;
-                    break;
-            }
-
-            closestForBias = roll;
+            var roll = _random.NextULong(min, max);
+            closestForBias = GetClosestForBias(roll, closestForBias, average, ref closestAvg);
         }
 
-        return (long)closestForBias!;
+        return closestForBias;
     }
 
-    private double Roll(double min, double max, double tolerance)
+    private double Roll(double min, double max)
     {
         var average = (max - min) / 2;
         var closestAvg = max;
-        double? closestForBias = null;
+
+        var closestForBias = _bias switch
+        {
+            Bias.Lower => double.MaxValue,
+            Bias.Higher => double.MinValue,
+            _ => 0
+        };
 
         for (var i = 0; i < _rolls; i++)
         {
             var roll = _random.NextDouble(min, max);
-
-            // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
-            switch (_bias)
-            {
-                case Bias.Lower:
-                    if (roll >= closestForBias)
-                        continue;
-                    break;
-
-                case Bias.Average:
-                    if (Math.Abs(roll - average) < tolerance)
-                        return roll;
-
-                    var difference = Math.Abs(average - roll);
-                    if (difference >= closestAvg)
-                        continue;
-
-                    closestAvg = difference;
-                    break;
-
-                case Bias.Higher:
-                    if (roll <= closestForBias)
-                        continue;
-                    break;
-            }
-
-            closestForBias = roll;
+            closestForBias = GetClosestForBias(roll, closestForBias, average, ref closestAvg);
         }
 
-        return (double)closestForBias!;
+        return closestForBias;
+    }
+
+    private T GetClosestForBias<T>(T roll, T closestForBias, T average, ref T closestAvg)
+        where T : INumber<T>
+    {
+        switch (_bias)
+        {
+            case Bias.Lower when roll < closestForBias:
+                return roll;
+            case Bias.Average:
+            {
+                var difference = average - roll;
+                if (difference < closestAvg)
+                    closestAvg = difference;
+                return roll;
+            }
+
+            case Bias.Higher when roll > closestForBias:
+                return roll;
+            default:
+                return closestForBias;
+        }
     }
 }
