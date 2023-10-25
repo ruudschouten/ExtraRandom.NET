@@ -26,17 +26,17 @@ public static class InsertionSortExtension
     public static void InsertionSort<T>(this IList<T> list, int start, int end)
         where T : IComparable<T>
     {
-        for (var i = start + 1; i < end; i++)
+        for (var index = start + 1; index < end; index++)
         {
-            var temp = list[i];
-            var j = i - 1;
-            while (j >= start && list[j].CompareTo(temp) > 0)
+            var temp = list[index];
+            var secondaryIndex = index - 1;
+            while (secondaryIndex >= start && list[secondaryIndex].CompareTo(temp) > 0)
             {
-                list[j + 1] = list[j];
-                j--;
+                list[secondaryIndex + 1] = list[secondaryIndex];
+                secondaryIndex--;
             }
 
-            list[j + 1] = temp;
+            list[secondaryIndex + 1] = temp;
         }
     }
 }
