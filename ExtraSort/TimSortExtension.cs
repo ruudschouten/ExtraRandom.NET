@@ -6,7 +6,7 @@ namespace ExtraSort;
 /// <remarks>Based on: https://www.baeldung.com/cs/timsort.</remarks>
 public static class TimSortExtension
 {
-    private const int Threshold = 8;
+    private const int Threshold = 32;
 
     /// <summary>
     /// Perform a TimSort on the <paramref name="list"/>.
@@ -23,7 +23,7 @@ public static class TimSortExtension
         for (var start = 0; start < list.Count; start += runLength)
         {
             var end = Math.Min(list.Count, start + runLength);
-            list.InsertionSort(start, end);
+            list.BinaryInsertionSort(start, end);
         }
 
         // Recursively merge adjacent runs.
@@ -45,6 +45,8 @@ public static class TimSortExtension
                 {
                     list = list.MergeSort(left, mid, right);
                 }
+
+                // Do gallop here?
             }
         }
     }
