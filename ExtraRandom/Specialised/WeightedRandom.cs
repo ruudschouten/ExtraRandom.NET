@@ -23,9 +23,10 @@ public struct WeightedRandom<T>
     }
 
     /// <summary>
-    /// Gets the entries which can be rolled with this Weighted Random generator.
+    /// Gets or sets the entries which can be rolled with this Weighted Random generator.
     /// </summary>
-    private List<WeightedRandomEntry<T>> Entries { get; } = new();
+    private IList<WeightedRandomEntry<T>> Entries { get; set; } =
+        new List<WeightedRandomEntry<T>>();
 
     /// <summary>
     /// Add a new entry to the list with the provided <paramref name="value"/> and <paramref name="weight"/>.
@@ -47,6 +48,20 @@ public struct WeightedRandom<T>
     }
 
     /// <summary>
+    /// Perform a sort function on the entries.
+    /// </summary>
+    /// <param name="sortFunction">function to sort with.</param>
+    /// <returns>The list sorted.</returns>
+    public IList<WeightedRandomEntry<T>> ManualSort(
+        Func<IList<WeightedRandomEntry<T>>, IList<WeightedRandomEntry<T>>> sortFunction
+    )
+    {
+        Entries = sortFunction.Invoke(Entries);
+        _needsSorting = false;
+        return Entries;
+    }
+
+    /// <summary>
     /// Roll the next value, while also returning the <see cref="WeightedRandomEntry{T}"/> and the random value that was rolled.
     /// </summary>
     /// <param name="roll">Randomly rolled value that was used to determine what <see cref="WeightedRandomEntry{T}"/> to pick.</param>
@@ -55,7 +70,7 @@ public struct WeightedRandom<T>
     {
         if (_needsSorting)
         {
-            Entries.MergeSort();
+            Entries.TimSort();
             _needsSorting = false;
         }
 
