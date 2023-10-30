@@ -13,7 +13,7 @@ namespace ExtraSort.UnitTests;
 #pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
 public class InsertionSortTest
 {
-    private const int EntriesToAdd = 10_000;
+    private const int EntriesToAdd = 50_000;
 
     [Fact]
     public void InsertionSort()

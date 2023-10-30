@@ -13,7 +13,7 @@ namespace ExtraSort.UnitTests;
 #pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
 public class TimSortTest
 {
-    private const int EntriesToAdd = 5_000;
+    private const int EntriesToAdd = 1_000_000;
 
     [Fact]
     public void TimSort()
