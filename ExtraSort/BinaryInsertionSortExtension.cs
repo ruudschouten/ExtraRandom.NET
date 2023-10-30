@@ -39,27 +39,4 @@ public static class BinaryInsertionSortExtension
             list[pos] = value;
         }
     }
-
-    private static int BinarySearch<T>(this IList<T> list, T item, int start, int end)
-        where T : IComparable<T>
-    {
-        if (start == end)
-        {
-            if (list[start].CompareTo(item) > 0)
-                return start;
-            return start + 1;
-        }
-
-        if (start > end)
-            return start;
-
-        var middle = (start + end) / 2;
-
-        return list[middle].CompareTo(item) switch
-        {
-            < 0 => list.BinarySearch(item, middle + 1, end),
-            > 0 => list.BinarySearch(item, start, middle - 1),
-            _ => middle
-        };
-    }
 }

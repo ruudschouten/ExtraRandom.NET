@@ -13,7 +13,7 @@ namespace ExtraSort.UnitTests;
 public class CollectionExtensionTest
 {
     [Fact]
-    public void InsertionSort_Slice()
+    public void Slices()
     {
         var unsortedList = new List<WeightedRandomEntry<int>>();
 
@@ -57,5 +57,17 @@ public class CollectionExtensionTest
         // TAKE: 7, 8, 9
         var endItems = unsortedList.Slice(7, unsortedList.Count);
         endItems.Should().ContainInOrder(unsortedList[7], unsortedList[8], unsortedList[9]);
+    }
+
+    [Theory]
+    [InlineData(new[] { 0, 1, 4, 19, 21 }, 19, 3)]
+    [InlineData(new[] { 1, 2, 3, 3, 8, 4, 21, 39 }, 39, 8)]
+    [InlineData(new[] { 13, 14, 15, 16 }, 3, 0)]
+    [InlineData(new[] { 13, 14, 15, 16 }, 20, 4)]
+    [InlineData(new[] { 1, 2, 6, 7, 10 }, 5, 2)]
+    public void BinarySearch(IList<int> list, int item, int index)
+    {
+        var pos = list.BinarySearch(item);
+        pos.Should().Be(index);
     }
 }

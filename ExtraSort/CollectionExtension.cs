@@ -46,4 +46,59 @@ public static class CollectionExtension
 
         return collection.Skip(itemsToSkip).Take(itemsToTake);
     }
+
+    /// <summary>
+    /// Perform a binary search to find the index of the <paramref name="item"/> in the <paramref name="list"/>.
+    /// </summary>
+    /// <param name="list">List to search in.</param>
+    /// <param name="item">Item to search the index for.</param>
+    /// <typeparam name="T">Type of the entity inside the <paramref name="list"/>.</typeparam>
+    /// <remarks>This will only work correctly on a sorted list.</remarks>
+    /// <returns>Index of the <paramref name="item"/>.
+    /// <para>
+    /// If the <paramref name="item"/> could not be found, an index is returned in which the <paramref name="item"/> should be at.
+    /// </para>
+    /// </returns>
+    public static int BinarySearch<T>(this IList<T> list, T item)
+        where T : IComparable<T>
+    {
+        return BinarySearch(list, item, 0, list.Count - 1);
+    }
+
+    /// <summary>
+    /// Perform a binary search to find the index of the <paramref name="item"/> in the <paramref name="list"/>, between the given indexes.
+    /// </summary>
+    /// <param name="list">List to search in.</param>
+    /// <param name="item">Item to search the index for.</param>
+    /// <param name="start">Start index to search from.</param>
+    /// <param name="end">End index to stop searching on.</param>
+    /// <typeparam name="T">Type of the entity inside the <paramref name="list"/>.</typeparam>
+    /// <remarks>This will only work correctly on a sorted list.</remarks>
+    /// <returns>Index of the <paramref name="item"/>.
+    /// <para>
+    /// If the <paramref name="item"/> could not be found, an index is returned in which the <paramref name="item"/> should be at.
+    /// </para>
+    /// </returns>
+    public static int BinarySearch<T>(this IList<T> list, T item, int start, int end)
+        where T : IComparable<T>
+    {
+        if (start == end)
+        {
+            if (list[start].CompareTo(item) > 0)
+                return start;
+            return start + 1;
+        }
+
+        if (start > end)
+            return start;
+
+        var middle = (start + end) / 2;
+
+        return list[middle].CompareTo(item) switch
+        {
+            < 0 => list.BinarySearch(item, middle + 1, end),
+            > 0 => list.BinarySearch(item, start, middle - 1),
+            _ => middle
+        };
+    }
 }
