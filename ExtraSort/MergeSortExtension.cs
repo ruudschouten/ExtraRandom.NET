@@ -32,10 +32,11 @@ public static class MergeSortExtension
     }
 
     /// <summary>
-    /// Perform a MergeSort where you have to specify the middle index as well.
+    /// Perform a partial MergeSort where you have to specify the middle index as well.
     /// <para>
-    /// This version also doesn't use recursion.
+    /// This version also doesn't use recursion, which means you need to run this multiple times yourself to get a good sort.
     /// </para>
+    /// <remarks>Since you need to run this multiple times, this should only be used by other sort algorithms.</remarks>
     /// </summary>
     /// <param name="list">List to perform the Merge Sort on.</param>
     /// <param name="start">Starting index for the range.</param>
@@ -43,7 +44,7 @@ public static class MergeSortExtension
     /// <param name="end">Inclusive end index for the range.</param>
     /// <typeparam name="T">Type of elements in the <paramref name="list"/>.</typeparam>
     /// <returns>The <paramref name="list"/> sorted.</returns>
-    public static IList<T> MergeSort<T>(this IList<T> list, int start, int middle, int end)
+    internal static IList<T> MergeSort<T>(this IList<T> list, int start, int middle, int end)
         where T : IComparable<T>
     {
         var left = list.Slice(start, middle).ToList();
@@ -96,7 +97,7 @@ public static class MergeSortExtension
         return Merge(left, right);
     }
 
-    private static T[] Merge<T>(IList<T> left, IList<T> right)
+    private static T[] Merge<T>(IReadOnlyList<T> left, IReadOnlyList<T> right)
         where T : IComparable<T>
     {
         var leftCount = left.Count;
