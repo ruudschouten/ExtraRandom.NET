@@ -22,6 +22,7 @@ public static class TimSortExtension
         // Perform insertion sort on each run
         for (var start = 0; start < list.Count; start += runLength)
         {
+            // ENHANCEMENT: Run this parallel.
             var end = Math.Min(list.Count, start + runLength);
             list.BinaryInsertionSort(start, end);
         }
@@ -46,7 +47,7 @@ public static class TimSortExtension
                     list = list.MergeSort(left, mid, right);
                 }
 
-                // Do gallop here?
+                // ENHANCEMENT: Apply galloping somewhere in/after the merge.
             }
         }
     }
