@@ -35,57 +35,11 @@ public class TimSortTest
     [Fact]
     public void TimSort_Worked()
     {
-        var unsortedList = new List<int>
-        {
-            19,
-            22,
-            19,
-            22,
-            24,
-            25,
-            17,
-            11,
-            22,
-            23,
-            28,
-            23,
-            0,
-            1,
-            12,
-            9,
-            13,
-            27,
-            15
-        };
+        var unsortedList = TestValues.UnsortedNumbers;
 
         unsortedList.TimSort();
 
-        unsortedList
-            .Should()
-            .BeEquivalentTo(
-                new List<int>
-                {
-                    0,
-                    1,
-                    9,
-                    11,
-                    12,
-                    13,
-                    15,
-                    17,
-                    19,
-                    19,
-                    22,
-                    22,
-                    22,
-                    23,
-                    23,
-                    24,
-                    25,
-                    27,
-                    28
-                }
-            );
+        unsortedList.Should().ContainInOrder(TestValues.SortedNumbers);
     }
 }
 #pragma warning restore S2699

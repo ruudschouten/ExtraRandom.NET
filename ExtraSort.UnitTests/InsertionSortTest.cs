@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using ExtraRandom.PRNG;
 using ExtraRandom.Specialised;
+using FluentAssertions;
 
 namespace ExtraSort.UnitTests;
 
@@ -46,6 +47,16 @@ public class InsertionSortTest
         unsortedList.InsertionSort(0, unsortedList.Count);
 
         var s = "";
+    }
+
+    [Fact]
+    public void InsertionSort_Worked()
+    {
+        var unsortedList = TestValues.UnsortedNumbers;
+
+        unsortedList.InsertionSort();
+
+        unsortedList.Should().ContainInOrder(TestValues.SortedNumbers);
     }
 }
 

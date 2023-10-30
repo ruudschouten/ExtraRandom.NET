@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using ExtraRandom.PRNG;
 using ExtraRandom.Specialised;
+using FluentAssertions;
 
 namespace ExtraSort.UnitTests;
 
@@ -26,9 +27,19 @@ public class MergeSortTest
             unsortedList.Add(new WeightedRandomEntry<string>($"{i}", random.NextByte()));
         }
 
-        var sorted = unsortedList.MergeSort();
+        unsortedList.MergeSort();
 
         var s = "";
+    }
+
+    [Fact]
+    public void MergeSort_Worked()
+    {
+        var unsortedList = TestValues.UnsortedNumbers;
+
+        var sorted = unsortedList.MergeSort();
+
+        sorted.Should().ContainInOrder(TestValues.SortedNumbers);
     }
 }
 #pragma warning restore S2699
