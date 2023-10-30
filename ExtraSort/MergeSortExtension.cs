@@ -31,6 +31,56 @@ public static class MergeSortExtension
         return list.Sort(start, end);
     }
 
+    /// <summary>
+    /// Perform a MergeSort where you have to specify the middle index as well.
+    /// <para>
+    /// This version also doesn't use recursion.
+    /// </para>
+    /// </summary>
+    /// <param name="list">List to perform the Merge Sort on.</param>
+    /// <param name="start">Starting index for the range.</param>
+    /// <param name="middle">Middle index.</param>
+    /// <param name="end">Inclusive end index for the range.</param>
+    /// <typeparam name="T">Type of elements in the <paramref name="list"/>.</typeparam>
+    /// <returns>The <paramref name="list"/> sorted.</returns>
+    public static IList<T> MergeSort<T>(this IList<T> list, int start, int middle, int end)
+        where T : IComparable<T>
+    {
+        var left = list.Slice(start, middle).ToList();
+        var right = list.Slice(middle + 1, end).ToList();
+
+        var leftIndex = 0;
+        var rightIndex = 0;
+
+        while (leftIndex < left.Count && rightIndex < right.Count)
+        {
+            var leftValue = left[leftIndex];
+            var rightValue = right[rightIndex];
+            if (leftValue.CompareTo(rightValue) < 0)
+            {
+                list[start + leftIndex + rightIndex] = leftValue;
+                leftIndex++;
+            }
+            else
+            {
+                list[start + leftIndex + rightIndex] = rightValue;
+                rightIndex++;
+            }
+        }
+
+        for (; leftIndex < left.Count; leftIndex++)
+        {
+            list[start + leftIndex + rightIndex] = left[leftIndex];
+        }
+
+        for (; rightIndex < right.Count; rightIndex++)
+        {
+            list[start + leftIndex + rightIndex] = right[rightIndex];
+        }
+
+        return list;
+    }
+
     private static T[] Sort<T>(this IList<T> list, int start, int end)
         where T : IComparable<T>
     {
@@ -76,44 +126,5 @@ public static class MergeSortExtension
         }
 
         return merged;
-    }
-
-    // For timsort
-    public static IList<T> MergeSort<T>(this IList<T> list, int start, int middle, int end)
-        where T : IComparable<T>
-    {
-        var left = list.Slice(start, middle).ToList();
-        var right = list.Slice(middle + 1, end).ToList();
-
-        var leftIndex = 0;
-        var rightIndex = 0;
-
-        while (leftIndex < left.Count && rightIndex < right.Count)
-        {
-            var leftValue = left[leftIndex];
-            var rightValue = right[rightIndex];
-            if (leftValue.CompareTo(rightValue) < 0)
-            {
-                list[start + leftIndex + rightIndex] = leftValue;
-                leftIndex++;
-            }
-            else
-            {
-                list[start + leftIndex + rightIndex] = rightValue;
-                rightIndex++;
-            }
-        }
-
-        for (; leftIndex < left.Count; leftIndex++)
-        {
-            list[start + leftIndex + rightIndex] = left[leftIndex];
-        }
-
-        for (; rightIndex < right.Count; rightIndex++)
-        {
-            list[start + leftIndex + rightIndex] = right[rightIndex];
-        }
-
-        return list;
     }
 }
