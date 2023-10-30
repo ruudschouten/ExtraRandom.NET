@@ -15,7 +15,7 @@ public class MergeSortTest
     private const int EntriesToAdd = 5_000;
 
     [Fact]
-    public void MergeSort()
+    public void MergeSort_Recursion()
     {
         var unsortedList = new List<WeightedRandomEntry<string>>();
 
@@ -27,6 +27,23 @@ public class MergeSortTest
         }
 
         var sorted = unsortedList.MergeSort();
+
+        var s = "";
+    }
+
+    [Fact]
+    public void MergeSort_Without_Recursion()
+    {
+        var unsortedList = new List<WeightedRandomEntry<string>>();
+
+        var random = new RomuDuoJr(500);
+
+        for (var i = 0; i < EntriesToAdd; i++)
+        {
+            unsortedList.Add(new WeightedRandomEntry<string>($"{i}", random.NextByte()));
+        }
+        
+        var sorted = unsortedList.MergeSort(0, middle, EntriesToAdd);
 
         var s = "";
     }

@@ -27,25 +27,25 @@ public static class TimSortExtension
         }
 
         // Recursively merge adjacent runs.
+        Merge(list, runLength);
+    }
 
-        // What is size in the example?
-        var size = runLength;
-        // var mergeSize = runLength;
-        while (size < list.Count) // was mergeSize
+    private static void Merge<T>(IList<T> list, int runLength)
+        where T : IComparable<T>
+    {
+        var count = list.Count;
+
+        for (var size = runLength; size < count; size = 2 * size)
         {
-            for (var start = 0; start < list.Count; start += size * 2)
+            for (var left = 0; left < count; left += 2 * size)
             {
-                var middle = start + size;
-                var end = Math.Min(list.Count, start + (size * 2));
-                if (middle < end)
+                var mid = left + size - 1;
+                var right = Math.Min(left + (2 * size) - 1, count - 1);
+                if (mid < right)
                 {
-                    list = list.MergeSort(start, middle, end);
-                    var s = "";
+                    list = list.MergeSort(left, mid, right);
                 }
             }
-
-            // mergeSize *= 2;
-            size *= 2;
         }
     }
 
