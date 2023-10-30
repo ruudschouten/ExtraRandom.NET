@@ -23,10 +23,10 @@ public static class CollectionExtension
     /// <example>
     /// In this example; <c>list</c> has 10 elements.
     /// <code>
-    /// list.Slice(0, 4); // TAKES: 0, 1, 2, 3, 4 ||  SKIPS: 5, 6, 7, 8, 9
-    /// list.Slice(1, 4); // TAKES: 1, 2, 3, 4 || SKIPS: 0, 5, 6, 7, 8, 9
-    /// list.Slice(5, 7); // TAKES: 5, 6, 7 || SKIPS: 0, 1, 2, 3, 4, 8, 9
-    /// list.Slice(7, list.Count); // TAKES: 7, 8, 9 || SKIPS: 0, 1, 2, 3, 4, 5, 6
+    /// list.Slice(0, 4);           // TAKES: 0, 1, 2, 3, 4   || SKIPS: 5, 6, 7, 8, 9
+    /// list.Slice(1, 4);           // TAKES: 1, 2, 3, 4      || SKIPS: 0, 5, 6, 7, 8, 9
+    /// list.Slice(5, 7);           // TAKES: 5, 6, 7         || SKIPS: 0, 1, 2, 3, 4, 8, 9
+    /// list.Slice(7, list.Count);  // TAKES: 7, 8, 9         || SKIPS: 0, 1, 2, 3, 4, 5, 6
     /// </code>
     /// </example>
     public static IEnumerable<T> Slice<T>(this IList<T> collection, int startIndex, int endIndex)
