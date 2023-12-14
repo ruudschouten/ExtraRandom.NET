@@ -5,39 +5,40 @@ using System.Security.Cryptography;
 namespace ExtraRandom.PRNG;
 
 /// <summary>
-/// Xoroshiro128+ PRNG implementation.
-/// <para>
-/// Based on https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/Xoroshiro128Plus.cs
-/// </para>
+/// LFSR-based pseudorandom number generators.
+/// Based on: https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/Seiran.cs.
 /// </summary>
 /// <remarks>
-/// Source: https://prng.di.unimi.it/xoroshiro128plus.c
+/// Source: https://github.com/andanteyk/prng-seiran
 /// </remarks>
-public sealed class Xoroshiro128Plus : Random64
+public sealed class Seiran : Random64
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Xoroshiro128Plus"/> class.
+    /// Initializes a new instance of the <see cref="Seiran"/> class.
     /// </summary>
     /// <param name="baseSeed">Base seed to use for the random number generation.</param>
-    public Xoroshiro128Plus(ulong baseSeed = 0)
-        : this(baseSeed, baseSeed + 1) { }
+    /// <remarks>
+    /// <paramref name="baseSeed"/> is used as the base for the seed, three additional <see cref="ulong"/> variables are made,
+    /// which each increments the <paramref name="baseSeed"/> value by one.
+    /// </remarks>
+    public Seiran(ulong baseSeed)
+        : this(new[] { baseSeed, baseSeed + 1 }) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Xoroshiro128Plus"/> class.
+    /// Initializes a new instance of the <see cref="Seiran"/> class.
     /// </summary>
-    /// <param name="seed1">First seed.</param>
-    /// <param name="seed2">Second seed.</param>
-    public Xoroshiro128Plus(ulong seed1, ulong seed2)
+    /// <param name="seed">Seed to use for the random number generation.</param>
+    public Seiran(ulong[] seed)
     {
         State = new ulong[2];
-        SetSeed(seed1, seed2);
+        SetSeed(seed);
     }
 
     /// <summary>
-    /// Finalizes an instance of the <see cref="Xoroshiro128Plus"/> class.
+    /// Finalizes an instance of the <see cref="Seiran"/> class.
     /// </summary>
 #pragma warning disable MA0055
-    ~Xoroshiro128Plus()
+    ~Seiran()
 #pragma warning restore MA0055
     {
         Array.Clear(State, 0, State.Length);
@@ -49,6 +50,7 @@ public sealed class Xoroshiro128Plus : Random64
         using var rng = RandomNumberGenerator.Create();
         Span<byte> span = stackalloc byte[16];
         rng.GetNonZeroBytes(span);
+
         SetSeed(
             BinaryPrimitives.ReadUInt64LittleEndian(span),
             BinaryPrimitives.ReadUInt64LittleEndian(span.Slice(8))
@@ -67,13 +69,11 @@ public sealed class Xoroshiro128Plus : Random64
     {
         var s0 = State[0];
         var s1 = State[1];
-        var result = State[0] + State[1];
 
-        s1 ^= s0;
-        var seed1 = BitOperations.RotateLeft(s0, 24) ^ s1 ^ (s1 << 16);
-        var seed2 = BitOperations.RotateLeft(s1, 37);
+        var result = BitOperations.RotateLeft((s0 + s1) * 9, 29) + s0;
 
-        SetSeed(seed1, seed2);
+        State[0] = s0 ^ BitOperations.RotateLeft(s1, 29);
+        State[1] = s0 ^ s1 << 9;
 
         return result;
     }
