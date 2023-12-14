@@ -8,6 +8,8 @@
         <IsPackable>false</IsPackable>
 
         <RootNamespace>ExtraRandom.UnitTests</RootNamespace>
+
+        <LangVersion>12</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>

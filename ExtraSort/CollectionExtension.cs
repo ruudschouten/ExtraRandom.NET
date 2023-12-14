@@ -6,7 +6,7 @@ namespace ExtraSort;
 public static class CollectionExtension
 {
     /// <summary>
-    /// Take a slice of the <paramref name="collection"/>, starting with the <paramref name="startIndex"/> until the <paramref name="endIndex"/>
+    /// Take a slice of the <paramref name="collection"/>, starting with the <paramref name="startIndex"/> until the <paramref name="endIndex"/>.
     /// </summary>
     /// <param name="collection">Collection to take a slice from.</param>
     /// <param name="startIndex">

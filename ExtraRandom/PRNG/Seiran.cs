@@ -6,7 +6,7 @@ namespace ExtraRandom.PRNG;
 
 /// <summary>
 /// LFSR-based pseudorandom number generators.
-/// Based on: https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/Seiran.cs
+/// Based on: https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/Seiran.cs.
 /// </summary>
 /// <remarks>
 /// Source: https://github.com/andanteyk/prng-seiran

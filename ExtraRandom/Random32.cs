@@ -1,21 +1,27 @@
 using System.Buffers.Binary;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ExtraRandom;
 
 /// <summary>
 /// Base class for random number generator in which the internal state produces a 32-bit output.
 /// </summary>
+[SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1202:Elements should be ordered by access",
+    Justification = "The order makes more sense to me like this.")]
 public abstract class Random32 : Random
 {
     /// <summary>
     /// Size is 8 bytes.
     /// </summary>
+    // ReSharper disable once MemberCanBePrivate.Global
     protected const byte Size = 4;
 
     /// <summary>
     /// Internal state of the RNG.
     /// </summary>
+#pragma warning disable CS8618, SA1401, SA1306
     protected ulong[] State;
+#pragma warning restore CS8618, SA1401, SA1306
 
     /// <summary>
     /// Generate next random number.
@@ -30,7 +36,7 @@ public abstract class Random32 : Random
     /// </summary>
     /// <param name="seed">Seed to use to generate random numbers.</param>
     /// <exception cref="ArgumentNullException">Array of seed is null or empty.</exception>
-    /// <exception cref="ArgumentException">Seed amount must be at least the same lenght as the <see cref="Random.State"/> length.</exception>
+    /// <exception cref="ArgumentException">Seed amount must be at least the same length as the <see cref="State"/> length.</exception>
     public virtual void SetSeed(params ulong[] seed)
     {
         if (seed == null || seed.Length == 0)

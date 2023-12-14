@@ -19,6 +19,7 @@ dotnet_diagnostic.SA1313.severity = none # This requires parameters in records t
 dotnet_diagnostic.SA1413.severity = none # I think trailing commas look dumb.
 dotnet_diagnostic.SA1503.severity = none # No braces are fine for if() return.
 dotnet_diagnostic.SA1633.severity = none # file headers are unnecessary. 
+dotnet_diagnostic.SA1629.severity = none # periods look silly at the end of an URL.
 dotnet_diagnostic.SA1206.severity = none # <accessor> required is the correct way to sort keywords, not required <accessor>
 
 # Security Code Scan

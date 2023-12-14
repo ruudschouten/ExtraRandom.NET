@@ -61,7 +61,7 @@ public readonly struct WeightedRandomEntry<T>
     }
 
     /// <summary>
-    /// Check if <paramref name="left"/>'s <see cref="Weight"/> is smaller than <param name="right"></param>'s <see cref="Weight"/>.
+    /// Check if <paramref name="left"/>'s <see cref="Weight"/> is smaller than <paramref name="right"></paramref>'s <see cref="Weight"/>.
     /// </summary>
     /// <param name="left">Object to check if it is smaller.</param>
     /// <param name="right">Object to check with.</param>
@@ -72,7 +72,7 @@ public readonly struct WeightedRandomEntry<T>
     }
 
     /// <summary>
-    /// Check if <paramref name="left"/>'s <see cref="Weight"/> is larger than <param name="right"></param>'s <see cref="Weight"/>.
+    /// Check if <paramref name="left"/>'s <see cref="Weight"/> is larger than <paramref name="right"></paramref>'s <see cref="Weight"/>.
     /// </summary>
     /// <param name="left">Object to check if it is larger.</param>
     /// <param name="right">Object to check with.</param>
@@ -83,7 +83,7 @@ public readonly struct WeightedRandomEntry<T>
     }
 
     /// <summary>
-    /// Check if <paramref name="left"/>'s <see cref="Weight"/> is smaller or equal to <param name="right"></param>'s <see cref="Weight"/>.
+    /// Check if <paramref name="left"/>'s <see cref="Weight"/> is smaller or equal to <paramref name="right"></paramref>'s <see cref="Weight"/>.
     /// </summary>
     /// <param name="left">Object to check if it is smaller or equal.</param>
     /// <param name="right">Object to check with.</param>
@@ -94,7 +94,7 @@ public readonly struct WeightedRandomEntry<T>
     }
 
     /// <summary>
-    /// Check if <paramref name="left"/>'s <see cref="Weight"/> is larger or equal to <param name="right"></param>'s <see cref="Weight"/>.
+    /// Check if <paramref name="left"/>'s <see cref="Weight"/> is larger or equal to <paramref name="right"></paramref>'s <see cref="Weight"/>.
     /// </summary>
     /// <param name="left">Object to check if it is larger or equal.</param>
     /// <param name="right">Object to check with.</param>

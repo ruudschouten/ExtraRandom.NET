@@ -88,8 +88,7 @@ public struct WeightedRandom<T>
     }
 
     /// <summary>
-    /// Add a new <see cref="WeightedRandomEntry{T}"/> to the list, automatically sorting it by
-    /// <see cref="WeightedRandomEntry{T}.Weight">weight.</see>
+    /// Add a new <see cref="WeightedRandomEntry{T}"/> to the list, automatically sorting it by <see cref="WeightedRandomEntry{T}.Weight">weight.</see>
     /// </summary>
     /// <param name="entry">Entry to add.</param>
     /// <remarks>Performance for this is not checked, if performance issues arise, look here first.</remarks>

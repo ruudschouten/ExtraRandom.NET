@@ -28,8 +28,6 @@ public class BinaryInsertionSortTest
         }
 
         unsortedList.BinaryInsertionSort();
-
-        var s = "";
     }
 
     [Fact]

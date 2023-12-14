@@ -28,8 +28,6 @@ public class InsertionSortTest
         }
 
         unsortedList.InsertionSort();
-
-        var s = "";
     }
 
     [Fact]
@@ -45,8 +43,6 @@ public class InsertionSortTest
         }
 
         unsortedList.InsertionSort(0, unsortedList.Count);
-
-        var s = "";
     }
 
     [Fact]

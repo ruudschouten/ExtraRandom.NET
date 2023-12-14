@@ -110,23 +110,24 @@ public abstract class Random : IRandom
         var x = NextULong();
 
         var bigULong = Math128.Multiply(x, range);
-        if (bigULong.Low < range)
+        if (bigULong.Low >= range) return bigULong.High + min;
+
+        // ReSharper disable once IntVariableOverflowInUncheckedContext
+        // Overflow is checked later in the if and while statements.
+        var t = 0ul - range;
+        if (t >= range)
         {
-            var t = 0 - range;
+            t -= range;
             if (t >= range)
             {
-                t -= range;
-                if (t >= range)
-                {
-                    t %= range;
-                }
+                t %= range;
             }
+        }
 
-            while (bigULong.Low < t)
-            {
-                x = NextULong();
-                bigULong = Math128.Multiply(x, range);
-            }
+        while (bigULong.Low < t)
+        {
+            x = NextULong();
+            bigULong = Math128.Multiply(x, range);
         }
 
         return bigULong.High + min;

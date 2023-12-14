@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 
 namespace ExtraRandom.PRNG;
 
+/// <inheritdoc />
 public sealed class Xoroshiro128StarStar : Random64
 {
     /// <summary>

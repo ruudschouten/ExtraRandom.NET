@@ -11,10 +11,10 @@ namespace ExtraRandom.PRNG;
 public sealed class MiddleSquareWeylSequence : Random32
 {
     // Random output
-    private ulong _output = 0;
+    private ulong _output;
 
     // Weyl sequence
-    private ulong _sequence = 0;
+    private ulong _sequence;
 
     // Odd constant
     private ulong _increment = 0xB5AD4ECEDA1CE2A9;

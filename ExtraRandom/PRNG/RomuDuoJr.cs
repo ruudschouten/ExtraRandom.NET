@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 namespace ExtraRandom.PRNG;
 
 /// <summary>
-/// Romu random variations, the fastest generator using 64-bit arith., but not suited for huge jobs.
+/// Romu random variations, the fastest generator using 64-bit arithmetic, but not suited for huge jobs.
 /// Based on: https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/RomuDuoJr.cs
 /// </summary>
 /// <remarks>

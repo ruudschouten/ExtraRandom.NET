@@ -7,7 +7,7 @@ namespace ExtraRandom.PRNG;
 /// <summary>
 /// Romu random variations, great for general purpose work, including huge jobs.
 /// Est. capacity = 2^75 bytes. Register pressure = 6. State size = 192 bits.
-/// Based on: https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/RomuTrio.cs
+/// Based on: https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/RomuTrio.cs.
 /// </summary>
 /// <remarks>
 /// Source: https://www.romu-random.org/

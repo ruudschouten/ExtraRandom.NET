@@ -28,8 +28,6 @@ public class TimSortTest
         }
 
         unsortedList.TimSort();
-
-        var s = "";
     }
 
     [Fact]

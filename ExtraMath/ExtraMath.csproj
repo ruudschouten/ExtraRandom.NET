@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
       <EnableNETAnalyzers>true</EnableNETAnalyzers>
       <GenerateDocumentationFile>true</GenerateDocumentationFile>
+      <LangVersion>12</LangVersion>
     </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

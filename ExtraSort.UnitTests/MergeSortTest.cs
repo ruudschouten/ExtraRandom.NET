@@ -28,8 +28,6 @@ public class MergeSortTest
         }
 
         unsortedList.MergeSort();
-
-        var s = "";
     }
 
     [Fact]
