@@ -19,9 +19,9 @@ public abstract class Random64 : Random
     /// <summary>
     /// Internal state of the RNG.
     /// </summary>
-#pragma warning disable CS8618, SA1401, SA1306
-    protected ulong[] State;
-#pragma warning restore SA1306, SA1401, CS8618
+#pragma warning disable SA1401, SA1306
+    protected ulong[] State = Array.Empty<ulong>();
+#pragma warning restore SA1306, SA1401
 
     /// <summary>
     /// Generate next random number.
@@ -81,7 +81,7 @@ public abstract class Random64 : Random
         while (buffer.Length >= Size)
         {
             BinaryPrimitives.WriteUInt64LittleEndian(buffer, Next());
-            buffer = buffer.Slice(Size);
+            buffer = buffer[Size..];
         }
 
         if (buffer.Length == 0)

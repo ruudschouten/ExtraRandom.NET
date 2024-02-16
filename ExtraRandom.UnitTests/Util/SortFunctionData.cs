@@ -16,38 +16,38 @@ public class SortFunctionData<T> : IEnumerable<object[]>
     /// <returns>A collection of sorts which are used by xUnit.</returns>
     public IEnumerator<object[]> GetEnumerator()
     {
-        yield return new object[]
-        {
+        yield return
+        [
             "Merge Sort",
             new Func<IList<T>, IList<T>>(x => x.MergeSort())
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             "Tim Sort",
             new Func<IList<T>, IList<T>>(x =>
             {
                 x.TimSort();
                 return x;
             })
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             "Insertion Sort",
             new Func<IList<T>, IList<T>>(x =>
             {
                 x.InsertionSort();
                 return x;
             })
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             "Binary Insertion Sort",
             new Func<IList<T>, IList<T>>(x =>
             {
                 x.BinaryInsertionSort();
                 return x;
             })
-        };
+        ];
     }
 
     /// <inheritdoc/>

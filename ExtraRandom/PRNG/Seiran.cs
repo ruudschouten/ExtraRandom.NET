@@ -5,11 +5,13 @@ using System.Security.Cryptography;
 namespace ExtraRandom.PRNG;
 
 /// <summary>
-/// LFSR-based pseudorandom number generators.
+/// Linear-feedback shift register-based pseudorandom number generators.
 /// Based on: https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/Seiran.cs.
 /// </summary>
 /// <remarks>
+/// <para>
 /// Source: https://github.com/andanteyk/prng-seiran
+/// </para>
 /// </remarks>
 public sealed class Seiran : Random64
 {
@@ -18,30 +20,24 @@ public sealed class Seiran : Random64
     /// </summary>
     /// <param name="baseSeed">Base seed to use for the random number generation.</param>
     /// <remarks>
+    /// <para>
     /// <paramref name="baseSeed"/> is used as the base for the seed, three additional <see cref="ulong"/> variables are made,
     /// which each increments the <paramref name="baseSeed"/> value by one.
+    /// </para>
     /// </remarks>
     public Seiran(ulong baseSeed)
-        : this(new[] { baseSeed, baseSeed + 1 }) { }
+        : this([baseSeed, baseSeed + 1])
+    {
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Seiran"/> class.
     /// </summary>
     /// <param name="seed">Seed to use for the random number generation.</param>
-    public Seiran(ulong[] seed)
+    private Seiran(ulong[] seed)
     {
         State = new ulong[2];
         SetSeed(seed);
-    }
-
-    /// <summary>
-    /// Finalizes an instance of the <see cref="Seiran"/> class.
-    /// </summary>
-#pragma warning disable MA0055
-    ~Seiran()
-#pragma warning restore MA0055
-    {
-        Array.Clear(State, 0, State.Length);
     }
 
     /// <inheritdoc />
@@ -53,7 +49,7 @@ public sealed class Seiran : Random64
 
         SetSeed(
             BinaryPrimitives.ReadUInt64LittleEndian(span),
-            BinaryPrimitives.ReadUInt64LittleEndian(span.Slice(8))
+            BinaryPrimitives.ReadUInt64LittleEndian(span[8..])
         );
     }
 

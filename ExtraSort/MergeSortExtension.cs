@@ -32,11 +32,10 @@ public static class MergeSortExtension
     }
 
     /// <summary>
-    /// Perform a partial MergeSort where you have to specify the middle index as well.
+    /// <para>Perform a partial MergeSort where you have to specify the middle index as well.</para>
     /// <para>
     /// This version also doesn't use recursion, which means you need to run this multiple times yourself to get a good sort.
     /// </para>
-    /// <remarks>Since you need to run this multiple times, this should only be used by other sort algorithms.</remarks>
     /// </summary>
     /// <param name="list">List to perform the Merge Sort on.</param>
     /// <param name="start">Starting index for the range.</param>
@@ -44,6 +43,11 @@ public static class MergeSortExtension
     /// <param name="end">Inclusive end index for the range.</param>
     /// <typeparam name="T">Type of elements in the <paramref name="list"/>.</typeparam>
     /// <returns>The <paramref name="list"/> sorted.</returns>
+    /// <remarks>
+    /// <para>
+    /// Since you need to run this multiple times, this should only be used by other sort algorithms.
+    /// </para>
+    /// </remarks>
     internal static IList<T> MergeSort<T>(this IList<T> list, int start, int middle, int end)
         where T : IComparable<T>
     {
@@ -88,7 +92,7 @@ public static class MergeSortExtension
         // When there is just one element left, return a new collection with just this element.
         if (start >= end)
         {
-            return new[] { list[start] };
+            return [list[start]];
         }
 
         var middle = (end + start) / 2;

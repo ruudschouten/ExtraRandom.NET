@@ -6,18 +6,20 @@ namespace ExtraRandom.PRNG;
 /// Improved version from Middle Square Method, invented by John Von Neumann.
 /// </summary>
 /// <remarks>
+/// <para>
 /// Source: https://arxiv.org/abs/1704.00358
+/// </para>
 /// </remarks>
 public sealed class MiddleSquareWeylSequence : Random32
 {
+    // Odd constant
+    private const ulong Increment = 0xB5AD4ECEDA1CE2A9;
+
     // Random output
     private ulong _output;
 
     // Weyl sequence
     private ulong _sequence;
-
-    // Odd constant
-    private ulong _increment = 0xB5AD4ECEDA1CE2A9;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MiddleSquareWeylSequence"/> class.
@@ -27,19 +29,7 @@ public sealed class MiddleSquareWeylSequence : Random32
     {
         State = new ulong[2];
         SetSeed(seed);
-    }
-
-    /// <summary>
-    /// Finalizes an instance of the <see cref="MiddleSquareWeylSequence"/> class.
-    /// </summary>
-#pragma warning disable MA0055
-    ~MiddleSquareWeylSequence()
-#pragma warning restore MA0055
-    {
-        _output = 0;
-        _sequence = 0;
-        _increment = 0;
-    }
+}
 
     /// <inheritdoc />
     public override void Reseed()
@@ -48,7 +38,7 @@ public sealed class MiddleSquareWeylSequence : Random32
         Span<byte> span = new byte[16];
         rng.GetNonZeroBytes(span);
         _sequence = System.Buffers.Binary.BinaryPrimitives.ReadUInt64LittleEndian(span);
-        _output = System.Buffers.Binary.BinaryPrimitives.ReadUInt64LittleEndian(span.Slice(8));
+        _output = System.Buffers.Binary.BinaryPrimitives.ReadUInt64LittleEndian(span[8..]);
     }
 
     /// <inheritdoc />
@@ -62,7 +52,7 @@ public sealed class MiddleSquareWeylSequence : Random32
     protected override uint Next()
     {
         _output *= _output;
-        _output += _sequence + _increment;
+        _output += _sequence + Increment;
         _output = (_output >> 32) | (_output << 32);
         return (uint)_output;
     }

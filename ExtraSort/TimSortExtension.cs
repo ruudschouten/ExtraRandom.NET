@@ -3,7 +3,11 @@ namespace ExtraSort;
 /// <summary>
 /// Extension method for <see cref="IList{T}"/> to add TimSort.
 /// </summary>
-/// <remarks>Based on: https://www.baeldung.com/cs/timsort.</remarks>
+/// <remarks>
+/// <para>
+/// Based on: https://www.baeldung.com/cs/timsort.
+/// </para>
+/// </remarks>
 public static class TimSortExtension
 {
     private const int Threshold = 32;

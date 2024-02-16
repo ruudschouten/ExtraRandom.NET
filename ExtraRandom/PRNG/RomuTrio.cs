@@ -10,7 +10,9 @@ namespace ExtraRandom.PRNG;
 /// Based on: https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/RomuTrio.cs.
 /// </summary>
 /// <remarks>
+/// <para>
 /// Source: https://www.romu-random.org/
+/// </para>
 /// </remarks>
 public sealed class RomuTrio : Random64
 {
@@ -19,30 +21,22 @@ public sealed class RomuTrio : Random64
     /// </summary>
     /// <param name="baseSeed">Base seed to use for the random number generation.</param>
     /// <remarks>
+    /// <para>
     /// <paramref name="baseSeed"/> is used as the base for the seed, three additional <see cref="ulong"/> variables are made,
     /// which each increments the <paramref name="baseSeed"/> value by one.
+    /// </para>
     /// </remarks>
     public RomuTrio(ulong baseSeed)
-        : this(new[] { baseSeed, baseSeed + 1, baseSeed + 2 }) { }
+        : this([baseSeed, baseSeed + 1, baseSeed + 2]) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RomuTrio"/> class.
     /// </summary>
     /// <param name="seed"> RNG seed numbers.</param>
-    public RomuTrio(ulong[] seed)
+    private RomuTrio(ulong[] seed)
     {
         State = new ulong[3];
         SetSeed(seed);
-    }
-
-    /// <summary>
-    /// Finalizes an instance of the <see cref="RomuTrio"/> class.
-    /// </summary>
-#pragma warning disable MA0055
-    ~RomuTrio()
-#pragma warning restore MA0055
-    {
-        Array.Clear(State, 0, State.Length);
     }
 
     /// <inheritdoc />
@@ -54,8 +48,8 @@ public sealed class RomuTrio : Random64
 
         SetSeed(
             BinaryPrimitives.ReadUInt64LittleEndian(span),
-            BinaryPrimitives.ReadUInt64LittleEndian(span.Slice(8)),
-            BinaryPrimitives.ReadUInt64LittleEndian(span.Slice(16))
+            BinaryPrimitives.ReadUInt64LittleEndian(span[8..]),
+            BinaryPrimitives.ReadUInt64LittleEndian(span[16..])
         );
     }
 

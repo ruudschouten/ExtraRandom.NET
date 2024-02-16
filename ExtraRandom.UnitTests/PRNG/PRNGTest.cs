@@ -25,11 +25,15 @@ public class PRNGTest : ResultOutputHelper
     /// <summary>
     /// Determines if the test should keep track of how many times a single number has been generated.
     /// </summary>
-    /// <remarks>If this is set to <c>true</c>, it will impact performance quite a bit.</remarks>
+    /// <remarks>
+    /// <para>If this is set to <see langword="true"/>, it will impact performance quite a bit.</para>
+    /// </remarks>
     private const bool _recordAmountOfGeneratedNumbers = true;
 
     public PRNGTest(ITestOutputHelper output)
-        : base(output, _recordAmountOfGeneratedNumbers) { }
+        : base(output, _recordAmountOfGeneratedNumbers)
+    {
+    }
 
     [Theory]
     [ClassData(typeof(PRNGTestData))]

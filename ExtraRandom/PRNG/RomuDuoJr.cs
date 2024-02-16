@@ -9,7 +9,9 @@ namespace ExtraRandom.PRNG;
 /// Based on: https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/RomuDuoJr.cs
 /// </summary>
 /// <remarks>
+/// <para>
 /// Source: https://arxiv.org/pdf/2002.11331.pdf
+/// </para>
 /// </remarks>
 public sealed class RomuDuoJr : Random64
 {
@@ -18,30 +20,22 @@ public sealed class RomuDuoJr : Random64
     /// </summary>
     /// <param name="baseSeed">Base seed to use for the random number generation.</param>
     /// <remarks>
+    /// <para>
     /// <paramref name="baseSeed"/> is used as the base for the seed, three additional <see cref="ulong"/> variables are made,
     /// which each increments the <paramref name="baseSeed"/> value by one.
+    /// </para>
     /// </remarks>
     public RomuDuoJr(ulong baseSeed)
-        : this(new[] { baseSeed, baseSeed + 1 }) { }
+        : this([baseSeed, baseSeed + 1]) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RomuDuoJr"/> class.
     /// </summary>
     /// <param name="seed"> RNG seed numbers.</param>
-    public RomuDuoJr(ulong[] seed)
+    private RomuDuoJr(ulong[] seed)
     {
         State = new ulong[2];
         SetSeed(seed);
-    }
-
-    /// <summary>
-    /// Finalizes an instance of the <see cref="RomuDuoJr"/> class.
-    /// </summary>
-#pragma warning disable MA0055
-    ~RomuDuoJr()
-#pragma warning restore MA0055
-    {
-        Array.Clear(State, 0, State.Length);
     }
 
     /// <inheritdoc/>
@@ -53,7 +47,7 @@ public sealed class RomuDuoJr : Random64
 
         SetSeed(
             BinaryPrimitives.ReadUInt64LittleEndian(span),
-            BinaryPrimitives.ReadUInt64LittleEndian(span.Slice(8))
+            BinaryPrimitives.ReadUInt64LittleEndian(span[8..])
         );
     }
 

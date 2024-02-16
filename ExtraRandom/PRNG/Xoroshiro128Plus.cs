@@ -5,13 +5,17 @@ using System.Security.Cryptography;
 namespace ExtraRandom.PRNG;
 
 /// <summary>
+/// <para>
 /// Xoroshiro128+ PRNG implementation.
+/// </para>
 /// <para>
 /// Based on https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/Xoroshiro128Plus.cs
 /// </para>
 /// </summary>
 /// <remarks>
+/// <para>
 /// Source: https://prng.di.unimi.it/xoroshiro128plus.c
+/// </para>
 /// </remarks>
 public sealed class Xoroshiro128Plus : Random64
 {
@@ -27,20 +31,10 @@ public sealed class Xoroshiro128Plus : Random64
     /// </summary>
     /// <param name="seed1">First seed.</param>
     /// <param name="seed2">Second seed.</param>
-    public Xoroshiro128Plus(ulong seed1, ulong seed2)
+    private Xoroshiro128Plus(ulong seed1, ulong seed2)
     {
         State = new ulong[2];
         SetSeed(seed1, seed2);
-    }
-
-    /// <summary>
-    /// Finalizes an instance of the <see cref="Xoroshiro128Plus"/> class.
-    /// </summary>
-#pragma warning disable MA0055
-    ~Xoroshiro128Plus()
-#pragma warning restore MA0055
-    {
-        Array.Clear(State, 0, State.Length);
     }
 
     /// <inheritdoc />
@@ -51,7 +45,7 @@ public sealed class Xoroshiro128Plus : Random64
         rng.GetNonZeroBytes(span);
         SetSeed(
             BinaryPrimitives.ReadUInt64LittleEndian(span),
-            BinaryPrimitives.ReadUInt64LittleEndian(span.Slice(8))
+            BinaryPrimitives.ReadUInt64LittleEndian(span[8..])
         );
     }
 

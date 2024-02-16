@@ -43,7 +43,7 @@ public readonly struct WeightedRandomEntry<T>
     /// </summary>
     /// <param name="left">Object to check for matches.</param>
     /// <param name="right">Object to check matches with.</param>
-    /// <returns><c>true</c> if matched, <c>false</c> otherwise.</returns>
+    /// <returns><see langword="true"/> if matched, <see langword="false"/> otherwise.</returns>
     public static bool operator ==(WeightedRandomEntry<T> left, WeightedRandomEntry<T> right)
     {
         return left.Equals(right);
@@ -54,7 +54,7 @@ public readonly struct WeightedRandomEntry<T>
     /// </summary>
     /// <param name="left">Object to check for matches.</param>
     /// <param name="right">Object to check matches with.</param>
-    /// <returns><c>true</c> if not matched, <c>false</c> otherwise.</returns>
+    /// <returns><see langword="true"/> if not matched, <see langword="false"/> otherwise.</returns>
     public static bool operator !=(WeightedRandomEntry<T> left, WeightedRandomEntry<T> right)
     {
         return !left.Equals(right);
@@ -65,7 +65,7 @@ public readonly struct WeightedRandomEntry<T>
     /// </summary>
     /// <param name="left">Object to check if it is smaller.</param>
     /// <param name="right">Object to check with.</param>
-    /// <returns><c>true</c> is smaller, <c>false</c>otherwise.</returns>
+    /// <returns><see langword="true"/> is smaller, <see langword="false"/> otherwise.</returns>
     public static bool operator <(WeightedRandomEntry<T> left, WeightedRandomEntry<T> right)
     {
         return left.CompareTo(right) < 0;
@@ -76,7 +76,7 @@ public readonly struct WeightedRandomEntry<T>
     /// </summary>
     /// <param name="left">Object to check if it is larger.</param>
     /// <param name="right">Object to check with.</param>
-    /// <returns><c>true</c> is larger, <c>false</c>otherwise.</returns>
+    /// <returns><see langword="true"/> is larger, <see langword="false"/> otherwise.</returns>
     public static bool operator >(WeightedRandomEntry<T> left, WeightedRandomEntry<T> right)
     {
         return left.CompareTo(right) > 0;
@@ -87,7 +87,7 @@ public readonly struct WeightedRandomEntry<T>
     /// </summary>
     /// <param name="left">Object to check if it is smaller or equal.</param>
     /// <param name="right">Object to check with.</param>
-    /// <returns><c>true</c> is smaller, <c>false</c>otherwise.</returns>
+    /// <returns><see langword="true"/> is smaller, <see langword="false"/> otherwise.</returns>
     public static bool operator <=(WeightedRandomEntry<T> left, WeightedRandomEntry<T> right)
     {
         return left.CompareTo(right) <= 0;
@@ -98,7 +98,7 @@ public readonly struct WeightedRandomEntry<T>
     /// </summary>
     /// <param name="left">Object to check if it is larger or equal.</param>
     /// <param name="right">Object to check with.</param>
-    /// <returns><c>true</c> is smaller, <c>false</c>otherwise.</returns>
+    /// <returns><see langword="true"/> is smaller, <see langword="false"/> otherwise.</returns>
     public static bool operator >=(WeightedRandomEntry<T> left, WeightedRandomEntry<T> right)
     {
         return left.CompareTo(right) >= 0;

@@ -27,17 +27,17 @@ public class PRNGTestData : IEnumerable<object[]>
     /// <returns>A collection of PRNGs which are used by xUnit.</returns>
     public IEnumerator<object[]> GetEnumerator()
     {
-        yield return new object[] { new BiasedRandom(new RomuDuoJr(500), Bias.Lower, 3) };
-        yield return new object[] { new BiasedRandom(new RomuDuoJr(500), Bias.Average, 3) };
-        yield return new object[] { new BiasedRandom(new RomuDuoJr(500), Bias.Higher, 3) };
-        yield return new object[] { new MiddleSquareWeylSequence(500) };
-        yield return new object[] { new RomuDuo(500) };
-        yield return new object[] { new RomuDuoJr(500) };
-        yield return new object[] { new RomuTrio(500) };
-        yield return new object[] { new Seiran(500) };
-        yield return new object[] { new Xoroshiro128Plus(500) };
-        yield return new object[] { new Xoroshiro128PlusPlus(500) };
-        yield return new object[] { new Xoroshiro128StarStar(500) };
+        yield return [new BiasedRandom(new RomuDuoJr(500), Bias.Lower, 3)];
+        yield return [new BiasedRandom(new RomuDuoJr(500), Bias.Average, 3)];
+        yield return [new BiasedRandom(new RomuDuoJr(500), Bias.Higher, 3)];
+        yield return [new MiddleSquareWeylSequence(500)];
+        yield return [new RomuDuo(500)];
+        yield return [new RomuDuoJr(500)];
+        yield return [new RomuTrio(500)];
+        yield return [new Seiran(500)];
+        yield return [new Xoroshiro128Plus(500)];
+        yield return [new Xoroshiro128PlusPlus(500)];
+        yield return [new Xoroshiro128StarStar(500)];
     }
 
     /// <inheritdoc/>

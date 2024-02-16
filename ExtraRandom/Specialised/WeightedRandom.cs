@@ -91,7 +91,7 @@ public struct WeightedRandom<T>
     /// Add a new <see cref="WeightedRandomEntry{T}"/> to the list, automatically sorting it by <see cref="WeightedRandomEntry{T}.Weight">weight.</see>
     /// </summary>
     /// <param name="entry">Entry to add.</param>
-    /// <remarks>Performance for this is not checked, if performance issues arise, look here first.</remarks>
+    /// <remarks><para>Performance for this is not checked, if performance issues arise, look here first.</para></remarks>
     private void Add(WeightedRandomEntry<T> entry)
     {
         // Update collectiveWeight here, so the value is kept up to date and doesn't require a loop through the Entries.

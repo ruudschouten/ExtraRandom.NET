@@ -23,7 +23,7 @@ public interface IRandom
     /// </summary>
     /// <returns>A 8-bit unsigned integer.</returns>
     /// <remarks>
-    /// Generated value is between 0 and the <see cref="byte.MaxValue"/> of a <see cref="byte"/>.
+    /// <para>Generated value is between 0 and the <see cref="byte.MaxValue"/> of a <see cref="byte"/>.</para>
     /// </remarks>
     byte NextByte();
 
@@ -41,11 +41,11 @@ public interface IRandom
     /// <param name="length">Amount of bytes to generate.</param>
     /// <returns>An array of random bytes.</returns>
     /// <remarks>
-    /// This can overflow if the <paramref name="length"/> goes above the maximum available space on the stack.
+    /// <para>This can overflow if the <paramref name="length"/> goes above the maximum available space on the stack.</para>
     /// <para>
     /// This is set to <c>1MB</c> on 32-bit processors, and <c>4MB</c> on 64-bit processors.
     /// </para>
-    /// Meaning the <b>maximum number length should be around 4 million</b>.
+    /// <para>Meaning the <b>maximum number length should be around 4 million</b>.</para>
     /// </remarks>
     byte[] NextBytes(int length);
 
@@ -54,7 +54,7 @@ public interface IRandom
     /// </summary>
     /// <returns>A 32-bit signed integer.</returns>
     /// <remarks>
-    /// Generated value is between 0 and <see cref="int.MaxValue"/> value.
+    /// <para>Generated value is between 0 and <see cref="int.MaxValue"/> value.</para>
     /// </remarks>
     int NextInt();
 
@@ -65,7 +65,7 @@ public interface IRandom
     /// <param name="max">Exclusive upper bound.</param>
     /// <returns>A 32-bit signed integer between the <paramref name="min"/> and <paramref name="max"/> values.</returns>
     /// <remarks>
-    /// Generated value is between 0 and the provided <paramref name="max"/> value.
+    /// <para>Generated value is between 0 and the provided <paramref name="max"/> value.</para>
     /// </remarks>
     int NextInt(int min, int max);
 
@@ -88,7 +88,7 @@ public interface IRandom
     /// </summary>
     /// <returns>A 64-bit signed integer.</returns>
     /// <remarks>
-    /// Generated value is between 0 and <see cref="long.MaxValue"/>.
+    /// <para>Generated value is between 0 and <see cref="long.MaxValue"/>.</para>
     /// </remarks>
     long NextLong();
 
@@ -118,7 +118,7 @@ public interface IRandom
     /// Generate a <see cref="double"/>.
     /// </summary>
     /// <returns>A double-precision floating point number.</returns>
-    /// <remarks>Value is between 0.0 and 1.0.</remarks>
+    /// <remarks><para>Value is between 0.0 and 1.0.</para></remarks>
     double NextDouble();
 
     /// <summary>
