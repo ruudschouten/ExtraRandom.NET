@@ -27,6 +27,8 @@ public class PRNGTestData : IEnumerable<object[]>
     /// <returns>A collection of PRNGs which are used by xUnit.</returns>
     public IEnumerator<object[]> GetEnumerator()
     {
+        yield return [new SystemRandom(500)];
+        yield return [new CryptoRandom()];
         yield return [new BiasedRandom(new RomuDuoJr(500), Bias.Lower, 3)];
         yield return [new BiasedRandom(new RomuDuoJr(500), Bias.Average, 3)];
         yield return [new BiasedRandom(new RomuDuoJr(500), Bias.Higher, 3)];
