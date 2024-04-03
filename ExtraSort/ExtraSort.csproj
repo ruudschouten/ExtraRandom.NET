@@ -22,7 +22,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.0-3.final" />
+      <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />
       <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0-preview.24072.1">
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         <PrivateAssets>all</PrivateAssets>
@@ -39,11 +39,11 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Roslynator.Analyzers" Version="4.10.0">
+      <PackageReference Include="Roslynator.Analyzers" Version="4.12.0">
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         <PrivateAssets>all</PrivateAssets>
       </PackageReference>
-      <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="4.10.0">
+      <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="4.12.0">
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         <PrivateAssets>all</PrivateAssets>
       </PackageReference>
@@ -52,7 +52,7 @@
         <PrivateAssets>all</PrivateAssets>
       </PackageReference>
       <PackageReference Include="SerilogAnalyzer" Version="0.15.0" />
-      <PackageReference Include="SonarAnalyzer.CSharp" Version="9.19.0.84025">
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="9.23.1.88495">
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         <PrivateAssets>all</PrivateAssets>
       </PackageReference>
