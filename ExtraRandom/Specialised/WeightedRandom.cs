@@ -25,6 +25,7 @@ public struct WeightedRandom<T>
     /// <summary>
     /// Gets or sets the entries which can be rolled with this Weighted Random generator.
     /// </summary>
+    // ENHANCEMENT: Make this a tree instead, and insert new entries at the correct spot, so sorting is not needed.
     private IList<WeightedRandomEntry<T>> Entries { get; set; } =
         new List<WeightedRandomEntry<T>>();
 
