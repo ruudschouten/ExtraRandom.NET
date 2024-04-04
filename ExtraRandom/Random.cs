@@ -12,6 +12,12 @@ public abstract class Random : IRandom
     /// <inheritdoc />
     public abstract void Reseed();
 
+    /// <inheritdoc cref="IRandom.SetSeed(ulong)" />
+    public abstract void SetSeed(ulong seed);
+
+    /// <inheritdoc cref="IRandom.SetSeed(ulong[])" />
+    public abstract void SetSeed(params ulong[] seed);
+
     /// <inheritdoc />
     public abstract bool NextBoolean();
 

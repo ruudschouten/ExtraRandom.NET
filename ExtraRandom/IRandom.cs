@@ -11,6 +11,18 @@ public interface IRandom
     void Reseed();
 
     /// <summary>
+    /// Manually set the internal RNG state with a single value.
+    /// Will call <see cref="SetSeed(ulong[])"/>.
+    /// </summary>
+    void SetSeed(ulong seed);
+
+    /// <summary>
+    /// Manually set the internal RNG state.
+    /// </summary>
+    /// <param name="seed">Seed to use to generate random numbers.</param>
+    void SetSeed(params ulong[] seed);
+
+    /// <summary>
     /// Generate <see cref="T:System.Boolean" /> value.
     /// </summary>
     /// <returns>

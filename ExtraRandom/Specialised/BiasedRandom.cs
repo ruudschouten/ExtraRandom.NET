@@ -43,6 +43,18 @@ public readonly struct BiasedRandom : IRandom
         _random.Reseed();
     }
 
+    /// <inheritdoc cref="IRandom.SetSeed(ulong)" />
+    public void SetSeed(ulong seed)
+    {
+        _random.SetSeed(seed);
+    }
+
+    /// <inheritdoc cref="IRandom.SetSeed(ulong[])" />
+    public void SetSeed(params ulong[] seed)
+    {
+        _random.SetSeed(seed);
+    }
+
     /// <inheritdoc />
     public bool NextBoolean()
     {

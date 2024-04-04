@@ -6,7 +6,13 @@ public class SystemRandom : Random64
 
     public SystemRandom(int seed)
     {
+        State = new ulong[1];
         _random = new System.Random(seed);
+    }
+
+    public override void SetSeed(params ulong[] seed)
+    {
+        _random = new System.Random((int)seed[0]);
     }
 
     /// <inheritdoc/>

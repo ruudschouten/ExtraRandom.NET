@@ -10,6 +10,13 @@ public sealed class CryptoRandom : Random64, IDisposable
 
     public CryptoRandom()
     {
+        State = new ulong[1];
+        _generator = RandomNumberGenerator.Create();
+    }
+
+    public override void SetSeed(params ulong[] seed)
+    {
+        _generator?.Dispose();
         _generator = RandomNumberGenerator.Create();
     }
 
