@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using ExtraRandom.Specialised;
-using ExtraRandom.UnitTests.Util;
+using ExtraRandom.TestHelper;
 using Xunit.Abstractions;
 
 namespace ExtraRandom.UnitTests.Specialised;

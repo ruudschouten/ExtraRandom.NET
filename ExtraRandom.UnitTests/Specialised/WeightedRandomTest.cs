@@ -1,6 +1,6 @@
 using ExtraRandom.PRNG;
 using ExtraRandom.Specialised;
-using ExtraRandom.UnitTests.Util;
+using ExtraRandom.TestHelper;
 using FluentAssertions;
 using Xunit.Abstractions;
 
