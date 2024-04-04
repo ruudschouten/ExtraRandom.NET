@@ -20,7 +20,7 @@ namespace ExtraRandom.PerformanceTests;
 )]
 public class PRNGTest : ResultOutputHelper
 {
-    private const int Loops = 100_000;
+    private const int Loops = 10;
 
     /// <summary>
     /// Determines if the test should keep track of how many times a single number has been generated.

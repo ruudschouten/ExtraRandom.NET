@@ -1,5 +1,6 @@
 using System.Numerics;
 using ExtraMath;
+using ExtraRandom.Validator;
 
 namespace ExtraRandom;
 
@@ -45,13 +46,25 @@ public abstract class Random : IRandom
     /// <inheritdoc />
     public virtual int NextInt(int min, int max)
     {
-        var number = NextUInt((uint)min, (uint)max);
-        if (number <= int.MaxValue)
-        {
-            return (int)number;
-        }
+        if (min == max)
+            return min;
 
-        return (int)(number >> 1);
+        NextInRangeValidator.ValidateRange(min, max);
+
+        var exclusiveRange = max - min;
+        if (exclusiveRange <= 1)
+            return min;
+
+        var bits = Log2Ceiling((ulong)exclusiveRange);
+        while (true)
+        {
+            var result = NextLong() >> (64 - bits);
+
+            if (result < exclusiveRange)
+            {
+                return (int)result + min;
+            }
+        }
     }
 
     /// <inheritdoc />
@@ -62,6 +75,8 @@ public abstract class Random : IRandom
     {
         if (min == max)
             return min;
+
+        NextInRangeValidator.ValidateRange(min, max);
 
         var exclusiveRange = max - min;
         if (exclusiveRange <= 1)
@@ -90,8 +105,6 @@ public abstract class Random : IRandom
         if (result <= long.MaxValue)
             return (long)result;
 
-        // ReSharper disable once IntVariableOverflowInUncheckedContext
-        // This should be handled by the if check above.
         return (long)result >> 1;
     }
 
@@ -102,15 +115,16 @@ public abstract class Random : IRandom
     public virtual ulong NextULong(ulong min, ulong max)
     {
         if (min == max)
-        {
             return min;
-        }
+
+        NextInRangeValidator.ValidateRange(min, max);
 
         var range = max - min;
         var x = NextULong();
 
         var bigULong = Math128.Multiply(x, range);
-        if (bigULong.Low >= range) return bigULong.High + min;
+        if (bigULong.Low >= range)
+            return bigULong.High + min;
 
         // ReSharper disable once IntVariableOverflowInUncheckedContext
         // Overflow is checked later in the if and while statements.
@@ -142,6 +156,7 @@ public abstract class Random : IRandom
     /// <inheritdoc />
     public virtual double NextDouble(double min, double max)
     {
+        NextInRangeValidator.ValidateRange(min, max);
         return (NextDouble() * (max - min)) + min;
     }
 

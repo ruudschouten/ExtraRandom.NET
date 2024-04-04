@@ -1,5 +1,6 @@
 using System.Numerics;
 using System.Runtime.InteropServices;
+using ExtraRandom.Validator;
 
 namespace ExtraRandom.Specialised;
 
@@ -74,12 +75,6 @@ public readonly struct BiasedRandom : IRandom
     }
 
     /// <inheritdoc />
-    public byte[] NextBytes(int length)
-    {
-        return _random.NextBytes(length);
-    }
-
-    /// <inheritdoc />
     public int NextInt()
     {
         return NextInt(int.MinValue, int.MaxValue);
@@ -139,14 +134,13 @@ public readonly struct BiasedRandom : IRandom
         return Roll(min, max);
     }
 
-    /// <inheritdoc />
-    public void Fill(ref Span<byte> buffer)
-    {
-        _random.Fill(ref buffer);
-    }
-
     private ulong Roll(ulong min, ulong max)
     {
+        if (min == max)
+            return min;
+
+        NextInRangeValidator.ValidateRange(min, max);
+
         var average = (max - min) / 2;
         var closestAvg = max;
 
@@ -168,6 +162,8 @@ public readonly struct BiasedRandom : IRandom
 
     private double Roll(double min, double max)
     {
+        NextInRangeValidator.ValidateRange(min, max);
+
         var average = (max - min) / 2;
         var closestAvg = max;
 
