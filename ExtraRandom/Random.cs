@@ -29,18 +29,12 @@ public abstract class Random : IRandom
     /// <inheritdoc />
     public virtual byte NextByte(byte min, byte max)
     {
+        if (min == max)
+            return min;
+
+        NextInRangeValidator.ValidateRange(min, max);
+
         return (byte)NextUInt(min, max);
-    }
-
-    /// <inheritdoc />
-    public virtual byte[] NextBytes(int length)
-    {
-        if (length <= 0)
-            return Array.Empty<byte>();
-
-        Span<byte> bytes = stackalloc byte[length];
-        Fill(ref bytes);
-        return bytes.ToArray();
     }
 
     #endregion
@@ -150,12 +144,6 @@ public abstract class Random : IRandom
     {
         return (NextDouble() * (max - min)) + min;
     }
-
-    /// <summary>
-    /// Fills the elements of a specified array of bytes with random numbers.
-    /// </summary>
-    /// <param name="buffer">The array to be filled.</param>
-    public abstract void Fill(ref Span<byte> buffer);
 
     /// <summary>
     /// Returns the integer ceiling log of the specified <paramref name="value"/>, base 2.

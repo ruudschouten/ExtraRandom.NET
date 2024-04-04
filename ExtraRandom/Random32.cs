@@ -87,28 +87,4 @@ public abstract class Random32 : Random
         ulong low = NextUInt();
         return high << 32 | low;
     }
-
-    /// <inheritdoc />
-    public override void Fill(ref Span<byte> buffer)
-    {
-        if (buffer.Length <= 0 || buffer == default)
-            return;
-
-        while (buffer.Length >= Size)
-        {
-            BinaryPrimitives.WriteUInt32LittleEndian(buffer, Next());
-            buffer = buffer[Size..];
-        }
-
-        if (buffer.Length == 0)
-            return;
-
-        var chunk = new byte[Size];
-        BinaryPrimitives.WriteUInt32LittleEndian(chunk, Next());
-
-        for (var i = 0; i < buffer.Length; i++)
-        {
-            buffer[i] = chunk[i];
-        }
-    }
 }

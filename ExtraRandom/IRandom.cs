@@ -48,20 +48,6 @@ public interface IRandom
     byte NextByte(byte min, byte max);
 
     /// <summary>
-    /// Generate an array of random bytes.
-    /// </summary>
-    /// <param name="length">Amount of bytes to generate.</param>
-    /// <returns>An array of random bytes.</returns>
-    /// <remarks>
-    /// <para>This can overflow if the <paramref name="length"/> goes above the maximum available space on the stack.</para>
-    /// <para>
-    /// This is set to <c>1MB</c> on 32-bit processors, and <c>4MB</c> on 64-bit processors.
-    /// </para>
-    /// <para>Meaning the <b>maximum number length should be around 4 million</b>.</para>
-    /// </remarks>
-    byte[] NextBytes(int length);
-
-    /// <summary>
     /// Generate a <see cref="int"/>.
     /// </summary>
     /// <returns>A 32-bit signed integer.</returns>
@@ -140,10 +126,4 @@ public interface IRandom
     /// <param name="max">Exclusive upper bound.</param>
     /// <returns>A double-precision floating point number between the <paramref name="min"/> and <paramref name="max"/> values.</returns>
     double NextDouble(double min, double max);
-
-    /// <summary>
-    /// Fills the elements of a specified array of bytes with random numbers.
-    /// </summary>
-    /// <param name="buffer">The array to be filled.</param>
-    void Fill(ref Span<byte> buffer);
 }

@@ -82,28 +82,4 @@ public abstract class Random64 : Random
 
     /// <inheritdoc />
     public override ulong NextULong() => Next();
-
-    /// <inheritdoc />
-    public override void Fill(ref Span<byte> buffer)
-    {
-        if (buffer.Length <= 0 || buffer == default)
-            return;
-
-        while (buffer.Length >= Size)
-        {
-            BinaryPrimitives.WriteUInt64LittleEndian(buffer, Next());
-            buffer = buffer[Size..];
-        }
-
-        if (buffer.Length == 0)
-            return;
-
-        var chunk = new byte[Size];
-        BinaryPrimitives.WriteUInt64LittleEndian(chunk, Next());
-
-        for (var i = 0; i < buffer.Length; i++)
-        {
-            buffer[i] = chunk[i];
-        }
-    }
 }
