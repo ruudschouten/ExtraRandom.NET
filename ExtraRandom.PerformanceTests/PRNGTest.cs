@@ -1,12 +1,12 @@
 using System.Diagnostics.CodeAnalysis;
-using ExtraRandom.UnitTests.Util;
+using ExtraRandom.TestHelper;
 using Xunit.Abstractions;
 
 // ReSharper disable HeuristicUnreachableCode
 // ReSharper disable RedundantAssignment
 #pragma warning disable CS0162 // Unreachable code detected -> Ignored because of the const bool which can be set to true for testing.
 
-namespace ExtraRandom.UnitTests.PRNG;
+namespace ExtraRandom.PerformanceTests;
 
 [SuppressMessage(
     "StyleCop.CSharp.DocumentationRules",
@@ -20,7 +20,7 @@ namespace ExtraRandom.UnitTests.PRNG;
 )]
 public class PRNGTest : ResultOutputHelper
 {
-    private const int Loops = 10_000;
+    private const int Loops = 100_000;
 
     /// <summary>
     /// Determines if the test should keep track of how many times a single number has been generated.

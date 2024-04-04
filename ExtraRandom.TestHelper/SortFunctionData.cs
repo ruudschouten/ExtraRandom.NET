@@ -1,7 +1,7 @@
 using System.Collections;
 using ExtraSort;
 
-namespace ExtraRandom.UnitTests.Util;
+namespace ExtraRandom.TestHelper;
 
 /// <summary>
 /// Test data containing all sorting algorithms.

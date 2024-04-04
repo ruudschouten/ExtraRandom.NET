@@ -1,6 +1,6 @@
 using Xunit.Abstractions;
 
-namespace ExtraRandom.UnitTests.Util;
+namespace ExtraRandom.TestHelper;
 
 /// <summary>
 /// Helper class for recording and printing out mapped values.
