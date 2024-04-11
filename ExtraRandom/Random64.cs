@@ -1,4 +1,3 @@
-using System.Buffers.Binary;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ExtraRandom;
@@ -23,7 +22,7 @@ public abstract class Random64 : Random
     /// Internal state of the RNG.
     /// </summary>
 #pragma warning disable SA1401, SA1306
-    protected ulong[] State = Array.Empty<ulong>();
+    protected ulong[] State = [];
 #pragma warning restore SA1306, SA1401
 
     /// <summary>

@@ -52,13 +52,6 @@ public sealed class RomuDuo : Random64
         );
     }
 
-    /// <inheritdoc />
-    public override void SetSeed(params ulong[] seed)
-    {
-        State[0] = seed[0];
-        State[1] = seed[1];
-    }
-
     /// <inheritdoc/>
     protected override ulong Next()
     {

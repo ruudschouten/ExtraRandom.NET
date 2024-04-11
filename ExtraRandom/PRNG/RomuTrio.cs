@@ -54,14 +54,6 @@ public sealed class RomuTrio : Random64
     }
 
     /// <inheritdoc />
-    public override void SetSeed(params ulong[] seed)
-    {
-        State[0] = seed[0];
-        State[1] = seed[1];
-        State[2] = seed[2];
-    }
-
-    /// <inheritdoc />
     protected override ulong Next()
     {
         var x = State[0];
