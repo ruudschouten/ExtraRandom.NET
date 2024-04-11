@@ -24,7 +24,7 @@ public class WeightedRandomTest
     }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
     public void Weighted_Rolls_Test(IRandom rand)
     {
         const int rolls = 1_000_000;
@@ -66,7 +66,7 @@ public class WeightedRandomTest
     }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
     public void Weighted_Speed_Test(IRandom rand)
     {
         const int rolls = 1_000_000;
@@ -90,7 +90,7 @@ public class WeightedRandomTest
     }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
     public void Weighted_Adding_Test(IRandom rand)
     {
         const int numbersToAdd = 1_000_000;

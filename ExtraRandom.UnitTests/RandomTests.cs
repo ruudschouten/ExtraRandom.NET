@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using ExtraRandom.TestHelper;
+﻿using ExtraRandom.TestHelper;
 using FluentAssertions;
 
 namespace ExtraRandom.UnitTests;
@@ -8,7 +7,7 @@ public class RandomTests
 {
     #region Boolean
     [Theory]
-    [ClassData(typeof(PRNGWithSeedsTestData))]
+    [ClassData(typeof(PRNGRandomsWithSeeds))]
     public void GeneratingBoolean_IsTrueOrFalse(IRandom random, ulong seed)
     {
         // Arrange
@@ -25,7 +24,7 @@ public class RandomTests
     #region Byte
 
     [Theory]
-    [ClassData(typeof(PRNGWithSeedsTestData))]
+    [ClassData(typeof(PRNGRandomsWithSeeds))]
     public void GeneratingByte_IsInRange(IRandom random, ulong seed)
     {
         // Arrange
@@ -39,7 +38,7 @@ public class RandomTests
     }
 
     [Theory]
-    [ClassData(typeof(PRNGWithSeedsTestData))]
+    [ClassData(typeof(PRNGRandomsWithSeeds))]
     public void GeneratingByte_WithMinAndMax_IsInRange(IRandom random, ulong seed)
     {
         // Arrange
@@ -55,7 +54,7 @@ public class RandomTests
     }
 
     [Theory]
-    [ClassData(typeof(PRNGWithSeedsTestData))]
+    [ClassData(typeof(PRNGRandomsWithSeeds))]
     public void GeneratingByte_WhereMaxHitsExclusiveUpperBound_ReturnsLowerBound(
         IRandom random,
         ulong seed
@@ -74,7 +73,7 @@ public class RandomTests
     }
 
     [Theory]
-    [ClassData(typeof(PRNGWithSeedsTestData))]
+    [ClassData(typeof(PRNGRandomsWithSeeds))]
     public void GeneratingByte_WhereMinAndMaxAreTheSameValue_ShouldReturnMin(
         IRandom random,
         ulong seed
@@ -93,7 +92,7 @@ public class RandomTests
     }
 
     [Theory]
-    [ClassData(typeof(PRNGWithSeedsTestData))]
+    [ClassData(typeof(PRNGRandomsWithSeeds))]
     public void GeneratingByte_WhereMinIsHigherThanMax_ShouldThrowException(
         IRandom random,
         ulong seed
@@ -118,7 +117,7 @@ public class RandomTests
     #region Int
 
     [Theory]
-    [ClassData(typeof(PRNGWithSeedsTestData))]
+    [ClassData(typeof(PRNGRandomsWithSeeds))]
     public void GeneratingInt_IsInRange(IRandom random, ulong seed)
     {
         // Arrange
@@ -132,7 +131,7 @@ public class RandomTests
     }
 
     [Theory]
-    [ClassData(typeof(PRNGWithSeedsTestData))]
+    [ClassData(typeof(PRNGRandomsWithSeeds))]
     public void GeneratingInt_WithMinAndMax_IsInRange(IRandom random, ulong seed)
     {
         // Arrange
@@ -148,7 +147,7 @@ public class RandomTests
     }
 
     [Theory]
-    [ClassData(typeof(PRNGWithSeedsTestData))]
+    [ClassData(typeof(PRNGRandomsWithSeeds))]
     public void GeneratingInt_WhereMaxHitsExclusiveUpperBound_ReturnsLowerBound(
         IRandom random,
         ulong seed
@@ -167,7 +166,7 @@ public class RandomTests
     }
 
     [Theory]
-    [ClassData(typeof(PRNGWithSeedsTestData))]
+    [ClassData(typeof(PRNGRandomsWithSeeds))]
     public void GeneratingInt_WhereMinAndMaxAreTheSameValue_ShouldReturnMin(
         IRandom random,
         ulong seed
@@ -186,7 +185,7 @@ public class RandomTests
     }
 
     [Theory]
-    [ClassData(typeof(PRNGWithSeedsTestData))]
+    [ClassData(typeof(PRNGRandomsWithSeeds))]
     public void GeneratingInt_WhereRangeIsNegative_ShouldReturnNegativeNumber(
         IRandom random,
         ulong seed
@@ -206,7 +205,7 @@ public class RandomTests
     }
 
     [Theory]
-    [ClassData(typeof(PRNGWithSeedsTestData))]
+    [ClassData(typeof(PRNGRandomsWithSeeds))]
     public void GeneratingInt_WhereMinIsNegative_ShouldReturnNumber(IRandom random, ulong seed)
     {
         // Arrange
@@ -222,7 +221,7 @@ public class RandomTests
     }
 
     [Theory]
-    [ClassData(typeof(PRNGWithSeedsTestData))]
+    [ClassData(typeof(PRNGRandomsWithSeeds))]
     public void GeneratingInt_WhereMinIsHigherThanMax_ShouldThrowException(
         IRandom random,
         ulong seed

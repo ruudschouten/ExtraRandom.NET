@@ -36,7 +36,7 @@ public class PRNGTest : ResultOutputHelper
     }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
 #pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
     public void Bool(IRandom rand)
 #pragma warning restore S2699
@@ -54,7 +54,7 @@ public class PRNGTest : ResultOutputHelper
     }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
     public void ByteRange(IRandom rand)
     {
         var generateHits = new SortedDictionary<byte, int>();
@@ -74,7 +74,7 @@ public class PRNGTest : ResultOutputHelper
     }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
     public void IntRange(IRandom rand)
     {
         var generateHits = new SortedDictionary<int, int>();
@@ -94,7 +94,7 @@ public class PRNGTest : ResultOutputHelper
     }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
     public void UIntRange(IRandom rand)
     {
         var generateHits = new SortedDictionary<uint, int>();
@@ -114,7 +114,7 @@ public class PRNGTest : ResultOutputHelper
     }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
     public void LongRange(IRandom rand)
     {
         var generateHits = new SortedDictionary<long, int>();
@@ -134,7 +134,7 @@ public class PRNGTest : ResultOutputHelper
     }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
     public void ULongRange(IRandom rand)
     {
         var generateHits = new SortedDictionary<ulong, int>();
@@ -154,7 +154,7 @@ public class PRNGTest : ResultOutputHelper
     }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
     public void DoubleRange(IRandom rand)
     {
         var generateHits = new SortedDictionary<double, int>();

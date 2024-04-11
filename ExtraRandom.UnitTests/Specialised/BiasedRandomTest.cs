@@ -19,42 +19,42 @@ public class BiasedRandomTest : ResultOutputHelper
         : base(output, recordAmountOfGeneratedNumbers: true) { }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
     public void BiasedTest_Long_Lower(IRandom rand)
     {
         Generate_Long(rand, Bias.Lower);
     }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
     public void BiasedTest_Long_Average(IRandom rand)
     {
         Generate_Long(rand, Bias.Average);
     }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
     public void BiasedTest_Long_Higher(IRandom rand)
     {
         Generate_Long(rand, Bias.Higher);
     }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
     public void BiasedTest_Double_Lower(IRandom rand)
     {
         Generate_Double(rand, Bias.Lower);
     }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
     public void BiasedTest_Double_Average(IRandom rand)
     {
         Generate_Double(rand, Bias.Average);
     }
 
     [Theory]
-    [ClassData(typeof(PRNGTestData))]
+    [ClassData(typeof(PRNGRandoms))]
     public void BiasedTest_Double_Higher(IRandom rand)
     {
         Generate_Double(rand, Bias.Higher);
