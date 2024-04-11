@@ -18,9 +18,9 @@ namespace ExtraRandom.TestHelper;
     "S101:Types should be named in PascalCase",
     Justification = "PRNG is an abbreviation, so the naming is fine."
 )]
-public class PRNGTestData : TheoryData<IRandom>
+public class PRNGRandoms : TheoryData<IRandom>
 {
-    public PRNGTestData()
+    public PRNGRandoms()
     {
         Add(new SystemRandom(500));
         Add(new CryptoRandom());

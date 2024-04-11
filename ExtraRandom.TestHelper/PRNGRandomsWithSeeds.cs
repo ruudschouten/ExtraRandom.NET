@@ -2,13 +2,13 @@
 
 namespace ExtraRandom.TestHelper;
 
-public class PRNGWithSeedsTestData : TheoryData<IRandom, long>
+public class PRNGRandomsWithSeeds : TheoryData<IRandom, long>
 {
     private readonly long[] _seeds = { 500L };
 
-    public PRNGWithSeedsTestData()
+    public PRNGRandomsWithSeeds()
     {
-        foreach (var data in new PRNGTestData())
+        foreach (var data in new PRNGRandoms())
         {
             var prng = data[0] as IRandom ?? throw new InvalidOperationException();
 
