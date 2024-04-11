@@ -56,12 +56,10 @@ public abstract class Random64 : Random
 
         if (seed.Length != State.Length)
         {
-            throw new ArgumentException($"Seed must be at least {State.Length} long", nameof(seed));
+            throw new ArgumentException($"Seed must be at exactly {State.Length} long", nameof(seed));
         }
 
-        // Change the length to whichever field is larger.
-        var length = seed.Length > State.Length ? State.Length : seed.Length;
-        Array.Copy(seed, 0, State, 0, length);
+        Array.Copy(seed, 0, State, 0, State.Length);
     }
 
     /// <inheritdoc />
