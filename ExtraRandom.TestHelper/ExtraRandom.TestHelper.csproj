@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ExtraRandom\ExtraRandom.csproj" />
-      <ProjectReference Include="..\ExtraSort\ExtraSort.csproj" />
     </ItemGroup>
 
     <ItemGroup>
