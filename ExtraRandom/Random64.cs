@@ -56,7 +56,10 @@ public abstract class Random64 : Random
 
         if (seed.Length != State.Length)
         {
-            throw new ArgumentException($"Seed must be at exactly {State.Length} long", nameof(seed));
+            throw new ArgumentException(
+                $"Seed must be at exactly {State.Length} long",
+                nameof(seed)
+            );
         }
 
         Array.Copy(seed, 0, State, 0, State.Length);

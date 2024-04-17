@@ -20,7 +20,6 @@ public class PRNGBenchmark
     private readonly Xoroshiro128PlusPlus _xoroshiro128PlusPlus = new(Seed);
     private readonly Xoroshiro128StarStar _xoroshiro128StarStar = new(Seed);
 
-
     [Benchmark]
     public long SystemRandom() => _systemRandom.NextLong();
 
