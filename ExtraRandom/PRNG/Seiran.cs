@@ -26,9 +26,7 @@ public sealed class Seiran : Random64
     /// </para>
     /// </remarks>
     public Seiran(ulong baseSeed)
-        : this([baseSeed, baseSeed + 1])
-    {
-    }
+        : this([baseSeed, baseSeed + 1]) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Seiran"/> class.

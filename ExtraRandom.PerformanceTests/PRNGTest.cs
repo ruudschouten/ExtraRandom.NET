@@ -31,9 +31,7 @@ public class PRNGTest : ResultOutputHelper
     private const bool _recordAmountOfGeneratedNumbers = true;
 
     public PRNGTest(ITestOutputHelper output)
-        : base(output, _recordAmountOfGeneratedNumbers)
-    {
-    }
+        : base(output, _recordAmountOfGeneratedNumbers) { }
 
     [Theory]
     [ClassData(typeof(PRNGRandoms))]

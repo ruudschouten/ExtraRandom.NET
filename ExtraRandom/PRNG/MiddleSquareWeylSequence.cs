@@ -29,7 +29,7 @@ public sealed class MiddleSquareWeylSequence : Random32
     {
         State = new ulong[2];
         SetSeed(seed);
-}
+    }
 
     /// <inheritdoc />
     public override void Reseed()

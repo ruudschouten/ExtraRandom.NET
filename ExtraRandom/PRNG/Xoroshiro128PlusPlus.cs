@@ -14,9 +14,7 @@ public sealed class Xoroshiro128PlusPlus : Random64
     /// </summary>
     /// <param name="baseSeed">Base seed to use for the random number generation.</param>
     public Xoroshiro128PlusPlus(ulong baseSeed = 0)
-        : this(baseSeed, baseSeed + 1)
-    {
-    }
+        : this(baseSeed, baseSeed + 1) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Xoroshiro128PlusPlus"/> class.
