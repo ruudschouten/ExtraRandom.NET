@@ -70,6 +70,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ExtraMath\ExtraMath.csproj" />
+      <ProjectReference Include="..\Modules\ExtraSort.NET\ExtraSort\ExtraSort.csproj" />
     </ItemGroup>
 
 </Project>
