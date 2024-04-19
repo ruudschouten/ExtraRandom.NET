@@ -1,11 +1,13 @@
 ﻿using ExtraSort;
 
-namespace ExtraShuffle.Shuffles;
+namespace ExtraShuffle;
 
 public static class FaroShuffleExtension
 {
-    public static void FaroShuffle<T>(this IList<T> list, int min, int max)
+    public static void FaroShuffle<T>(this IList<T> list, int min = 0, int max = int.MinValue)
     {
+        if (max == int.MinValue) max = list.Count;
+
         var mid = (min + max) / 2;
         var firstHalf = list.Slice(min, mid - 1).ToArray();
         var secondHalf = list.Slice(mid, max).ToArray();
@@ -19,10 +21,5 @@ public static class FaroShuffleExtension
                 list[i] = currentHalf[i / 2];
             }
         }
-    }
-
-    public static void FaroShuffle<T>(this IList<T> list)
-    {
-        list.FaroShuffle(0, list.Count - 1);
     }
 }

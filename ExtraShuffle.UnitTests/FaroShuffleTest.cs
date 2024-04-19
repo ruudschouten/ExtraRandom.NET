@@ -1,5 +1,4 @@
-﻿using ExtraShuffle.Shuffles;
-using FluentAssertions;
+﻿using FluentAssertions;
 
 namespace ExtraShuffle.UnitTests;
 
