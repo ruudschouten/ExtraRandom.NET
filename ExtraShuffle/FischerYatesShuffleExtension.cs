@@ -8,9 +8,15 @@ public static class FischerYatesShuffleExtension
     /// <summary>
     /// Randomly shuffle the <paramref name="list"/>.
     /// </summary>
-    public static void FischerYatesShuffle<T>(this IList<T> list, IRandom random, int min = 0, int max = int.MinValue)
+    public static void FischerYatesShuffle<T>(
+        this IList<T> list,
+        IRandom random,
+        int min = 0,
+        int max = int.MinValue
+    )
     {
-        if (max == int.MinValue) max = list.Count;
+        if (max == int.MinValue)
+            max = list.Count;
 
         foreach (var (i, j) in list.FischerYatesShuffleIterable(random, min, max))
         {
@@ -30,9 +36,11 @@ public static class FischerYatesShuffleExtension
         this IList<T> list,
         IRandom random,
         int min = 0,
-        int max = int.MinValue)
+        int max = int.MinValue
+    )
     {
-        if (max == int.MinValue) max = list.Count;
+        if (max == int.MinValue)
+            max = list.Count;
 
         for (var i = max - 1; i >= min; i--)
         {
@@ -54,9 +62,11 @@ public static class FischerYatesShuffleExtension
         IRandom random,
         int min = 0,
         int max = int.MinValue,
-        [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        [EnumeratorCancellation] CancellationToken cancellationToken = default
+    )
     {
-        if (max == int.MinValue) max = list.Count;
+        if (max == int.MinValue)
+            max = list.Count;
 
         for (var i = max - 1; i >= min; i--)
         {
