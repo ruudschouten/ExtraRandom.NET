@@ -4,7 +4,7 @@ namespace ExtraRandom.TestHelper;
 
 public class PRNGRandomsWithSeeds : TheoryData<IRandom, long>
 {
-    private readonly long[] _seeds = { 500L };
+    private readonly long[] _seeds = { 500L, 250, 125, 70, 5 };
 
     public PRNGRandomsWithSeeds()
     {
