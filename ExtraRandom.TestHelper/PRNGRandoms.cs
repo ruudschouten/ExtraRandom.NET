@@ -27,6 +27,7 @@ public class PRNGRandoms : TheoryData<IRandom>
         Add(new BiasedRandom(new RomuDuoJr(500), Bias.Lower, 3));
         Add(new BiasedRandom(new RomuDuoJr(500), Bias.Average, 3));
         Add(new BiasedRandom(new RomuDuoJr(500), Bias.Higher, 3));
+        Add(new BiasedRandom(new RomuDuoJr(500), Bias.GoldenRatio, 3));
         Add(new MiddleSquareWeylSequence(500));
         Add(new RomuDuo(500));
         Add(new RomuDuoJr(500));

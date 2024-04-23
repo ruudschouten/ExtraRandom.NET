@@ -18,5 +18,10 @@ public enum Bias
     /// <summary>
     /// Prefer larger numbers.
     /// </summary>
-    Higher
+    Higher,
+
+    /// <summary>
+    /// Prefer numbers close to the golden ratio.
+    /// </summary>
+    GoldenRatio
 }

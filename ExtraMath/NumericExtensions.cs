@@ -33,4 +33,15 @@ public static class NumericExtensions
 
         return smallerThanHigh && higherThanLow;
     }
+
+    /// <summary>
+    /// Get the closest value to the <paramref name="value"/> between the <paramref name="first"/> and <paramref name="second"/> values.
+    /// </summary>
+    public static double GetClosest(this double value, double first, double second)
+    {
+        var firstDifference = Math.Abs(value - first);
+        var secondDifference = Math.Abs(value - second);
+
+        return firstDifference < secondDifference ? first : second;
+    }
 }

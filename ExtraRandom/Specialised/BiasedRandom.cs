@@ -1,5 +1,6 @@
 using System.Numerics;
 using System.Runtime.InteropServices;
+using ExtraMath;
 using ExtraRandom.Validator;
 
 namespace ExtraRandom.Specialised;
@@ -31,12 +32,16 @@ public readonly struct BiasedRandom : IRandom
     /// <param name="random">PRNG instance to use for the random rolls.</param>
     /// <param name="bias">What type of results to favour.</param>
     /// <param name="rolls">Amount of rolls to perform before picking a result closest to the <paramref name="bias"/>.</param>
-    public BiasedRandom(IRandom random, Bias bias, int rolls)
+    public BiasedRandom(IRandom random, Bias bias, int rolls = 1)
     {
         _random = random;
         _bias = bias;
+        if (rolls < 1)
+            throw new ArgumentOutOfRangeException(nameof(rolls), "Rolls must be greater than 0.");
         _rolls = rolls;
     }
+
+    #region IRandom interface
 
     /// <inheritdoc />
     public void Reseed()
@@ -119,13 +124,13 @@ public readonly struct BiasedRandom : IRandom
     /// <inheritdoc />
     public ulong NextULong(ulong min, ulong max)
     {
-        return Roll(min, max);
+        return (ulong)Roll(min, max);
     }
 
     /// <inheritdoc />
     public double NextDouble()
     {
-        return NextDouble(double.MinValue, double.MaxValue);
+        return NextDouble(0, 1.0);
     }
 
     /// <inheritdoc />
@@ -134,74 +139,116 @@ public readonly struct BiasedRandom : IRandom
         return Roll(min, max);
     }
 
-    private ulong Roll(ulong min, ulong max)
-    {
-        if (min == max)
-            return min;
-
-        NextInRangeValidator.ValidateRange(min, max);
-
-        var average = (max - min) / 2;
-        var closestAvg = max;
-
-        var closestForBias = _bias switch
-        {
-            Bias.Lower => ulong.MaxValue,
-            Bias.Higher => ulong.MinValue,
-            _ => 0UL
-        };
-
-        for (var i = 0; i < _rolls; i++)
-        {
-            var roll = _random.NextULong(min, max);
-            closestForBias = GetClosestForBias(roll, closestForBias, average, ref closestAvg);
-        }
-
-        return closestForBias;
-    }
+    #endregion
 
     private double Roll(double min, double max)
     {
         NextInRangeValidator.ValidateRange(min, max);
 
-        var average = (max - min) / 2;
-        var closestAvg = max;
-
-        var closestForBias = _bias switch
-        {
-            Bias.Lower => double.MaxValue,
-            Bias.Higher => double.MinValue,
-            _ => 0
-        };
+        var closestForBias = SetBiasValues(
+            min,
+            max,
+            out var average,
+            out var closestAvg,
+            out var goldenRatio
+        );
 
         for (var i = 0; i < _rolls; i++)
         {
-            var roll = _random.NextDouble(min, max);
-            closestForBias = GetClosestForBias(roll, closestForBias, average, ref closestAvg);
+            double roll;
+            switch (_bias)
+            {
+                case Bias.Lower:
+                    roll = _random.NextDouble(min, max);
+                    closestForBias = GetClosestForLowerBias(roll, closestForBias);
+                    break;
+                case Bias.Higher:
+                    roll = _random.NextDouble(min, max);
+                    closestForBias = GetClosestForHigherBias(roll, closestForBias);
+                    break;
+                case Bias.Average:
+                    roll = _random.NextDouble(min, max);
+                    closestForBias = GetClosestForAverageBias(roll, average, ref closestAvg);
+                    break;
+                case Bias.GoldenRatio:
+                    roll = _random.NextDouble();
+                    closestForBias = GetClosestForGoldenRatioBias(roll, min, max, goldenRatio);
+                    break;
+                default:
+                    throw new InvalidOperationException("Invalid bias type.");
+            }
         }
 
         return closestForBias;
     }
 
-    private T GetClosestForBias<T>(T roll, T closestForBias, T average, ref T closestAvg)
-        where T : INumber<T>
+    private double SetBiasValues(
+        double min,
+        double max,
+        out double average,
+        out double closestAvg,
+        out double goldenRatio
+    )
     {
+        var closestForBias = 0.0;
+        average = double.MinValue;
+        closestAvg = double.MinValue;
+        goldenRatio = double.MinValue;
         switch (_bias)
         {
-            case Bias.Lower when roll < closestForBias:
-                return roll;
+            case Bias.Lower:
+                closestForBias = double.MaxValue;
+                break;
+            case Bias.Higher:
+                closestForBias = double.MinValue;
+                break;
+            case Bias.GoldenRatio:
+                goldenRatio = min + ((max - min) / NumericConstants.GoldenRatio);
+                break;
             case Bias.Average:
-            {
-                var difference = average - roll;
-                if (difference < closestAvg)
-                    closestAvg = difference;
-                return roll;
-            }
-
-            case Bias.Higher when roll > closestForBias:
-                return roll;
+                average = (max - min) / 2;
+                closestAvg = max;
+                break;
             default:
-                return closestForBias;
+                throw new InvalidOperationException("Invalid bias type.");
         }
+
+        return closestForBias;
+    }
+
+    private static double GetClosestForLowerBias(double roll, double closestForBias)
+    {
+        return roll < closestForBias ? roll : closestForBias;
+    }
+
+    private static double GetClosestForHigherBias(double roll, double closestForBias)
+    {
+        return roll > closestForBias ? roll : closestForBias;
+    }
+
+    private static double GetClosestForAverageBias(
+        double roll,
+        double average,
+        ref double closestAvg
+    )
+    {
+        var difference = average - roll;
+        if (difference < closestAvg)
+            closestAvg = difference;
+        return roll;
+    }
+
+    private static double GetClosestForGoldenRatioBias(
+        double roll,
+        double min,
+        double max,
+        double closestForBias
+    )
+    {
+        var newRoll = roll += NumericConstants.GoldenRatioConjugate;
+        newRoll %= 1;
+        newRoll = (newRoll * (max - min)) + min;
+
+        return closestForBias.GetClosest(newRoll, roll);
     }
 }
