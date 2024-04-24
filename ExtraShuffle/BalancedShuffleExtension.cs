@@ -3,8 +3,10 @@
 namespace ExtraShuffle;
 
 /// <summary>
+/// <para>
 /// Balanced Shuffle, as explained by Martin Fiedler.
 /// The basic principle of the algorithm is to split the  collection into multiple logical groups.
+/// </para>
 /// <para>
 /// source: https://keyj.emphy.de/balanced-shuffle/
 /// </para>
@@ -32,10 +34,11 @@ public static class BalancedShuffleExtension
     }
 
     /// <summary>
-    /// Iterate over a range in <paramref name="list"/> by first grouping elements using <paramref name="groupingFunction"/>,
+    /// Iterate over <paramref name="list"/> by first grouping elements using <paramref name="groupingFunction"/>,
     /// then making all groups the same size by adding dummy elements, and finally merging and shuffling the groups.
     /// </summary>
-    /// <remarks>This does <b>NOT</b> alter <paramref name="list"/>, you need to do this yourself.
+    /// <remarks>
+    /// <para>This does <b>NOT</b> alter <paramref name="list"/>, you need to do this yourself.</para>
     /// <para>
     /// If you do not want to do this, consider using <see cref="BalancedShuffle{TSource,TKey}"/>
     /// </para></remarks>

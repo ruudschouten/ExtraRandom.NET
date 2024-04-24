@@ -6,7 +6,8 @@ namespace ExtraShuffle;
 public static class FischerYatesShuffleExtension
 {
     /// <summary>
-    /// Randomly shuffle the <paramref name="list"/>.
+    /// <para>Randomly shuffle the <paramref name="list"/>.</para>
+    /// <para>This is an <c>O(n)</c> operation.</para>
     /// </summary>
     public static void FischerYatesShuffle<T>(
         this IList<T> list,
@@ -25,10 +26,14 @@ public static class FischerYatesShuffleExtension
     }
 
     /// <summary>
+    /// <para>
     /// Iterate over <paramref name="list"/>.
     /// Each iteration returns the indices of the two elements that should be swapped.
+    /// </para>
+    /// <para>This is an <c>O(n)</c> operation.</para>
     /// </summary>
-    /// <remarks> This does <b>NOT</b> alter <paramref name="list"/>, you need to do this yourself.
+    /// <remarks>
+    /// <para>This does <b>NOT</b> alter <paramref name="list"/>, you need to do this yourself.</para>
     /// <para>
     /// If you do not want to do this, consider using <see cref="FischerYatesShuffle{T}"/>
     /// </para> </remarks>
@@ -50,10 +55,13 @@ public static class FischerYatesShuffleExtension
     }
 
     /// <summary>
+    /// <para>
     /// Iterate over a range in <paramref name="list"/> using the provided <paramref name="min"/> and <paramref name="max"/>.
     /// Each iteration returns the indices of the two elements that should be swapped.
+    /// </para>
+    /// <para>This is an <c>O(n)</c> operation.</para>
     /// </summary>
-    /// <remarks>This does <b>NOT</b> alter <paramref name="list"/>, you need to do this yourself.
+    /// <remarks><para>This does <b>NOT</b> alter <paramref name="list"/>, you need to do this yourself.</para>
     /// <para>
     /// If you do not want to do this, consider using <see cref="FischerYatesShuffle{T}"/>
     /// </para></remarks>
