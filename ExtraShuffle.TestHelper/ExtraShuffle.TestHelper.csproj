@@ -11,6 +11,12 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="xunit.extensibility.core" Version="2.7.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ExtraRandom\ExtraRandom.csproj" />
+      <ProjectReference Include="..\ExtraShuffle\ExtraShuffle.csproj" />
     </ItemGroup>
 
 </Project>
