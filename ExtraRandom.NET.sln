@@ -34,6 +34,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtraShuffle", "ExtraShuffl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtraShuffle.UnitTests", "ExtraShuffle.UnitTests\ExtraShuffle.UnitTests.csproj", "{DD3E72FC-C39F-47AF-A6CA-0367DAD17E7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtraShuffle.TestHelper", "ExtraShuffle.TestHelper\ExtraShuffle.TestHelper.csproj", "{80E78E47-0A92-41E6-8C12-26C14DE3D7CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtraShuffle.Benchmark", "ExtraShuffle.Benchmark\ExtraShuffle.Benchmark.csproj", "{A894EAB8-F1A5-4D1B-B7AD-83843B6FE445}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +84,14 @@ Global
 		{DD3E72FC-C39F-47AF-A6CA-0367DAD17E7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD3E72FC-C39F-47AF-A6CA-0367DAD17E7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD3E72FC-C39F-47AF-A6CA-0367DAD17E7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80E78E47-0A92-41E6-8C12-26C14DE3D7CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80E78E47-0A92-41E6-8C12-26C14DE3D7CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80E78E47-0A92-41E6-8C12-26C14DE3D7CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80E78E47-0A92-41E6-8C12-26C14DE3D7CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A894EAB8-F1A5-4D1B-B7AD-83843B6FE445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A894EAB8-F1A5-4D1B-B7AD-83843B6FE445}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A894EAB8-F1A5-4D1B-B7AD-83843B6FE445}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A894EAB8-F1A5-4D1B-B7AD-83843B6FE445}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +110,7 @@ Global
 		{6ABEA1CE-D027-4B3E-95A5-B64EF15F1BB1} = {33E414C4-22EF-4BAE-9DF9-4A79D309C05E}
 		{B55F7AB5-C378-4A28-ACFB-004FADC40DD7} = {3ED5505A-FAE1-40A5-AA5D-C37BB9D3DC85}
 		{DD3E72FC-C39F-47AF-A6CA-0367DAD17E7D} = {4C31E3F9-D556-401B-8AC1-3CB9F7E2A854}
+		{80E78E47-0A92-41E6-8C12-26C14DE3D7CD} = {4C31E3F9-D556-401B-8AC1-3CB9F7E2A854}
+		{A894EAB8-F1A5-4D1B-B7AD-83843B6FE445} = {4C31E3F9-D556-401B-8AC1-3CB9F7E2A854}
 	EndGlobalSection
 EndGlobal
