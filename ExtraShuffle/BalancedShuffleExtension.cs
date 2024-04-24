@@ -48,11 +48,8 @@ public static class BalancedShuffleExtension
     >(this IList<TSource> list, IRandom random, Func<TSource, TKey> groupingFunction)
         where TKey : notnull
     {
-        var groups = list.GroupBy(groupingFunction).ToList();
-        var maxEntryCount = groups.Max(group => group.Count());
-
+        var groups = GroupItems(list, groupingFunction, out var maxEntryCount);
         var filledGroups = Fill(groups, maxEntryCount, random);
-
         var index = 0;
         foreach (var column in MergeIntoColumns(filledGroups, maxEntryCount, random))
         {
@@ -64,13 +61,44 @@ public static class BalancedShuffleExtension
     }
 
     /// <summary>
+    /// Go through the list and group the items by the <paramref name="groupingFunction"/>, and count the maximum group size.
+    /// </summary>
+    private static Dictionary<TKey, List<TSource>> GroupItems<TSource, TKey>(
+        IList<TSource> list,
+        Func<TSource, TKey> groupingFunction,
+        out int maxEntryCount
+    )
+        where TKey : notnull
+    {
+        maxEntryCount = 0;
+        var groups = new Dictionary<TKey, List<TSource>>();
+        foreach (var item in list)
+        {
+            var key = groupingFunction(item);
+            if (!groups.TryGetValue(key, out var group))
+            {
+                group = new List<TSource>();
+                groups.Add(key, group);
+            }
+
+            group.Add(item);
+            if (group.Count > maxEntryCount)
+            {
+                maxEntryCount = group.Count;
+            }
+        }
+
+        return groups;
+    }
+
+    /// <summary>
     /// FIll the <paramref name="groups"/> with dummies in random positions to make all groups the same size and randomise the order.
     /// </summary>
     /// <param name="groups">Groups to fill</param>
     /// <param name="maxEntryCount">Maximum group size</param>
     /// <param name="random">Random number generator</param>
     private static List<List<TSource?>> Fill<TSource, TKey>(
-        IList<IGrouping<TKey, TSource>> groups,
+        Dictionary<TKey, List<TSource>> groups,
         int maxEntryCount,
         IRandom random
     )
@@ -80,7 +108,7 @@ public static class BalancedShuffleExtension
         var n = maxEntryCount * groups.Count; // total length of the output list
         var k = groups.Count; // number of segments
 
-        foreach (var group in groups)
+        foreach (var (_, group) in groups)
         {
             List<TSource?> filledGroup = new(maxEntryCount);
             filledGroup.AddRange(group);
@@ -123,22 +151,15 @@ public static class BalancedShuffleExtension
     /// <param name="maxEntryCount">Maximum group size</param>
     /// <param name="random">Random number generator</param>
     private static IEnumerable<List<TSource>> MergeIntoColumns<TSource>(
-        IReadOnlyList<List<TSource?>> filledGroups,
+        IReadOnlyCollection<List<TSource?>> filledGroups,
         int maxEntryCount,
         IRandom random
     )
     {
-        for (var row = 0; row < maxEntryCount; row++)
+        for (var column = 0; column < maxEntryCount; column++)
         {
             var slice = new List<TSource>(filledGroups.Count);
-            for (var column = 0; column < filledGroups.Count; column++)
-            {
-                var item = filledGroups[column][row];
-                if (item != null)
-                {
-                    slice.Add(item);
-                }
-            }
+            slice.AddRange(filledGroups.Select(row => row[column]).OfType<TSource>());
 
             slice.FischerYatesShuffle(random);
             yield return slice;
