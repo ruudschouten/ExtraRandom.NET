@@ -16,6 +16,17 @@ public static class FaroShuffleExtension
     /// <param name="max">The maximum index in the list to shuffle to. Default is the last index of the list.</param>
     public static void FaroShuffle<T>(this IList<T> list, int min = 0, int max = int.MinValue)
     {
+        foreach (var (old, replacement) in list.FaroShuffleIterator(min, max))
+        {
+            list[old] = replacement;
+        }
+    }
+    public static IEnumerable<(int old, T replacement)> FaroShuffleIterator<T>(
+        this IList<T> list,
+        int min = 0,
+        int max = int.MinValue
+    )
+    {
         if (max == int.MinValue)
             max = list.Count;
 
@@ -29,7 +40,7 @@ public static class FaroShuffleExtension
             var currentHalf = i % 2 == 0 ? firstHalf : secondHalf;
             if (i / 2 < currentHalf.Length)
             {
-                list[i] = currentHalf[i / 2];
+                yield return (i, currentHalf[i / 2]);
             }
         }
     }
