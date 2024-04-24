@@ -18,9 +18,9 @@ public static class FischerYatesShuffleExtension
         if (max == int.MinValue)
             max = list.Count;
 
-        foreach (var (i, j) in list.FischerYatesShuffleIterable(random, min, max))
+        foreach (var (index, replacer) in list.FischerYatesShuffleIterable(random, min, max))
         {
-            (list[i], list[j]) = (list[j], list[i]);
+            (list[index], list[replacer]) = (list[replacer], list[index]);
         }
     }
 
@@ -32,8 +32,8 @@ public static class FischerYatesShuffleExtension
     /// <para>
     /// If you do not want to do this, consider using <see cref="FischerYatesShuffle{T}"/>
     /// </para> </remarks>
-    public static IEnumerable<(int, int)> FischerYatesShuffleIterable<T>(
-        this IList<T> list,
+    public static IEnumerable<(int index, int replacement)> FischerYatesShuffleIterable<T>(
+        this ICollection<T> list,
         IRandom random,
         int min = 0,
         int max = int.MinValue
@@ -45,7 +45,7 @@ public static class FischerYatesShuffleExtension
         for (var i = max - 1; i >= min; i--)
         {
             var j = random.NextInt(i, max);
-            yield return new ValueTuple<int, int>(i, j);
+            yield return (i, j);
         }
     }
 
@@ -57,8 +57,8 @@ public static class FischerYatesShuffleExtension
     /// <para>
     /// If you do not want to do this, consider using <see cref="FischerYatesShuffle{T}"/>
     /// </para></remarks>
-    public static async IAsyncEnumerable<(int, int)> FischerYatesShuffleAsync<T>(
-        this IList<T> list,
+    public static async IAsyncEnumerable<(int index, int replacement)> FischerYatesShuffleAsync<T>(
+        this ICollection<T> list,
         IRandom random,
         int min = 0,
         int max = int.MinValue,
@@ -71,7 +71,7 @@ public static class FischerYatesShuffleExtension
         for (var i = max - 1; i >= min; i--)
         {
             var j = await Task.Run(() => random.NextInt(i, max), cancellationToken);
-            yield return new ValueTuple<int, int>(i, j);
+            yield return (i, j);
         }
     }
 }

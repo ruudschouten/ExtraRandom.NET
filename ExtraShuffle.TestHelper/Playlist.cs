@@ -25,8 +25,18 @@ public static class Playlist
             new Song("The Alien", "A Black Mile to the Surface", "Alternative", artists[2]),
             new Song("The Sunshine", "A Black Mile to the Surface", "Alternative", artists[2]),
             new Song("Simple Math", "Simple Math", "Alternative", artists[2]),
-            new Song("I Can Feel a Hot One", "Mean Everything to Nothing", "Alternative", artists[2]),
-            new Song("It All Makes Sense at the End", "Mean Everything to Nothing", "Alternative", artists[2]),
+            new Song(
+                "I Can Feel a Hot One",
+                "Mean Everything to Nothing",
+                "Alternative",
+                artists[2]
+            ),
+            new Song(
+                "It All Makes Sense at the End",
+                "Mean Everything to Nothing",
+                "Alternative",
+                artists[2]
+            ),
             new Song("m'lover", "Sonderlust", "Alternative", artists[3])
         ];
     }

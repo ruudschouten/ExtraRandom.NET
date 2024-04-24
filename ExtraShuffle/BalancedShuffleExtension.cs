@@ -25,9 +25,9 @@ public static class BalancedShuffleExtension
     )
         where TKey : notnull
     {
-        foreach (var (i, replacement) in list.BalancedShuffleIterable(random, groupingFunction))
+        foreach (var (index, replacement) in list.BalancedShuffleIterable(random, groupingFunction))
         {
-            list[i] = replacement;
+            list[index] = replacement;
         }
     }
 
@@ -42,11 +42,10 @@ public static class BalancedShuffleExtension
     /// <param name="list">List to shuffle</param>
     /// <param name="random">Random number generator</param>
     /// <param name="groupingFunction">Grouping function</param>
-    public static IEnumerable<(int oldIndex, TSource replacement)> BalancedShuffleIterable<TSource, TKey>(
-        this IList<TSource> list,
-        IRandom random,
-        Func<TSource, TKey> groupingFunction
-    )
+    public static IEnumerable<(int index, TSource replacement)> BalancedShuffleIterable<
+        TSource,
+        TKey
+    >(this IList<TSource> list, IRandom random, Func<TSource, TKey> groupingFunction)
         where TKey : notnull
     {
         var groups = list.GroupBy(groupingFunction).ToList();

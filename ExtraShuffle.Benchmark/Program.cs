@@ -18,16 +18,12 @@ public class ShuffleBenchmark
     public void FaroShuffle() => _list.FaroShuffle();
 
     [Benchmark]
-    public void BalancedShuffle() => _list.BalancedShuffle(_random, song => new
-    {
-        song.Genre, song.Artist.Name
-    });
+    public void BalancedShuffle() =>
+        _list.BalancedShuffle(_random, song => new { song.Genre, song.Artist.Name });
 
     [Benchmark]
-    public void FibonacciHashingShuffle() => _list.FibonacciHashingShuffle(_random, song => new
-    {
-        song.Genre, song.Artist.Name
-    });
+    public void FibonacciHashingShuffle() =>
+        _list.FibonacciHashingShuffle(_random, song => new { song.Genre, song.Artist.Name });
 
     public static void Main(string[] args)
     {

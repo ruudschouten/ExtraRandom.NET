@@ -45,7 +45,6 @@ public class WeightedRandomTest(ITestOutputHelper output)
         }
     }
 
-
     [Theory]
     [ClassData(typeof(PRNGRandoms))]
     public void Weighted_Rolls_Test(IRandom rand)
