@@ -1,32 +1,20 @@
-﻿using ExtraRandom.PRNG;
-using ExtraShuffle.TestHelper;
+﻿using ExtraShuffle.TestHelper;
 using FluentAssertions;
 
 namespace ExtraShuffle.UnitTests;
 
 using static Playlist;
 
-public class Checker
+public class ShuffleTester
 {
-    [Fact]
-    public void AllShuffles()
+    [Theory]
+    [ClassData(typeof(ShuffleMethods))]
+    public void Shuffling_ShouldNotBeTheSameOrderAsTheUnshuffledList_WhenCalled(Shuffle shuffle)
     {
         var unsorted = GetTestPlaylist();
-        var balanced = GetTestPlaylist();
-        var faro = GetTestPlaylist();
-        var fibonacci = GetTestPlaylist();
-        var fischerYates = GetTestPlaylist();
-        var random = new RomuTrio(500);
-        var grouping = new Func<Song, string>(song => song.Genre);
+        var playlist = GetTestPlaylist();
+        shuffle.Method.Invoke(playlist);
 
-        balanced.BalancedShuffle(random, grouping);
-        faro.FaroShuffle();
-        fibonacci.FibonacciHashingShuffle(random, grouping);
-        fischerYates.FischerYatesShuffle(random);
-
-        balanced.Should().NotContainInOrder(unsorted);
-        faro.Should().NotContainInOrder(unsorted);
-        fibonacci.Should().NotContainInOrder(unsorted);
-        fischerYates.Should().NotContainInOrder(unsorted);
+        playlist.Should().NotContainInOrder(unsorted);
     }
 }
