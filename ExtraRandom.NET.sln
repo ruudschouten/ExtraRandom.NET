@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtraShuffle.TestHelper", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtraShuffle.Benchmark", "ExtraShuffle.Benchmark\ExtraShuffle.Benchmark.csproj", "{A894EAB8-F1A5-4D1B-B7AD-83843B6FE445}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtraShuffle.PerformanceTests", "ExtraShuffle.PerformanceTests\ExtraShuffle.PerformanceTests.csproj", "{79A46C10-21D9-4E3A-BBDF-FB1F2214609D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -92,6 +94,10 @@ Global
 		{A894EAB8-F1A5-4D1B-B7AD-83843B6FE445}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A894EAB8-F1A5-4D1B-B7AD-83843B6FE445}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A894EAB8-F1A5-4D1B-B7AD-83843B6FE445}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79A46C10-21D9-4E3A-BBDF-FB1F2214609D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79A46C10-21D9-4E3A-BBDF-FB1F2214609D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79A46C10-21D9-4E3A-BBDF-FB1F2214609D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79A46C10-21D9-4E3A-BBDF-FB1F2214609D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,5 +118,6 @@ Global
 		{DD3E72FC-C39F-47AF-A6CA-0367DAD17E7D} = {4C31E3F9-D556-401B-8AC1-3CB9F7E2A854}
 		{80E78E47-0A92-41E6-8C12-26C14DE3D7CD} = {4C31E3F9-D556-401B-8AC1-3CB9F7E2A854}
 		{A894EAB8-F1A5-4D1B-B7AD-83843B6FE445} = {4C31E3F9-D556-401B-8AC1-3CB9F7E2A854}
+		{79A46C10-21D9-4E3A-BBDF-FB1F2214609D} = {4C31E3F9-D556-401B-8AC1-3CB9F7E2A854}
 	EndGlobalSection
 EndGlobal

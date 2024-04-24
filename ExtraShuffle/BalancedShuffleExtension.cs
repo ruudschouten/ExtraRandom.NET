@@ -164,7 +164,7 @@ public static class BalancedShuffleExtension
             var slice = new List<TSource>(filledGroups.Count);
             slice.AddRange(filledGroups.Select(row => row[column]).OfType<TSource>());
 
-            slice.FischerYatesShuffle(random);
+            slice.MillerShuffle(random.NextInt(1, short.MaxValue));
             yield return slice;
         }
     }

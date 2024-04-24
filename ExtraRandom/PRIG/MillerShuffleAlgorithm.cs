@@ -23,7 +23,7 @@ public static class MillerShuffleAlgorithm
     /// <para>Produces a shuffled Index given a base Index, a random seed and the length of the list being indexed.</para>
     /// <para>based on the <paramref name="variant"/> you can get different performance and randomness.</para>
     /// </summary>
-    public static double MillerShuffle(
+    public static uint MillerShuffle(
         int index,
         int seed,
         int itemCount,
@@ -51,7 +51,7 @@ public static class MillerShuffleAlgorithm
     /// The item count must be smaller than 9949, otherwise the modulo operations with primes will not be able to return a correct random index.
     /// </para>
     /// </remarks>
-    public static double MillerShuffleXLite(short index, int seed, short itemCount)
+    public static uint MillerShuffleXLite(short index, int seed, short itemCount)
     {
         const short prime1 = 3343;
         const short prime2 = 9949;
@@ -71,7 +71,7 @@ public static class MillerShuffleAlgorithm
         else
             si = (((((si - rx) * prime1) + r2) % (itemCount - rx)) + rx);
 
-        return si;
+        return (uint)si;
     }
 
     /// <summary>
@@ -83,7 +83,7 @@ public static class MillerShuffleAlgorithm
     /// The item count must be smaller than 9973, otherwise the modulo operations with primes will not be able to return a correct random index.
     /// </para>
     /// </remarks>
-    public static double MillerShuffleLite(short index, int seed, short itemCount)
+    public static uint MillerShuffleLite(short index, int seed, short itemCount)
     {
         const int prime1 = 3343;
         const int prime2 = 9949;
@@ -105,13 +105,13 @@ public static class MillerShuffleAlgorithm
         else
             si = (((((si - rx) * prime2) + r1) % (itemCount - rx)) + rx);
 
-        return ((si * prime3) + r3) % itemCount;
+        return (uint)(((si * prime3) + r3) % itemCount);
     }
 
     /// <summary>
     /// Produces a shuffled Index given a base Index, a random seed and the length of the list being indexed
     /// </summary>
-    public static double MillerShuffleD(uint index, uint seed, uint itemCount)
+    public static uint MillerShuffleD(uint index, uint seed, uint itemCount)
     {
         const uint prime1 = 24317;
         const uint prime2 = 32141;
@@ -146,7 +146,7 @@ public static class MillerShuffleAlgorithm
     /// <summary>
     /// Produces a shuffled Index given a base Index, a random seed and the length of the list being indexed
     /// </summary>
-    public static double MillerShuffleE(uint index, uint seed, uint itemCount)
+    public static uint MillerShuffleE(uint index, uint seed, uint itemCount)
     {
         const uint prime1 = 24317;
         const uint prime2 = 32141;
@@ -176,11 +176,13 @@ public static class MillerShuffleAlgorithm
         if (si < halfN)
             si = (((si * prime3) + r4) % halfN);
 
-        if ((si ^ rx) < itemCount) si ^= rx;
+        if ((si ^ rx) < itemCount)
+            si ^= rx;
 
         si = (((si * prime3) + r3) % itemCount);
 
-        if ((si ^ rkey) < itemCount) si ^= rkey;
+        if ((si ^ rkey) < itemCount)
+            si ^= rkey;
 
         return si;
     }
@@ -190,10 +192,11 @@ public static class MillerShuffleAlgorithm
     /// <summary>
     /// Produces a shuffled Index given a base Index, a random seed and the length of the list being indexed, while using a <see cref="Random"/> instance.
     /// </summary>
-    public static double MillerShuffleB(uint index, uint seed, uint itemCount)
+    public static uint MillerShuffleB(uint index, uint seed, uint itemCount)
     {
-        if ((index % itemCount) == 0) _optionalIndex = (uint)MillerShuffleD(index + itemCount - 1, seed, itemCount);
-        var si = (uint)MillerShuffleD(index, seed, itemCount);
+        if ((index % itemCount) == 0)
+            _optionalIndex = MillerShuffleD(index + itemCount - 1, seed, itemCount);
+        var si = MillerShuffleD(index, seed, itemCount);
 
         if ((index % itemCount) == (itemCount - 1))
         {

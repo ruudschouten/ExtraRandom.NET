@@ -19,9 +19,10 @@ public static class FischerYatesShuffleExtension
         if (max == int.MinValue)
             max = list.Count;
 
-        foreach (var (index, replacer) in list.FischerYatesShuffleIterable(random, min, max))
+        for (var i = max - 1; i >= min; i--)
         {
-            (list[index], list[replacer]) = (list[replacer], list[index]);
+            var j = random.NextInt(i, max);
+            (list[i], list[j]) = (list[j], list[i]);
         }
     }
 

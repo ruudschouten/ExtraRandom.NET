@@ -16,5 +16,6 @@ public class ShuffleTester
         shuffle.Method.Invoke(playlist);
 
         playlist.Should().NotContainInOrder(unsorted);
+        playlist.Distinct().Count().Should().Be(unsorted.Distinct().Count());
     }
 }

@@ -64,7 +64,7 @@ public static class FibonacciHashingShuffleExtension
         var groups = new List<TKey>();
 
         // Shuffle the items all at once, to save on enumerations and shuffles later on.
-        list.FischerYatesShuffle(random);
+        list.MillerShuffle(random.NextInt(1, short.MaxValue));
         foreach (var item in list)
         {
             var group = groupingFunction(item);
@@ -86,6 +86,8 @@ public static class FibonacciHashingShuffleExtension
             var i = (int)Math.Floor((k * NumericConstants.GoldenRatioConjugate) % 1 * n);
             var group = groups[i];
             var entry = groupedItems[group].Dequeue();
+
+            list[k - 1] = entry;
 
             yield return (k - 1, entry);
             k++;
