@@ -1,10 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <EnableNETAnalyzers>true</EnableNETAnalyzers>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <LangVersion>12</LangVersion>
     </PropertyGroup>
@@ -26,7 +25,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Meziantou.Analyzer" Version="2.0.146">
+        <PackageReference Include="Meziantou.Analyzer" Version="2.0.149">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -47,11 +46,11 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Roslynator.Analyzers" Version="4.12.0">
+        <PackageReference Include="Roslynator.Analyzers" Version="4.12.2">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="4.12.0">
+        <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="4.12.2">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -59,17 +58,16 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
           <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="SerilogAnalyzer" Version="0.15.0" />
-        <PackageReference Include="SonarAnalyzer.CSharp" Version="9.23.1.88495">
+        <PackageReference Include="SonarAnalyzer.CSharp" Version="9.24.0.89429">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="xunit.analyzers" Version="1.11.0" />
     </ItemGroup>
 
 
     <ItemGroup>
-      <ProjectReference Include="..\ExtraMath\ExtraMath.csproj" />
+      <ProjectReference Include="..\ExtraSort\ExtraSort.csproj" />
+      <ProjectReference Include="..\ExtraUtil\ExtraUtil.csproj" />
       <ProjectReference Include="..\Modules\ExtraSort.NET\ExtraSort\ExtraSort.csproj" />
     </ItemGroup>
 

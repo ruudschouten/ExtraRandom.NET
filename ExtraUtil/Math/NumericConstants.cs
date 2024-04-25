@@ -1,4 +1,4 @@
-﻿namespace ExtraMath;
+﻿namespace ExtraUtil.Math;
 
 /// <summary>
 /// Contains various numeric constants.

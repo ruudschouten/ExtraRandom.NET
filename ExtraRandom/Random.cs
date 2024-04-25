@@ -1,6 +1,6 @@
 using System.Numerics;
-using ExtraMath;
 using ExtraRandom.Validator;
+using ExtraUtil.Math;
 
 namespace ExtraRandom;
 

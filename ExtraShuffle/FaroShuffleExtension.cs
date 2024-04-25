@@ -1,4 +1,4 @@
-﻿using ExtraSort;
+﻿using ExtraUtil;
 
 namespace ExtraShuffle;
 

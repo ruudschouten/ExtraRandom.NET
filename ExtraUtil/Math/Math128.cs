@@ -1,4 +1,4 @@
-namespace ExtraMath;
+namespace ExtraUtil.Math;
 
 /// <summary>
 /// Utility class for Math methods using 128-bit numbers.

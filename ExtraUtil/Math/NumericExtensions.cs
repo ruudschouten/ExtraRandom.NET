@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace ExtraMath;
+namespace ExtraUtil.Math;
 
 /// <summary>
 /// Utility class used to add extension methods to some number data types.
@@ -39,8 +39,8 @@ public static class NumericExtensions
     /// </summary>
     public static double GetClosest(this double value, double first, double second)
     {
-        var firstDifference = Math.Abs(value - first);
-        var secondDifference = Math.Abs(value - second);
+        var firstDifference = System.Math.Abs(value - first);
+        var secondDifference = System.Math.Abs(value - second);
 
         return firstDifference < secondDifference ? first : second;
     }

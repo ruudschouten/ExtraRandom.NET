@@ -1,6 +1,6 @@
-﻿using ExtraMath;
-using ExtraRandom;
-using ExtraSort;
+﻿using ExtraRandom;
+using ExtraUtil;
+using ExtraUtil.Math;
 
 namespace ExtraShuffle;
 

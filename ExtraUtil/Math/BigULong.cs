@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace ExtraMath;
+namespace ExtraUtil.Math;
 
 /// <summary>
 /// Represents a 128-bit ulong number.
