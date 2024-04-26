@@ -10,7 +10,7 @@ namespace ExtraSort;
 /// </remarks>
 public static class TimSortExtension
 {
-    private const int Threshold = 32;
+    private const int Threshold = 8;
 
     /// <summary>
     /// Perform a TimSort on the <paramref name="list"/>.
@@ -20,7 +20,7 @@ public static class TimSortExtension
     public static void TimSort<T>(this IList<T> list)
         where T : IComparable<T>
     {
-        // Calculate the run lenght.
+        // Calculate the run length.
         var runLength = CalculateRunLength(list);
 
         // Perform insertion sort on each run
