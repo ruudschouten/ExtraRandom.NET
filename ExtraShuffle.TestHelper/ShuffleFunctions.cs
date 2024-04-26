@@ -4,20 +4,14 @@ using Xunit;
 
 namespace ExtraShuffle.TestHelper;
 
-public record Shuffle(string Name, Func<IList<Song>, IList<Song>> Method)
+public class ShuffleFunctions : TheoryData<ShuffleFunction>
 {
-    public override string ToString()
-    {
-        return Name;
-    }
-}
-
-public class ShuffleMethods : TheoryData<Shuffle>
-{
-    public ShuffleMethods()
+#pragma warning disable MA0051
+    public ShuffleFunctions()
+#pragma warning restore MA0051
     {
         Add(
-            new Shuffle(
+            new ShuffleFunction(
                 "Balanced Shuffle",
                 list =>
                 {
@@ -27,7 +21,7 @@ public class ShuffleMethods : TheoryData<Shuffle>
             )
         );
         Add(
-            new Shuffle(
+            new ShuffleFunction(
                 "Faro Shuffle",
                 list =>
                 {
@@ -37,7 +31,7 @@ public class ShuffleMethods : TheoryData<Shuffle>
             )
         );
         Add(
-            new Shuffle(
+            new ShuffleFunction(
                 "Fibonacci Hashing Shuffle",
                 list =>
                 {
@@ -47,7 +41,7 @@ public class ShuffleMethods : TheoryData<Shuffle>
             )
         );
         Add(
-            new Shuffle(
+            new ShuffleFunction(
                 "Fischer Yates Shuffle",
                 list =>
                 {
@@ -57,7 +51,7 @@ public class ShuffleMethods : TheoryData<Shuffle>
             )
         );
         Add(
-            new Shuffle(
+            new ShuffleFunction(
                 "Miller Shuffle B",
                 list =>
                 {
@@ -67,7 +61,7 @@ public class ShuffleMethods : TheoryData<Shuffle>
             )
         );
         Add(
-            new Shuffle(
+            new ShuffleFunction(
                 "Miller Shuffle D",
                 list =>
                 {
@@ -77,7 +71,7 @@ public class ShuffleMethods : TheoryData<Shuffle>
             )
         );
         Add(
-            new Shuffle(
+            new ShuffleFunction(
                 "Miller Shuffle E",
                 list =>
                 {
@@ -87,7 +81,7 @@ public class ShuffleMethods : TheoryData<Shuffle>
             )
         );
         Add(
-            new Shuffle(
+            new ShuffleFunction(
                 "Miller Shuffle Lite",
                 list =>
                 {
@@ -97,11 +91,11 @@ public class ShuffleMethods : TheoryData<Shuffle>
             )
         );
         Add(
-            new Shuffle(
+            new ShuffleFunction(
                 "Miller Shuffle XLite",
                 list =>
                 {
-                    list.MillerShuffle(500, MillerShuffleVariant.MS_XLite);
+                    list.MillerShuffle();
                     return list;
                 }
             )

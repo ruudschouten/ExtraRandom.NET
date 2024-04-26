@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using ExtraRandom.Validator;
 using ExtraUtil.Math;
@@ -98,6 +99,11 @@ public abstract class Random : IRandom
     public abstract long NextLong();
 
     /// <inheritdoc />
+    [SuppressMessage(
+        "ReSharper",
+        "IntVariableOverflowInUncheckedContext",
+        Justification = "Overflow is part of the randomness."
+    )]
     public virtual long NextLong(long min, long max)
     {
         var result = NextULong((ulong)min, (ulong)max);

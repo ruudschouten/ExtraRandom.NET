@@ -18,6 +18,11 @@ namespace ExtraRandom.PerformanceTests;
     "InconsistentNaming",
     Justification = "PRNG is an abbreviation, so the naming is fine."
 )]
+[SuppressMessage(
+    "Blocker Code Smell",
+    "S2699:Tests should include assertions",
+    Justification = "These are performance tests."
+)]
 public class PRNGTest : ResultOutputHelper
 {
     private const int Loops = 200;
@@ -35,9 +40,7 @@ public class PRNGTest : ResultOutputHelper
 
     [Theory]
     [ClassData(typeof(PRNGRandoms))]
-#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
     public void Bool(IRandom rand)
-#pragma warning restore S2699
     {
         var generateHits = new SortedDictionary<bool, int>();
 

@@ -85,7 +85,6 @@
       <ProjectReference Include="..\ExtraRandom.TestHelper\ExtraRandom.TestHelper.csproj" />
       <ProjectReference Include="..\ExtraRandom\ExtraRandom.csproj" />
       <ProjectReference Include="..\ExtraSort.TestHelper\ExtraSort.TestHelper.csproj" />
-      <ProjectReference Include="..\Modules\ExtraSort.NET\ExtraSort.TestHelper\ExtraSort.TestHelper.csproj" />
     </ItemGroup>
 
 </Project>

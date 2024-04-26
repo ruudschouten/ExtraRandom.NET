@@ -1,13 +1,19 @@
+using System.Diagnostics.CodeAnalysis;
 using Bogus;
 using ExtraShuffle.TestHelper;
 
 namespace ExtraShuffle.PerformanceTests;
 
+[SuppressMessage(
+    "Blocker Code Smell",
+    "S2699:Tests should include assertions",
+    Justification = "These are performance tests."
+)]
 public class ShuffleTest
 {
     [Theory]
-    [ClassData(typeof(ShuffleMethods))]
-    public void Performance(Shuffle shuffle)
+    [ClassData(typeof(ShuffleFunctions))]
+    public void Performance(ShuffleFunction shuffle)
     {
         const int iterations = 10_000;
 

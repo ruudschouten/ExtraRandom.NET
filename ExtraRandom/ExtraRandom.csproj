@@ -68,7 +68,6 @@
     <ItemGroup>
       <ProjectReference Include="..\ExtraSort\ExtraSort.csproj" />
       <ProjectReference Include="..\ExtraUtil\ExtraUtil.csproj" />
-      <ProjectReference Include="..\Modules\ExtraSort.NET\ExtraSort\ExtraSort.csproj" />
     </ItemGroup>
 
 </Project>

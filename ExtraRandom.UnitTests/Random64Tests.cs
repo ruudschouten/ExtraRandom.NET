@@ -51,9 +51,9 @@ public class Random64Tests
     [ClassData(typeof(PRNGRandom64s))]
     public void SettingSeed_WithNullSeedArray_ThrowsArgumentNullException(Random64 random)
     {
-        ulong[] seed = null;
+        ulong[]? seed = null;
 
-        var act = () => random.SetSeed(seed);
+        var act = () => random.SetSeed(seed!);
 
         act.Should().Throw<ArgumentNullException>();
     }

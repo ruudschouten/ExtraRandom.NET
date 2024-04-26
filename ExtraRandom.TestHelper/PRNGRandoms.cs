@@ -22,8 +22,6 @@ public class PRNGRandoms : TheoryData<IRandom>
 {
     public PRNGRandoms()
     {
-        Add(new SystemRandom(500));
-        Add(new CryptoRandom());
         Add(new BiasedRandom(new RomuDuoJr(500), Bias.Lower, 3));
         Add(new BiasedRandom(new RomuDuoJr(500), Bias.Average, 3));
         Add(new BiasedRandom(new RomuDuoJr(500), Bias.Higher, 3));

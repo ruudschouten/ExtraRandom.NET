@@ -17,7 +17,9 @@ public class RandomTests
         var result = random.NextBoolean();
 
         // Assert
-        Assert.True(result || !result);
+        (result || !result)
+            .Should()
+            .BeTrue();
     }
     #endregion
 
@@ -50,7 +52,7 @@ public class RandomTests
         var result = random.NextByte(min, max);
 
         // Assert
-        Assert.InRange(result, min, max);
+        result.Should().BeInRange(min, max);
     }
 
     [Theory]

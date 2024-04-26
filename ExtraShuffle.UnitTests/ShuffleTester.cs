@@ -8,8 +8,10 @@ using static Playlist;
 public class ShuffleTester
 {
     [Theory]
-    [ClassData(typeof(ShuffleMethods))]
-    public void Shuffling_ShouldNotBeTheSameOrderAsTheUnshuffledList_WhenCalled(Shuffle shuffle)
+    [ClassData(typeof(ShuffleFunctions))]
+    public void Shuffling_ShouldNotBeTheSameOrderAsTheUnshuffledList_WhenCalled(
+        ShuffleFunction shuffle
+    )
     {
         var unsorted = GetTestPlaylist();
         var playlist = GetTestPlaylist();

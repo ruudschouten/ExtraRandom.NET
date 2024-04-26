@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using ExtraRandom.Specialised;
 using ExtraRandom.TestHelper;
+using FluentAssertions;
 using Xunit.Abstractions;
 
 namespace ExtraRandom.UnitTests.Specialised;
@@ -70,7 +71,7 @@ public class BiasedRandomTest : ResultOutputHelper
         for (var i = 0; i < Loops; i++)
         {
             var @long = biased.NextLong(min, max);
-            Assert.InRange(@long, min, max);
+            @long.Should().BeInRange(min, max);
 
             RecordHit(@long, ref generateHits);
         }
@@ -88,7 +89,7 @@ public class BiasedRandomTest : ResultOutputHelper
         for (var i = 0; i < Loops; i++)
         {
             var @double = biased.NextDouble(min, max);
-            Assert.InRange(@double, min, max);
+            @double.Should().BeInRange(min, max);
 
             RecordHit(@double, ref generateHits);
         }

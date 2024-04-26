@@ -2,7 +2,7 @@
 
 public static class Playlist
 {
-    public static List<Song> GetTestPlaylist()
+    public static IList<Song> GetTestPlaylist()
     {
         var artists = new List<Artist>
         {

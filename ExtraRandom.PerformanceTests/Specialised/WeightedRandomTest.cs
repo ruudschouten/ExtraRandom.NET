@@ -1,9 +1,15 @@
-﻿using ExtraRandom.Specialised;
+﻿using System.Diagnostics.CodeAnalysis;
+using ExtraRandom.Specialised;
 using ExtraRandom.TestHelper;
 using Xunit.Abstractions;
 
 namespace ExtraRandom.PerformanceTests.Specialised;
 
+[SuppressMessage(
+    "Blocker Code Smell",
+    "S2699:Tests should include assertions",
+    Justification = "These are performance tests."
+)]
 public class WeightedRandomTest(ITestOutputHelper output)
 {
     private const int Loops = 100_000;

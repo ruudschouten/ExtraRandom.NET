@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using ExtraRandom.PRNG;
+﻿using ExtraRandom.PRNG;
 
 namespace ExtraRandom.PRIG;
 
@@ -187,7 +186,7 @@ public static class MillerShuffleAlgorithm
         return si;
     }
 
-    private static uint _optionalIndex = 0;
+    private static uint _optionalIndex;
 
     /// <summary>
     /// Produces a shuffled Index given a base Index, a random seed and the length of the list being indexed, while using a <see cref="Random"/> instance.

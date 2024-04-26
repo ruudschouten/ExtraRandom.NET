@@ -79,7 +79,9 @@ public static class FischerYatesShuffleExtension
 
         for (var i = max - 1; i >= min; i--)
         {
-            var j = await Task.Run(() => random.NextInt(i, max), cancellationToken);
+            var actualIndex = i;
+            var j = await Task.Run(() => random.NextInt(actualIndex, max), cancellationToken)
+                .ConfigureAwait(false);
             yield return (i, j);
         }
     }
