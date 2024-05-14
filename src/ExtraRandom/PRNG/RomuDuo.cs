@@ -1,17 +1,16 @@
-using System.Buffers.Binary;
 using System.Numerics;
-using System.Security.Cryptography;
 
 namespace ExtraRandom.PRNG;
 
 /// <summary>
-/// Romu random variations, might be faster than <see cref="RomuTrio"/> due to using fewer registers, but might struggle with massive jobs.
-/// Est. capacity = 2^61 bytes. Register pressure = 5. State size = 128 bits.
-/// Based on: https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/RomuDuo.cs
+/// RomuDuo will be faster than <see cref="RomuTrio"/> when its lower register pressure causes fewer memory-spills.
+/// Its state size of 128 bits is large enough to support many streams with essentially no chance of overlap.
+/// The estimated capacity of RomuDuo is 258 values (261 bytes), which is significantly lower than that of <see cref="RomuTrio"/> or <see cref="RomuQuad"/>.
+/// But this lower capacity is still larger than any job, and it would take 9 years to consume it at the rate of one per nanosecond.
 /// </summary>
 /// <remarks>
 /// <para>
-/// Source: https://www.romu-random.org/
+/// Paper: https://arxiv.org/pdf/2002.11331
 /// </para>
 /// </remarks>
 public sealed class RomuDuo : Random64
@@ -32,6 +31,12 @@ public sealed class RomuDuo : Random64
     /// <summary>
     /// Initializes a new instance of the <see cref="RomuDuo"/> class.
     /// </summary>
+    public RomuDuo(ulong seed1, ulong seed2)
+        : this([seed1, seed2]) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RomuDuo"/> class.
+    /// </summary>
     /// <param name="seed"> RNG seed numbers.</param>
     private RomuDuo(ulong[] seed)
     {
@@ -46,6 +51,6 @@ public sealed class RomuDuo : Random64
         State[0] = 15241094284759029579u * State[1];
         State[1] =
             BitOperations.RotateLeft(State[1], 27) + BitOperations.RotateLeft(State[1], 15) - xp;
-        return xp;
+        return State[0];
     }
 }

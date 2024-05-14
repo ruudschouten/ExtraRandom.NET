@@ -1,17 +1,16 @@
-using System.Buffers.Binary;
 using System.Numerics;
-using System.Security.Cryptography;
 
 namespace ExtraRandom.PRNG;
 
 /// <summary>
-/// Romu random variations, great for general purpose work, including huge jobs.
-/// Est. capacity = 2^75 bytes. Register pressure = 6. State size = 192 bits.
-/// Based on: https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/RomuTrio.cs.
+/// RomuTrio has 192 (3×64) bits of state.
+/// RomuTrio easily passes all statistical tests.
+/// <see cref="RomuQuad"/> is fast, but RomuTrio is faster due to its lower register pressure and sparser ILP table.
+/// For these reasons, this generator is recommended most highly.
 /// </summary>
 /// <remarks>
 /// <para>
-/// Source: https://www.romu-random.org/
+/// Paper: https://arxiv.org/pdf/2002.11331
 /// </para>
 /// </remarks>
 public sealed class RomuTrio : Random64
@@ -32,6 +31,12 @@ public sealed class RomuTrio : Random64
     /// <summary>
     /// Initializes a new instance of the <see cref="RomuTrio"/> class.
     /// </summary>
+    public RomuTrio(ulong seed1, ulong seed2, ulong seed3)
+        : this([seed1, seed2, seed3]) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RomuTrio"/> class.
+    /// </summary>
     /// <param name="seed"> RNG seed numbers.</param>
     private RomuTrio(ulong[] seed)
     {
@@ -42,14 +47,14 @@ public sealed class RomuTrio : Random64
     /// <inheritdoc />
     protected override ulong Next()
     {
-        var x = State[0];
-        var y = State[1];
-        var z = State[2];
+        var xp = State[0];
+        var yp = State[1];
+        var zp = State[2];
 
-        State[0] = 15241094284759029579u * z;
-        State[1] = BitOperations.RotateLeft(y - x, 12);
-        State[2] = BitOperations.RotateRight(z - y, 44);
+        State[0] = 15241094284759029579u * zp;
+        State[1] = BitOperations.RotateLeft(yp - xp, 12);
+        State[2] = BitOperations.RotateLeft(zp - yp, 44);
 
-        return x;
+        return State[0];
     }
 }

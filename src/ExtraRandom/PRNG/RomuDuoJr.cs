@@ -1,16 +1,16 @@
-using System.Buffers.Binary;
 using System.Numerics;
-using System.Security.Cryptography;
 
 namespace ExtraRandom.PRNG;
 
 /// <summary>
-/// Romu random variations, the fastest generator using 64-bit arithmetic, but not suited for huge jobs.
-/// Based on: https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/RomuDuoJr.cs
+/// RomuDuoJr is a simplification of <see cref="RomuDuo"/>, removing a rotation and addition.
+/// The reduced number of operations and register pressure make it the fastest generator presented in the paper using 64-bit arithmetic.
+/// RomuDuoJr is suitable for most applications, and it should be preferred when speed is paramount.
+/// However, a large job can exceed its reduced capacity, so one must be careful.
 /// </summary>
 /// <remarks>
 /// <para>
-/// Source: https://arxiv.org/pdf/2002.11331.pdf
+/// Paper: https://arxiv.org/pdf/2002.11331
 /// </para>
 /// </remarks>
 public sealed class RomuDuoJr : Random64
@@ -31,6 +31,12 @@ public sealed class RomuDuoJr : Random64
     /// <summary>
     /// Initializes a new instance of the <see cref="RomuDuoJr"/> class.
     /// </summary>
+    public RomuDuoJr(ulong seed1, ulong seed2)
+        : this([seed1, seed2]) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RomuDuoJr"/> class.
+    /// </summary>
     /// <param name="seed"> RNG seed numbers.</param>
     private RomuDuoJr(ulong[] seed)
     {
@@ -41,10 +47,10 @@ public sealed class RomuDuoJr : Random64
     /// <inheritdoc/>
     protected override ulong Next()
     {
-        var x = State[0];
-        var y = State[1];
-        State[0] = 15241094284759029579u * y;
-        State[1] = BitOperations.RotateLeft(y - x, 27);
-        return x;
+        var xp = State[0];
+        State[0] = 15241094284759029579u * State[1];
+        State[1] = BitOperations.RotateLeft(State[1] - xp, 27);
+
+        return State[0];
     }
 }
