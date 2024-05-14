@@ -20,7 +20,6 @@ public class PRNGBenchmark
     private const int Seed = 500;
 
     // PRNGs
-    private readonly MiddleSquareWeylSequence _middleSquareWeylSequence = new(Seed);
     private readonly RomuDuo _romuDuo = new(Seed);
     private readonly RomuDuoJr _romuDuoJr = new(Seed);
     private readonly RomuTrio _romuTrio = new(Seed);
@@ -40,9 +39,6 @@ public class PRNGBenchmark
         generator.GetBytes(buffer);
         return BitConverter.ToInt64(buffer, 0);
     }
-
-    [Benchmark]
-    public long MiddleSquareWeylSequence() => _middleSquareWeylSequence.NextLong();
 
     [Benchmark]
     public long RomuDuo() => _romuDuo.NextLong();

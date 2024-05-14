@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using ExtraRandom.PRNG;
 using Xunit;
+using static ExtraRandom.TestHelper.SeedHelper;
 
 namespace ExtraRandom.TestHelper;
 
@@ -21,6 +22,8 @@ public class PRNGRandom32s : TheoryData<Random32>
 {
     public PRNGRandom32s()
     {
-        Add(new MiddleSquareWeylSequence(500));
+        Add(new RomuMono(Seeds[0]));
+        Add(new RomuTrio32(Seeds[0], Seeds[1], Seeds[2]));
+        Add(new RomuQuad32(Seeds[0], Seeds[1], Seeds[2], Seeds[3]));
     }
 }

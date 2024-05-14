@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using ExtraRandom.PRNG;
 using Xunit;
+using static ExtraRandom.TestHelper.SeedHelper;
 
 namespace ExtraRandom.TestHelper;
 
@@ -21,12 +22,13 @@ public class PRNGRandom64s : TheoryData<Random64>
 {
     public PRNGRandom64s()
     {
-        Add(new RomuDuo(500));
-        Add(new RomuDuoJr(500));
-        Add(new RomuTrio(500));
-        Add(new Seiran(500));
-        Add(new Xoroshiro128Plus(500));
-        Add(new Xoroshiro128PlusPlus(500));
-        Add(new Xoroshiro128StarStar(500));
+        Add(new RomuDuoJr(Seeds[0], Seeds[1]));
+        Add(new RomuDuo(Seeds[0], Seeds[1]));
+        Add(new RomuTrio(Seeds[0], Seeds[1], Seeds[2]));
+        Add(new RomuQuad(Seeds[0], Seeds[1], Seeds[2], Seeds[3]));
+        Add(new Seiran(Seeds[0], Seeds[1]));
+        Add(new Xoroshiro128Plus(Seeds[0], Seeds[1]));
+        Add(new Xoroshiro128PlusPlus(Seeds[0], Seeds[1]));
+        Add(new Xoroshiro128StarStar(Seeds[0], Seeds[1]));
     }
 }

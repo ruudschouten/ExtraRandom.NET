@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using ExtraRandom.PRNG;
 using ExtraRandom.Specialised;
 using Xunit;
+using static ExtraRandom.TestHelper.SeedHelper;
 
 namespace ExtraRandom.TestHelper;
 
@@ -22,17 +23,20 @@ public class PRNGRandoms : TheoryData<IRandom>
 {
     public PRNGRandoms()
     {
-        Add(new BiasedRandom(new RomuDuoJr(500), Bias.Lower, 3));
-        Add(new BiasedRandom(new RomuDuoJr(500), Bias.Average, 3));
-        Add(new BiasedRandom(new RomuDuoJr(500), Bias.Higher, 3));
-        Add(new BiasedRandom(new RomuDuoJr(500), Bias.GoldenRatio, 3));
-        Add(new MiddleSquareWeylSequence(500));
-        Add(new RomuDuo(500));
-        Add(new RomuDuoJr(500));
-        Add(new RomuTrio(500));
-        Add(new Seiran(500));
-        Add(new Xoroshiro128Plus(500));
-        Add(new Xoroshiro128PlusPlus(500));
-        Add(new Xoroshiro128StarStar(500));
+        Add(new BiasedRandom(new RomuDuoJr(Seeds[0], Seeds[1]), Bias.Lower, 3));
+        Add(new BiasedRandom(new RomuDuoJr(Seeds[0], Seeds[1]), Bias.Average, 3));
+        Add(new BiasedRandom(new RomuDuoJr(Seeds[0], Seeds[1]), Bias.Higher, 3));
+        Add(new BiasedRandom(new RomuDuoJr(Seeds[0], Seeds[1]), Bias.GoldenRatio, 3));
+        Add(new RomuMono(Seeds[0]));
+        Add(new RomuDuoJr(Seeds[0], Seeds[1]));
+        Add(new RomuDuo(Seeds[0], Seeds[1]));
+        Add(new RomuTrio(Seeds[0], Seeds[1], Seeds[2]));
+        Add(new RomuTrio32(Seeds[0], Seeds[1], Seeds[2]));
+        Add(new RomuQuad(Seeds[0], Seeds[1], Seeds[2], Seeds[3]));
+        Add(new RomuQuad32(Seeds[0], Seeds[1], Seeds[2], Seeds[3]));
+        Add(new Seiran(Seeds[0], Seeds[1]));
+        Add(new Xoroshiro128Plus(Seeds[0], Seeds[1]));
+        Add(new Xoroshiro128PlusPlus(Seeds[0], Seeds[1]));
+        Add(new Xoroshiro128StarStar(Seeds[0], Seeds[1]));
     }
 }
