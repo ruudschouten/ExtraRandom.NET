@@ -1,6 +1,4 @@
-using System.Buffers.Binary;
 using System.Numerics;
-using System.Security.Cryptography;
 
 namespace ExtraRandom.PRNG;
 
@@ -31,6 +29,12 @@ public sealed class Seiran : Random64
     /// <summary>
     /// Initializes a new instance of the <see cref="Seiran"/> class.
     /// </summary>
+    public Seiran(ulong seed1, ulong seed2)
+        : this([seed1, seed2]) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Seiran"/> class.
+    /// </summary>
     /// <param name="seed">Seed to use for the random number generation.</param>
     private Seiran(ulong[] seed)
     {
@@ -44,11 +48,9 @@ public sealed class Seiran : Random64
         var s0 = State[0];
         var s1 = State[1];
 
-        var result = BitOperations.RotateLeft((s0 + s1) * 9, 29) + s0;
-
         State[0] = s0 ^ BitOperations.RotateLeft(s1, 29);
         State[1] = s0 ^ s1 << 9;
 
-        return result;
+        return BitOperations.RotateLeft((State[0] + State[1]) * 9, 29) + State[0];
     }
 }
