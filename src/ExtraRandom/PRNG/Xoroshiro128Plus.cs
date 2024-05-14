@@ -1,6 +1,4 @@
-using System.Buffers.Binary;
 using System.Numerics;
-using System.Security.Cryptography;
 
 namespace ExtraRandom.PRNG;
 
@@ -31,7 +29,7 @@ public sealed class Xoroshiro128Plus : Random64
     /// </summary>
     /// <param name="seed1">First seed.</param>
     /// <param name="seed2">Second seed.</param>
-    private Xoroshiro128Plus(ulong seed1, ulong seed2)
+    public Xoroshiro128Plus(ulong seed1, ulong seed2)
     {
         State = new ulong[2];
         SetSeed(seed1, seed2);
@@ -42,13 +40,11 @@ public sealed class Xoroshiro128Plus : Random64
     {
         var s0 = State[0];
         var s1 = State[1];
-        var result = State[0] + State[1];
+        var result = s0 + s1;
 
         s1 ^= s0;
-        var seed1 = BitOperations.RotateLeft(s0, 24) ^ s1 ^ (s1 << 16);
-        var seed2 = BitOperations.RotateLeft(s1, 37);
-
-        SetSeed(seed1, seed2);
+        State[0] = BitOperations.RotateLeft(s0, 24) ^ s1 ^ (s1 << 16);
+        State[1] = BitOperations.RotateLeft(s1, 37);
 
         return result;
     }
