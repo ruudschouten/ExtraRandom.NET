@@ -40,20 +40,6 @@ public sealed class RomuTrio : Random64
     }
 
     /// <inheritdoc />
-    public override void Reseed()
-    {
-        using var rng = RandomNumberGenerator.Create();
-        Span<byte> span = stackalloc byte[24];
-        rng.GetNonZeroBytes(span);
-
-        SetSeed(
-            BinaryPrimitives.ReadUInt64LittleEndian(span),
-            BinaryPrimitives.ReadUInt64LittleEndian(span[8..]),
-            BinaryPrimitives.ReadUInt64LittleEndian(span[16..])
-        );
-    }
-
-    /// <inheritdoc />
     protected override ulong Next()
     {
         var x = State[0];

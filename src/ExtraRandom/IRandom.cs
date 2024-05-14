@@ -6,11 +6,6 @@ namespace ExtraRandom;
 public interface IRandom
 {
     /// <summary>
-    /// Reseed the RNG.
-    /// </summary>
-    void Reseed();
-
-    /// <summary>
     /// Manually set the internal RNG state with a single value.
     /// Will call <see cref="SetSeed(ulong[])"/>.
     /// </summary>

@@ -11,9 +11,6 @@ namespace ExtraRandom;
 /// </summary>
 public abstract class Random : IRandom
 {
-    /// <inheritdoc />
-    public abstract void Reseed();
-
     /// <inheritdoc cref="IRandom.SetSeed(ulong)" />
     public abstract void SetSeed(ulong seed);
 

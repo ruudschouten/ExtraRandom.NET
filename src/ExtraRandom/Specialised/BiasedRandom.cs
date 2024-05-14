@@ -42,12 +42,6 @@ public readonly struct BiasedRandom : IRandom
 
     #region IRandom interface
 
-    /// <inheritdoc />
-    public void Reseed()
-    {
-        _random.Reseed();
-    }
-
     /// <inheritdoc cref="IRandom.SetSeed(ulong)" />
     public void SetSeed(ulong seed)
     {

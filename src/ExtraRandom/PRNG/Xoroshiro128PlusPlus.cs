@@ -28,18 +28,6 @@ public sealed class Xoroshiro128PlusPlus : Random64
     }
 
     /// <inheritdoc />
-    public override void Reseed()
-    {
-        using var rng = RandomNumberGenerator.Create();
-        Span<byte> span = stackalloc byte[16];
-        rng.GetNonZeroBytes(span);
-        SetSeed(
-            BinaryPrimitives.ReadUInt64LittleEndian(span),
-            BinaryPrimitives.ReadUInt64LittleEndian(span[8..])
-        );
-    }
-
-    /// <inheritdoc />
     protected override ulong Next()
     {
         var s0 = State[0];
