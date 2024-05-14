@@ -164,8 +164,13 @@ public readonly struct BiasedRandom : IRandom
                     closestForBias = GetClosestForAverageBias(roll, average, ref closestAvg);
                     break;
                 case Bias.GoldenRatio:
-                    roll = _random.NextDouble();
-                    closestForBias = GetClosestForGoldenRatioBias(roll, min, max, goldenRatio);
+                    closestForBias = GetClosestForGoldenRatioBias(
+                        _random.NextDouble(),
+                        min,
+                        max,
+                        closestForBias,
+                        goldenRatio
+                    );
                     break;
                 default:
                     throw new InvalidOperationException("Invalid bias type.");
@@ -232,16 +237,17 @@ public readonly struct BiasedRandom : IRandom
     }
 
     private static double GetClosestForGoldenRatioBias(
-        double roll,
+        double baseRoll,
         double min,
         double max,
+        double currentClosest,
         double closestForBias
     )
     {
-        var newRoll = roll += NumericConstants.GoldenRatioConjugate;
-        newRoll %= 1;
-        newRoll = (newRoll * (max - min)) + min;
+        var roll = baseRoll + NumericConstants.GoldenRatioConjugate;
+        roll %= 1;
+        roll = (roll * (max - min)) + min;
 
-        return closestForBias.GetClosest(newRoll, roll);
+        return closestForBias.GetClosest(roll, currentClosest);
     }
 }

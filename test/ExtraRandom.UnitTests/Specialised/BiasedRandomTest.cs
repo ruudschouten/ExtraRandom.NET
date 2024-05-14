@@ -42,6 +42,13 @@ public class BiasedRandomTest : ResultOutputHelper
 
     [Theory]
     [ClassData(typeof(PRNGRandoms))]
+    public void BiasedTest_Long_GoldenRatio(IRandom rand)
+    {
+        Generate_Long(rand, Bias.GoldenRatio);
+    }
+
+    [Theory]
+    [ClassData(typeof(PRNGRandoms))]
     public void BiasedTest_Double_Lower(IRandom rand)
     {
         Generate_Double(rand, Bias.Lower);
@@ -59,6 +66,13 @@ public class BiasedRandomTest : ResultOutputHelper
     public void BiasedTest_Double_Higher(IRandom rand)
     {
         Generate_Double(rand, Bias.Higher);
+    }
+
+    [Theory]
+    [ClassData(typeof(PRNGRandoms))]
+    public void BiasedTest_Double_GoldenRatio(IRandom rand)
+    {
+        Generate_Double(rand, Bias.GoldenRatio);
     }
 
     private void Generate_Long(IRandom rand, Bias bias)
