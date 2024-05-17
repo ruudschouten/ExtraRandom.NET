@@ -25,6 +25,6 @@ public sealed class RomuMono : Random32
     protected override uint Next()
     {
         State[0] = BitOperations.RotateLeft(State[0] * 3611795771u, 12);
-        return (uint)(State[0] >> 16);
+        return (ushort)(State[0] >> 16);
     }
 }
