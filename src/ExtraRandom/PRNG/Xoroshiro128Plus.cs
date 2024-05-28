@@ -3,17 +3,24 @@ using System.Numerics;
 namespace ExtraRandom.PRNG;
 
 /// <summary>
+/// <para>Xoroshiro128+ PRNG implementation.</para>
 /// <para>
-/// Xoroshiro128+ PRNG implementation.
+/// The best and fastest Xoroshiro small-state generator for floating-point numbers,
+/// but its state space is large enough only for mild parallelism.
+/// We suggest to use its upper bits for floating-point generation,
+/// as it is slightly faster than <see cref="Xoroshiro128PlusPlus">Xoroshiro128++</see>/<see cref="Xoroshiro128StarStar">Xoroshiro128**</see>.
 /// </para>
 /// <para>
-/// Based on https://github.com/Shiroechi/Litdex.Random/blob/main/Source/PRNG/Xoroshiro128Plus.cs
+/// It passes all tests we are aware of except for the four lower bits,
+/// which might fail linearity tests (and just those),
+/// so if low linear complexity is not considered an issue (as it is usually the case) it can be used to generate 64-bit outputs, too.
+/// moreover, this generator has a very mild Hamming-weight dependency.
+/// If you are concerned, use <see cref="Xoroshiro128PlusPlus">Xoroshiro128++</see>, <see cref="Xoroshiro128StarStar">Xoroshiro128**</see>
+/// or <see cref="Xoshiro256Plus">Xoroshiro256+</see>.
 /// </para>
 /// </summary>
 /// <remarks>
-/// <para>
-/// Source: https://prng.di.unimi.it/xoroshiro128plus.c
-/// </para>
+/// <para>Source: https://prng.di.unimi.it/xoroshiro128plus.c</para>
 /// </remarks>
 public sealed class Xoroshiro128Plus : Random64
 {

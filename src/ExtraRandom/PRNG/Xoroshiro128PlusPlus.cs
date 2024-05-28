@@ -3,8 +3,19 @@ using System.Numerics;
 namespace ExtraRandom.PRNG;
 
 /// <summary>
-/// Xoroshiro128++ PRNG implementation.
+/// <para>Xoroshiro128++ PRNG implementation.</para>
+/// <para>
+/// All-purpose, rock-solid, small-state generators.
+/// It is extremely (sub-ns) fast and passes all tests we are aware of, but its state space is large enough only for mild parallelism.
+/// </para>
+/// <para>For generating just floating-point numbers,<see cref="Xoroshiro128Plus">Xoroshiro128+</see> is even faster</para>
+/// <para>
+/// The state must be seeded so that it is not everywhere zero.
+/// </para>
 /// </summary>
+/// <remarks>
+/// <para>Source: https://prng.di.unimi.it/xoroshiro128plusplus.c</para>
+/// </remarks>
 public sealed class Xoroshiro128PlusPlus : Random64
 {
     /// <summary>

@@ -3,10 +3,16 @@ using System.Numerics;
 namespace ExtraRandom.PRNG;
 
 /// <summary>
+/// <para>Xoroshiro128** PRNG implementation.</para>
 /// <para>
-/// Xoroshiro128** PRNG implementation.
+/// All-purpose, rock-solid, small-state generators.
+/// It is extremely (sub-ns) fast and passes all tests we are aware of, but its state space is large enough only for mild parallelism.
 /// </para>
+/// <para>For generating just floating-point numbers,<see cref="Xoroshiro128Plus">Xoroshiro128+</see> is even faster</para>
 /// </summary>
+/// <remarks>
+/// <para>Source: https://prng.di.unimi.it/xoroshiro128starstar.c</para>
+/// </remarks>
 public sealed class Xoroshiro128StarStar : Random64
 {
     /// <summary>
@@ -32,7 +38,7 @@ public sealed class Xoroshiro128StarStar : Random64
     {
         var s0 = State[0];
         var s1 = State[1];
-        var result = BitOperations.RotateLeft(s0 * 5, 7) + 9;
+        var result = BitOperations.RotateLeft(s0 * 5, 7) * 9;
 
         s1 ^= s0;
         State[0] = BitOperations.RotateLeft(s0, 24) ^ s1 ^ (s1 << 16);

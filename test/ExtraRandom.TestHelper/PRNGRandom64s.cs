@@ -30,5 +30,8 @@ public class PRNGRandom64s : TheoryData<Random64>
         Add(new Xoroshiro128Plus(Seeds[0], Seeds[1]));
         Add(new Xoroshiro128PlusPlus(Seeds[0], Seeds[1]));
         Add(new Xoroshiro128StarStar(Seeds[0], Seeds[1]));
+        Add(new Xoshiro256Plus(Seeds[0], Seeds[1], Seeds[2], Seeds[3]));
+        Add(new Xoshiro256PlusPlus(Seeds[0], Seeds[1], Seeds[2], Seeds[3]));
+        Add(new Xoshiro256StarStar(Seeds[0], Seeds[1], Seeds[2], Seeds[3]));
     }
 }

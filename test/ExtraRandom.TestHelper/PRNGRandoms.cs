@@ -35,8 +35,16 @@ public class PRNGRandoms : TheoryData<IRandom>
         Add(new RomuQuad(Seeds[0], Seeds[1], Seeds[2], Seeds[3]));
         Add(new RomuQuad32(Seeds[0], Seeds[1], Seeds[2], Seeds[3]));
         Add(new Seiran(Seeds[0], Seeds[1]));
+        Add(new Xoroshiro64Star(Seeds[0], Seeds[1]));
+        Add(new Xoroshiro64StarStar(Seeds[0], Seeds[1]));
         Add(new Xoroshiro128Plus(Seeds[0], Seeds[1]));
         Add(new Xoroshiro128PlusPlus(Seeds[0], Seeds[1]));
         Add(new Xoroshiro128StarStar(Seeds[0], Seeds[1]));
+        Add(new Xoshiro128Plus(Seeds[0], Seeds[1], Seeds[2], Seeds[3]));
+        Add(new Xoshiro128PlusPlus(Seeds[0], Seeds[1], Seeds[2], Seeds[3]));
+        Add(new Xoshiro128StarStar(Seeds[0], Seeds[1], Seeds[2], Seeds[3]));
+        Add(new Xoshiro256Plus(Seeds[0], Seeds[1], Seeds[2], Seeds[3]));
+        Add(new Xoshiro256PlusPlus(Seeds[0], Seeds[1], Seeds[2], Seeds[3]));
+        Add(new Xoshiro256StarStar(Seeds[0], Seeds[1], Seeds[2], Seeds[3]));
     }
 }
