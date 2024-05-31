@@ -26,7 +26,7 @@ public enum MillerShuffleVariant
     /// Better at randomixing pattern occurrences, providing very good sequence distribution over time.
     /// Preferred for Shuffles used for dealing to Serious! competing players.
     /// </summary>
-    /// <remarks>Use is not generally advised due to it:
+    /// <remarks><para>Use is not generally advised due to it:</para>
     /// <list type="number">
     /// <item><description>not being repeatable 1:1</description></item>
     /// <item><description>won't work for concurrent or nested shuffles</description></item>
