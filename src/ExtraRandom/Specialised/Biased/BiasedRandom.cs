@@ -7,7 +7,7 @@ namespace ExtraRandom.Specialised.Biased;
 /// Specialised random generator in which you can specify a bias.
 /// </summary>
 [StructLayout(LayoutKind.Sequential)]
-public readonly struct BiasedRandom : IRandom
+public readonly record struct BiasedRandom : IRandom
 {
     /// <summary>
     /// PRNG instance to use for the random rolls.
