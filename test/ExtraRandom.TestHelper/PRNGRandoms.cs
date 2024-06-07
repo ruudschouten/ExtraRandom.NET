@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using ExtraRandom.PRNG;
-using ExtraRandom.Specialised;
+using ExtraRandom.Specialised.Biased;
 using Xunit;
 using static ExtraRandom.TestHelper.SeedHelper;
 
@@ -23,10 +23,10 @@ public class PRNGRandoms : TheoryData<IRandom>
 {
     public PRNGRandoms()
     {
-        Add(new BiasedRandom(new RomuDuoJr(Seeds[0], Seeds[1]), Bias.Lower, 3));
-        Add(new BiasedRandom(new RomuDuoJr(Seeds[0], Seeds[1]), Bias.Average, 3));
-        Add(new BiasedRandom(new RomuDuoJr(Seeds[0], Seeds[1]), Bias.Higher, 3));
-        Add(new BiasedRandom(new RomuDuoJr(Seeds[0], Seeds[1]), Bias.GoldenRatio, 3));
+        Add(new BiasedRandom(new RomuDuoJr(Seeds[0], Seeds[1]), new LowerBias(), 3));
+        Add(new BiasedRandom(new RomuDuoJr(Seeds[0], Seeds[1]), new AverageBias(), 3));
+        Add(new BiasedRandom(new RomuDuoJr(Seeds[0], Seeds[1]), new HigherBias(), 3));
+        Add(new BiasedRandom(new RomuDuoJr(Seeds[0], Seeds[1]), new GoldenRatioBias(), 3));
         Add(new RomuMono(Seeds[0]));
         Add(new RomuDuoJr(Seeds[0], Seeds[1]));
         Add(new RomuDuo(Seeds[0], Seeds[1]));

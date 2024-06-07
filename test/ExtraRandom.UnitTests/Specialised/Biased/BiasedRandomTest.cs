@@ -1,10 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
-using ExtraRandom.Specialised;
+using ExtraRandom.Specialised.Biased;
 using ExtraRandom.TestHelper;
 using FluentAssertions;
 using Xunit.Abstractions;
 
-namespace ExtraRandom.UnitTests.Specialised;
+namespace ExtraRandom.UnitTests.Specialised.Biased;
 
 [SuppressMessage(
     "StyleCop.CSharp.DocumentationRules",
@@ -23,59 +23,59 @@ public class BiasedRandomTest : ResultOutputHelper
     [ClassData(typeof(PRNGRandoms))]
     public void BiasedTest_Long_Lower(IRandom rand)
     {
-        Generate_Long(rand, Bias.Lower);
+        Generate_Long(rand, new LowerBias());
     }
 
     [Theory]
     [ClassData(typeof(PRNGRandoms))]
     public void BiasedTest_Long_Average(IRandom rand)
     {
-        Generate_Long(rand, Bias.Average);
+        Generate_Long(rand, new AverageBias());
     }
 
     [Theory]
     [ClassData(typeof(PRNGRandoms))]
     public void BiasedTest_Long_Higher(IRandom rand)
     {
-        Generate_Long(rand, Bias.Higher);
+        Generate_Long(rand, new HigherBias());
     }
 
     [Theory]
     [ClassData(typeof(PRNGRandoms))]
     public void BiasedTest_Long_GoldenRatio(IRandom rand)
     {
-        Generate_Long(rand, Bias.GoldenRatio);
+        Generate_Long(rand, new GoldenRatioBias());
     }
 
     [Theory]
     [ClassData(typeof(PRNGRandoms))]
     public void BiasedTest_Double_Lower(IRandom rand)
     {
-        Generate_Double(rand, Bias.Lower);
+        Generate_Double(rand, new LowerBias());
     }
 
     [Theory]
     [ClassData(typeof(PRNGRandoms))]
     public void BiasedTest_Double_Average(IRandom rand)
     {
-        Generate_Double(rand, Bias.Average);
+        Generate_Double(rand, new AverageBias());
     }
 
     [Theory]
     [ClassData(typeof(PRNGRandoms))]
     public void BiasedTest_Double_Higher(IRandom rand)
     {
-        Generate_Double(rand, Bias.Higher);
+        Generate_Double(rand, new HigherBias());
     }
 
     [Theory]
     [ClassData(typeof(PRNGRandoms))]
     public void BiasedTest_Double_GoldenRatio(IRandom rand)
     {
-        Generate_Double(rand, Bias.GoldenRatio);
+        Generate_Double(rand, new GoldenRatioBias());
     }
 
-    private void Generate_Long(IRandom rand, Bias bias)
+    private void Generate_Long(IRandom rand, IBias bias)
     {
         var generateHits = new SortedDictionary<long, int>();
         const long min = 0;
@@ -93,7 +93,7 @@ public class BiasedRandomTest : ResultOutputHelper
         PrintHits(ref generateHits);
     }
 
-    private void Generate_Double(IRandom rand, Bias bias)
+    private void Generate_Double(IRandom rand, IBias bias)
     {
         var generateHits = new SortedDictionary<double, int>();
         const double min = 0;
