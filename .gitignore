@@ -1,3 +1,6 @@
+# megalinter
+*./megalinter-reports/*
+
 # SonarLint logs
 *.idea/*
 
