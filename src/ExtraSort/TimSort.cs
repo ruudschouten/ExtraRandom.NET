@@ -29,6 +29,8 @@ public readonly record struct TimSort : ISortAlgorithm
             var endPos = Math.Min(list.Count, startPos + runLength);
             list.Sort(new BinaryInsertionSort(), startPos, endPos);
         }
+
+        throw new NotImplementedException();
     }
 
     private static int CalculateRunLength<T>(ICollection<T> list)
