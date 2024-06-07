@@ -1,4 +1,5 @@
-﻿using ExtraRandom.TestHelper;
+﻿using ExtraRandom.PRNG;
+using ExtraRandom.TestHelper;
 using FluentAssertions;
 
 namespace ExtraRandom.UnitTests;
@@ -62,6 +63,12 @@ public class Random64Tests
     [ClassData(typeof(PRNGRandom64s))]
     public void SettingSeed_WithShortSeedArray_ThrowsArgumentException(Random64 random)
     {
+        // SplitMix64's state consists of a single ulong, so this would not throw an exception.
+        if (random is SplitMix64)
+        {
+            return;
+        }
+
         var seed = new[] { 123ul };
 
         var act = () => random.SetSeed(seed);
