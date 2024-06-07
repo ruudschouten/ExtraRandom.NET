@@ -1,8 +1,8 @@
 using ExtraRandom.PRNG;
 using ExtraRandom.Specialised;
+using ExtraSort;
 using ExtraSort.TestHelper;
 using FluentAssertions;
-using Xunit.Abstractions;
 
 namespace ExtraRandom.UnitTests.Specialised;
 
@@ -13,18 +13,14 @@ using System.Diagnostics.CodeAnalysis;
     "SA1600:Elements should be documented",
     Justification = "These are tests"
 )]
-#pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
-public class WeightedRandomTest(ITestOutputHelper output)
+public class WeightedRandomTest
 {
     [Theory]
-    [ClassData(typeof(SortFunctionData<WeightedRandomEntry<string>>))]
+    [ClassData(typeof(SortAlgorithms))]
     public void Weighted_Sort_Test(
-        string name,
-        Func<IList<WeightedRandomEntry<string>>, IList<WeightedRandomEntry<string>>> sortFunction
+        ISortAlgorithm sortAlgorithm
     )
     {
-        output.WriteLine($"Sorting with {name}");
-
         var weightedRandom = new WeightedRandom<string>(new RomuDuoJr(500));
         weightedRandom.Add("1", 1);
         weightedRandom.Add("10", 10);
@@ -37,7 +33,7 @@ public class WeightedRandomTest(ITestOutputHelper output)
         weightedRandom.Add("0", 0);
         weightedRandom.Add("17", 17);
 
-        var sorted = weightedRandom.ManualSort(sortFunction);
+        var sorted = weightedRandom.ManualSort(sortAlgorithm);
 
         sorted
             .Should()

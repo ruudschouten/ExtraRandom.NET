@@ -16,7 +16,7 @@ public class TimSortTest
     {
         var unsortedList = TestValues.UnsortedNumbers;
 
-        unsortedList.TimSort();
+        unsortedList.Sort(new TimSort());
 
         unsortedList.Should().ContainInOrder(TestValues.SortedNumbers);
     }

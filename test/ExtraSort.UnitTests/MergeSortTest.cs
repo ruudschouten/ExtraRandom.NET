@@ -16,9 +16,9 @@ public class MergeSortTest
     {
         var unsortedList = TestValues.UnsortedNumbers;
 
-        var sorted = unsortedList.MergeSort();
+        unsortedList.Sort(new MergeSort());
 
-        sorted.Should().ContainInOrder(TestValues.SortedNumbers);
+        unsortedList.Should().ContainInOrder(TestValues.SortedNumbers);
     }
 }
 #pragma warning restore S2699

@@ -26,8 +26,13 @@ public struct WeightedRandom<T>
     /// Gets or sets the entries which can be rolled with this Weighted Random generator.
     /// </summary>
     // ENHANCEMENT: Make this a tree instead, and insert new entries at the correct spot, so sorting is not needed.
-    private IList<WeightedRandomEntry<T>> Entries { get; set; } =
-        new List<WeightedRandomEntry<T>>();
+    private List<WeightedRandomEntry<T>> Entries { get; } = new();
+
+    /// <summary>
+    /// <para>The sorting algorithm to use when sorting the entries.</para>
+    /// <para>Default is <see cref="MergeSort"/></para>
+    /// </summary>
+    public ISortAlgorithm SortAlgorithm { get; set; } = new MergeSort();
 
     /// <summary>
     /// Add a new entry to the list with the provided <paramref name="value"/> and <paramref name="weight"/>.
@@ -51,13 +56,13 @@ public struct WeightedRandom<T>
     /// <summary>
     /// Perform a sort function on the entries.
     /// </summary>
-    /// <param name="sortFunction">function to sort with.</param>
+    /// <param name="sortAlgorithm">algorithm to sort with.</param>
     /// <returns>The list sorted.</returns>
     public IList<WeightedRandomEntry<T>> ManualSort(
-        Func<IList<WeightedRandomEntry<T>>, IList<WeightedRandomEntry<T>>> sortFunction
+        ISortAlgorithm sortAlgorithm
     )
     {
-        Entries = sortFunction.Invoke(Entries);
+        Entries.Sort(sortAlgorithm);
         _needsSorting = false;
         return Entries;
     }
@@ -71,7 +76,7 @@ public struct WeightedRandom<T>
     {
         if (_needsSorting)
         {
-            Entries.TimSort();
+            Entries.Sort(SortAlgorithm);
             _needsSorting = false;
         }
 

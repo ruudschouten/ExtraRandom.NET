@@ -16,7 +16,7 @@ public class InsertionSortTest
     {
         var unsortedList = TestValues.UnsortedNumbers;
 
-        unsortedList.InsertionSort();
+        unsortedList.Sort(new InsertionSort());
 
         unsortedList.Should().ContainInOrder(TestValues.SortedNumbers);
     }

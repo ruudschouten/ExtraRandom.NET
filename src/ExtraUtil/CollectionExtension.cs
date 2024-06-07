@@ -8,15 +8,10 @@ public static class CollectionExtension
     /// <summary>
     /// Take a slice of the <paramref name="collection"/>, starting with the <paramref name="startIndex"/> until the <paramref name="endIndex"/>.
     /// </summary>
-    /// <param name="collection"><para>Collection to take a slice from.</para></param>
-    /// <param name="startIndex">
-    /// <para>Inclusive index to start from.</para>
-    /// <para>If lower than 0, is set to 0.</para>
-    /// </param>
-    /// <param name="endIndex">
-    /// <para>Inclusive index to end on.</para>
-    /// <para>
-    /// If higher than amount of items in <paramref name="collection"/>, is set to the amount of items.</para>
+    /// <param name="collection">Collection to take a slice from.</param>
+    /// <param name="startIndex">Inclusive index to start from. If lower than 0, is set to 0.</param>
+    /// <param name="endIndex">Inclusive index to end on.
+    /// If higher than amount of items in <paramref name="collection"/>, is set to the amount of items.
     /// </param>
     /// <typeparam name="T">Type of the entity inside the <paramref name="collection"/>.</typeparam>
     /// <returns>A slice from <paramref name="collection"/>.</returns>

@@ -16,7 +16,7 @@ public class BinaryInsertionSortTest
     {
         var unsortedList = TestValues.UnsortedNumbers;
 
-        unsortedList.BinaryInsertionSort();
+        unsortedList.Sort(new BinaryInsertionSort());
 
         unsortedList.Should().ContainInOrder(TestValues.SortedNumbers);
     }
