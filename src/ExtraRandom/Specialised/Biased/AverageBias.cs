@@ -7,7 +7,7 @@ namespace ExtraRandom.Specialised.Biased;
 /// Bias which tries to get values close to the average value.
 /// </summary>
 [StructLayout(LayoutKind.Sequential)]
-public record AverageBias : IBias
+public record struct AverageBias : IBias
 {
     private double _average;
     private double _closestAverage;
@@ -21,7 +21,7 @@ public record AverageBias : IBias
     }
 
     /// <inheritdoc />
-    public double Roll(in IRandom random, double min, double max)
+    public readonly double Roll(in IRandom random, double min, double max)
     {
         return random.NextDouble(min, max);
     }

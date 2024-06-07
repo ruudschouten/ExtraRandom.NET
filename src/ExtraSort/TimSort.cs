@@ -8,7 +8,7 @@
 /// Based on: https://www.baeldung.com/cs/timsort.
 /// </para>
 /// </remarks>
-public record TimSort : ISortAlgorithm
+public readonly record struct TimSort : ISortAlgorithm
 {
     private const int Threshold = 8;
 
@@ -29,9 +29,6 @@ public record TimSort : ISortAlgorithm
             var endPos = Math.Min(list.Count, startPos + runLength);
             list.Sort(new BinaryInsertionSort(), startPos, endPos);
         }
-
-        // TODO: Finish implementing TimSort.
-        throw new NotImplementedException();
     }
 
     private static int CalculateRunLength<T>(ICollection<T> list)

@@ -10,7 +10,7 @@ namespace ExtraRandom.Specialised.Biased;
 /// The golden ration is determined from the <c>min</c> and <c>max</c> values passed in <see cref="SetBiasValues"/>.
 /// </para>
 /// </summary>
-public record GoldenRatioBias : IBias
+public record struct GoldenRatioBias : IBias
 {
     private double _goldenRatio;
 
@@ -22,7 +22,7 @@ public record GoldenRatioBias : IBias
     }
 
     /// <inheritdoc />
-    public double Roll(in IRandom random, double min, double max)
+    public readonly double Roll(in IRandom random, double min, double max)
     {
         var baseRoll = random.NextDouble();
         var roll = baseRoll + NumericConstants.GoldenRatioConjugate;
@@ -31,7 +31,7 @@ public record GoldenRatioBias : IBias
     }
 
     /// <inheritdoc />
-    public double GetClosest(double roll, double closest)
+    public readonly double GetClosest(double roll, double closest)
     {
         return _goldenRatio.GetClosest(roll, closest);
     }

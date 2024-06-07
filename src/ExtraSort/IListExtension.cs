@@ -12,8 +12,9 @@ public static class IListExtension
     /// <param name="list">list to sort.</param>
     /// <param name="algorithm">sorting algorithm to use.</param>
     /// <returns>A sorted list.</returns>
-    public static void Sort<T>(this IList<T> list, ISortAlgorithm algorithm)
-        where T : IComparable<T>
+    public static void Sort<TSort, TEntry>(this IList<TEntry> list, TSort algorithm)
+        where TSort : ISortAlgorithm
+        where TEntry : IComparable<TEntry>
     {
         algorithm.Sort(ref list, 0, list.Count - algorithm.EndOffset);
     }
@@ -26,8 +27,14 @@ public static class IListExtension
     /// <param name="start">index to start sorting on.</param>
     /// <param name="end">index to stop sorting on</param>
     /// <returns>A sorted list.</returns>
-    public static void Sort<T>(this IList<T> list, ISortAlgorithm algorithm, int start, int end)
-        where T : IComparable<T>
+    public static void Sort<TSort, TEntry>(
+        this IList<TEntry> list,
+        TSort algorithm,
+        int start,
+        int end
+    )
+        where TSort : ISortAlgorithm
+        where TEntry : IComparable<TEntry>
     {
         algorithm.Sort(ref list, start, end);
     }

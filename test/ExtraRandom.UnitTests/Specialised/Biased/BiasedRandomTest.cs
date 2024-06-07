@@ -12,12 +12,10 @@ namespace ExtraRandom.UnitTests.Specialised.Biased;
     Justification = "These are tests"
 )]
 #pragma warning disable S2699 // There is nothing to really test here, just need to see if it generates stuff.
-public class BiasedRandomTest : ResultOutputHelper
+public class BiasedRandomTest(ITestOutputHelper output)
+    : ResultOutputHelper(output, recordAmountOfGeneratedNumbers: true)
 {
     private const int Loops = 5_000;
-
-    public BiasedRandomTest(ITestOutputHelper output)
-        : base(output, recordAmountOfGeneratedNumbers: true) { }
 
     [Theory]
     [ClassData(typeof(PRNGRandoms))]
@@ -75,7 +73,8 @@ public class BiasedRandomTest : ResultOutputHelper
         Generate_Double(rand, new GoldenRatioBias());
     }
 
-    private void Generate_Long(IRandom rand, IBias bias)
+    private void Generate_Long<T>(IRandom rand, T bias)
+        where T : IBias
     {
         var generateHits = new SortedDictionary<long, int>();
         const long min = 0;
@@ -93,7 +92,8 @@ public class BiasedRandomTest : ResultOutputHelper
         PrintHits(ref generateHits);
     }
 
-    private void Generate_Double(IRandom rand, IBias bias)
+    private void Generate_Double<T>(IRandom rand, T bias)
+        where T : IBias
     {
         var generateHits = new SortedDictionary<double, int>();
         const double min = 0;

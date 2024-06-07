@@ -5,7 +5,7 @@ namespace ExtraSort;
 /// <summary>
 /// Binary insertion sort algorithm.
 /// </summary>
-public record BinaryInsertionSort : ISortAlgorithm
+public readonly record struct BinaryInsertionSort : ISortAlgorithm
 {
     /// <inheritdoc />
     public int EndOffset => 0;

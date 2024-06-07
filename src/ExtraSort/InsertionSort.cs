@@ -3,7 +3,7 @@
 /// <summary>
 /// Insertion sort.
 /// </summary>
-public record InsertionSort : ISortAlgorithm
+public readonly record struct InsertionSort : ISortAlgorithm
 {
     /// <inheritdoc />
     public int EndOffset => 0;

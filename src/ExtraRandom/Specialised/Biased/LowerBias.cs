@@ -3,7 +3,7 @@
 /// <summary>
 /// Bias which tries to get lower values.
 /// </summary>
-public record LowerBias : IBias
+public readonly record struct LowerBias : IBias
 {
     /// <inheritdoc />
     public double SetBiasValues(double min, double max)

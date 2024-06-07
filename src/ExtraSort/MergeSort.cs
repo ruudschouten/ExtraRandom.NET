@@ -5,7 +5,7 @@ namespace ExtraSort;
 /// <summary>
 /// Merge sort algorithm.
 /// </summary>
-public record MergeSort : ISortAlgorithm
+public readonly record struct MergeSort : ISortAlgorithm
 {
     /// <inheritdoc />
     public int EndOffset => 1;
