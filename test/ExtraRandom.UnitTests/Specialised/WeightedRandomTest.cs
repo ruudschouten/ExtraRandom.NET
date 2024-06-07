@@ -17,9 +17,7 @@ public class WeightedRandomTest
 {
     [Theory]
     [ClassData(typeof(SortAlgorithms))]
-    public void Weighted_Sort_Test(
-        ISortAlgorithm sortAlgorithm
-    )
+    public void Weighted_Sort_Test(ISortAlgorithm sortAlgorithm)
     {
         var weightedRandom = new WeightedRandom<string>(new RomuDuoJr(500));
         weightedRandom.Add("1", 1);

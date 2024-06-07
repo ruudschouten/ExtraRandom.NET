@@ -11,7 +11,8 @@ public record BinaryInsertionSort : ISortAlgorithm
     public int EndOffset => 0;
 
     /// <inheritdoc />
-    public void Sort<T>(ref readonly IList<T> list, int start, int end) where T : IComparable<T>
+    public void Sort<T>(ref readonly IList<T> list, int start, int end)
+        where T : IComparable<T>
     {
         for (var index = start; index < end; index++)
         {

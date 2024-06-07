@@ -12,12 +12,14 @@ public record MergeSort : ISortAlgorithm
     public int EndOffset => 1;
 
     /// <inheritdoc />
-    public void Sort<T>(ref readonly IList<T> list, int start, int end) where T : IComparable<T>
+    public void Sort<T>(ref readonly IList<T> list, int start, int end)
+        where T : IComparable<T>
     {
         Sort(list, start, end);
     }
 
-    private static void Sort<T>(IList<T> list, int start, int end) where T : IComparable<T>
+    private static void Sort<T>(IList<T> list, int start, int end)
+        where T : IComparable<T>
     {
         // When there is just one element left, return a new collection with just this element.
         if (start >= end)

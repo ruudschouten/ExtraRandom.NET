@@ -12,7 +12,8 @@ public static class IListExtension
     /// <param name="list">list to sort.</param>
     /// <param name="algorithm">sorting algorithm to use.</param>
     /// <returns>A sorted list.</returns>
-    public static void Sort<T>(this IList<T> list, ISortAlgorithm algorithm) where T : IComparable<T>
+    public static void Sort<T>(this IList<T> list, ISortAlgorithm algorithm)
+        where T : IComparable<T>
     {
         algorithm.Sort(ref list, 0, list.Count - algorithm.EndOffset);
     }

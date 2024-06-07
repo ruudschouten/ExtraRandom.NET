@@ -58,9 +58,7 @@ public struct WeightedRandom<T>
     /// </summary>
     /// <param name="sortAlgorithm">algorithm to sort with.</param>
     /// <returns>The list sorted.</returns>
-    public IList<WeightedRandomEntry<T>> ManualSort(
-        ISortAlgorithm sortAlgorithm
-    )
+    public IList<WeightedRandomEntry<T>> ManualSort(ISortAlgorithm sortAlgorithm)
     {
         Entries.Sort(sortAlgorithm);
         _needsSorting = false;

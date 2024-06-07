@@ -7,8 +7,10 @@ public record InsertionSort : ISortAlgorithm
 {
     /// <inheritdoc />
     public int EndOffset => 0;
+
     /// <inheritdoc />
-    public void Sort<T>(ref readonly IList<T> list, int start, int end) where T : IComparable<T>
+    public void Sort<T>(ref readonly IList<T> list, int start, int end)
+        where T : IComparable<T>
     {
         for (var index = start + 1; index < end; index++)
         {

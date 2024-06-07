@@ -16,7 +16,8 @@ public record TimSort : ISortAlgorithm
     public int EndOffset => 0;
 
     /// <inheritdoc />
-    public void Sort<T>(ref readonly IList<T> list, int start, int end) where T : IComparable<T>
+    public void Sort<T>(ref readonly IList<T> list, int start, int end)
+        where T : IComparable<T>
     {
         // Calculate the run length.
         var runLength = CalculateRunLength(list);
@@ -28,7 +29,7 @@ public record TimSort : ISortAlgorithm
             var endPos = Math.Min(list.Count, startPos + runLength);
             list.Sort(new BinaryInsertionSort(), startPos, endPos);
         }
-        
+
         // TODO: Finish implementing TimSort.
         throw new NotImplementedException();
     }
