@@ -43,7 +43,7 @@ The sorts added now are;
 - Binary Insertion Sort
 - Insertion Sort
 - Merge Sort
-- Tim Sort (WIP)
+- Tim Sort
 
 These are added using a `Sort` extension method for `IList<T>`, in which a instance of `ISortAlgorithm` must be passed.
 This instance is then used to sort the current list.

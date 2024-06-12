@@ -9,5 +9,6 @@ public class SortAlgorithms : TheoryData<ISortAlgorithm>
         Add(new BinaryInsertionSort());
         Add(new InsertionSort());
         Add(new MergeSort());
+        Add(new TimSort());
     }
 }
