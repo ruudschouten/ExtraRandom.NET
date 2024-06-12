@@ -74,7 +74,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\src\ExtraRandom\ExtraRandom.csproj" />
         <ProjectReference Include="..\..\src\ExtraSort\ExtraSort.csproj" />
+        <ProjectReference Include="..\ExtraSort.TestHelper\ExtraSort.TestHelper.csproj" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
