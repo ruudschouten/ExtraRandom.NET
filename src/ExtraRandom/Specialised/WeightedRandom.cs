@@ -1,4 +1,5 @@
 using ExtraSort;
+using ExtraSort.MergeSorts;
 
 namespace ExtraRandom.Specialised;
 
@@ -26,13 +27,13 @@ public struct WeightedRandom<T>
     /// Gets or sets the entries which can be rolled with this Weighted Random generator.
     /// </summary>
     // ENHANCEMENT: Make this a tree instead, and insert new entries at the correct spot, so sorting is not needed.
-    private List<WeightedRandomEntry<T>> Entries { get; } = new();
+    public IList<WeightedRandomEntry<T>> Entries { get; } = new List<WeightedRandomEntry<T>>();
 
     /// <summary>
     /// <para>The sorting algorithm to use when sorting the entries.</para>
-    /// <para>Default is <see cref="MergeSort"/></para>
+    /// <para>Default is <see cref="PowerSort"/></para>
     /// </summary>
-    public ISortAlgorithm SortAlgorithm { get; set; } = new MergeSort();
+    public ISortAlgorithm SortAlgorithm { get; set; } = new PowerSort();
 
     /// <summary>
     /// Add a new entry to the list with the provided <paramref name="value"/> and <paramref name="weight"/>.
@@ -58,11 +59,10 @@ public struct WeightedRandom<T>
     /// </summary>
     /// <param name="sortAlgorithm">algorithm to sort with.</param>
     /// <returns>The list sorted.</returns>
-    public IList<WeightedRandomEntry<T>> ManualSort(ISortAlgorithm sortAlgorithm)
+    public void ManualSort(ISortAlgorithm sortAlgorithm)
     {
         Entries.Sort(sortAlgorithm);
         _needsSorting = false;
-        return Entries;
     }
 
     /// <summary>
