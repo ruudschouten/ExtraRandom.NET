@@ -32,7 +32,7 @@ This project contains shuffle algorithms which are added as extension methods to
 
 
 There are two ways to call these;
-1. Using a for or foreach loob with the iterator method; `list.FaroShuffleIterator(min, max)`
+1. Using a for or foreach loop with the iterator method; `list.FaroShuffleIterator(min, max)`
 2. Calling the method directly; `list.FaroShuffle()`
 
 ## ExtraSort
@@ -44,6 +44,8 @@ The sorts added now are;
 - Insertion Sort
 - Merge Sort
 - Tim Sort
+- Power Sort
+- Peek Sort
 
 These are added using a `Sort` extension method for `IList<T>`, in which a instance of `ISortAlgorithm` must be passed.
 This instance is then used to sort the current list.

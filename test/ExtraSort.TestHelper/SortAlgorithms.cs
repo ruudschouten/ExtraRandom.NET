@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using ExtraSort.MergeSorts;
+using Xunit;
 
 namespace ExtraSort.TestHelper;
 
@@ -10,5 +11,7 @@ public class SortAlgorithms : TheoryData<ISortAlgorithm>
         Add(new InsertionSort());
         Add(new MergeSort());
         Add(new TimSort());
+        Add(new PowerSort());
+        Add(new PeekSort());
     }
 }
