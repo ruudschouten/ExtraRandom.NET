@@ -3,6 +3,7 @@ using ExtraRandom.Specialised;
 using ExtraSort;
 using ExtraSort.TestHelper;
 using FluentAssertions;
+using Xunit.Abstractions;
 
 namespace ExtraRandom.UnitTests.Specialised;
 
@@ -13,7 +14,7 @@ using System.Diagnostics.CodeAnalysis;
     "SA1600:Elements should be documented",
     Justification = "These are tests"
 )]
-public class WeightedRandomTest
+public class WeightedRandomTest(ITestOutputHelper output)
 {
     [Theory]
     [ClassData(typeof(SortAlgorithms))]
@@ -31,9 +32,15 @@ public class WeightedRandomTest
         weightedRandom.Add("0", 0);
         weightedRandom.Add("17", 17);
 
-        var sorted = weightedRandom.ManualSort(sortAlgorithm);
+        output.WriteLine("Unsorted");
+        output.WriteLine(string.Join(',', weightedRandom.Entries));
 
-        sorted
+        weightedRandom.ManualSort(sortAlgorithm);
+
+        output.WriteLine("Sorted");
+        output.WriteLine(string.Join(',', weightedRandom.Entries));
+
+        weightedRandom.Entries
             .Should()
             .ContainInOrder(
                 new WeightedRandomEntry<string>("0", 0),
