@@ -4,12 +4,28 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Title>Extra Shuffle</Title>
+        <Description>Contains shuffle algorithms which are added as extension methods to IList.</Description>
+      <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+      <PackageProjectUrl>https://github.com/ruudschouten/ExtraRandom.NET</PackageProjectUrl>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\ExtraRandom\ExtraRandom.csproj" />
       <ProjectReference Include="..\ExtraUtil\ExtraUtil.csproj" />
     </ItemGroup>
+
+  <PropertyGroup>
+    <PackageId>ExtraRandom.ExtraShuffle</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Ruud Schouten</Authors>
+    <Company>Blappole</Company>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="/"/>
+  </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="AsyncFixer" Version="1.6.0">

@@ -6,11 +6,27 @@
         <Nullable>enable</Nullable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <LangVersion>12</LangVersion>
+        <Description>Added because the `WeightedRandom` required a sorted list of weights, and I thought it would be fun to add a few sorting algorithms it could use instead of the `OrderBy` LINQ method.
+</Description>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/ruudschouten/ExtraRandom.NET</PackageProjectUrl>
     </PropertyGroup>
   
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <DocumentationFile>bin\Debug\$(AssemblyName).xml</DocumentationFile>
     </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageId>ExtraRandom.ExtraSort</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>Ruud Schouten</Authors>
+        <Company>Blappole</Company>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="/"/>
+    </ItemGroup>
   
     <ItemGroup>
       <PackageReference Include="AsyncFixer" Version="1.6.0">

@@ -4,7 +4,22 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Description>Contains some helper methods used by the other libraries.</Description>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+      <PackageProjectUrl>https://github.com/ruudschouten/ExtraRandom.NET</PackageProjectUrl>
     </PropertyGroup>
+  
+  <PropertyGroup>
+    <PackageId>ExtraRandom.Util</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Ruud Schouten</Authors>
+    <Company>Blappole</Company>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="/"/>
+  </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="AsyncFixer" Version="1.6.0">
