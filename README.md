@@ -1,8 +1,8 @@
 # ExtraRandom
 
-![NuGet Version](https://img.shields.io/nuget/v/ExtraRandom?label=ExtraRandom)
-![NuGet Version](https://img.shields.io/nuget/v/ExtraRandom.ExtraShuffle?label=ExtraShuffle)
-![NuGet Version](https://img.shields.io/nuget/v/ExtraRandom.ExtraSort?label=ExtraSort)
+[![NuGet Version](https://img.shields.io/nuget/v/ExtraRandom?label=ExtraRandom)](https://www.nuget.org/packages/ExtraRandom)
+[![NuGet Version](https://img.shields.io/nuget/v/ExtraRandom.ExtraShuffle?label=ExtraShuffle)](https://www.nuget.org/packages/ExtraRandom.ExtraShuffle/)
+[![NuGet Version](https://img.shields.io/nuget/v/ExtraRandom.ExtraSort?label=ExtraSort)](https://www.nuget.org/packages/ExtraRandom.ExtraSort/)
 
 This is a library which adds a few random-related functionalities.
 These are divided across several projects.
