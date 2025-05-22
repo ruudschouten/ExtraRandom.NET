@@ -72,6 +72,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\src\ExtraRandom\ExtraRandom.csproj" />
+      <ProjectReference Include="..\..\src\ExtraShuffle\ExtraShuffle.csproj" />
+      <ProjectReference Include="..\..\src\ExtraSort\ExtraSort.csproj" />
+      <ProjectReference Include="..\..\src\ExtraUtil\ExtraUtil.csproj" />
       <ProjectReference Include="..\ExtraRandom.TestHelper\ExtraRandom.TestHelper.csproj" />
     </ItemGroup>
 

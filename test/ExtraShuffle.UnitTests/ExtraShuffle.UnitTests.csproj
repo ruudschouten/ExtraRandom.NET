@@ -80,6 +80,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\src\ExtraShuffle\ExtraShuffle.csproj" />
       <ProjectReference Include="..\ExtraShuffle.TestHelper\ExtraShuffle.TestHelper.csproj" />
     </ItemGroup>
 

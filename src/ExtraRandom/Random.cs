@@ -54,9 +54,10 @@ public abstract class Random : IRandom
             return min;
 
         var bits = Log2Ceiling((ulong)exclusiveRange);
+        var mask = (1UL << bits) - 1;
         while (true)
         {
-            var result = NextLong() >> (64 - bits);
+            var result = (long)(NextULong() & mask);
 
             if (result < exclusiveRange)
             {

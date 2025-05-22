@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ExtraRandom\ExtraRandom.csproj" />
+      <ProjectReference Include="..\ExtraSort\ExtraSort.csproj" />
       <ProjectReference Include="..\ExtraUtil\ExtraUtil.csproj" />
     </ItemGroup>
 
